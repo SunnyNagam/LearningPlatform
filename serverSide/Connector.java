@@ -1,4 +1,4 @@
-package ServerSide;
+package serverSide;
 
 public class Connector {
 
