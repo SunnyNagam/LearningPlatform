@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Format;
+package format;
 
 /**
  * @author keenangaudio, sunnynagam
