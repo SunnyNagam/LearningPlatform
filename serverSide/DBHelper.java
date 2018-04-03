@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import format.Communicate;
+
 /**
  * @author keenangaudio
  *
@@ -109,8 +111,45 @@ class DBHelper implements DBHandler, format.Communicate {
 	 * @see serverSide.DBHandler#search(int, java.lang.String)
 	 */
 	@Override
-	public ResultSet search(int keyType, String key) throws IOException, SQLException, Exception {
-		// TODO Auto-generated method stub
+	/* SEARCH CASES
+	 * looking for a user
+	 * 
+	 * 
+	 */
+	public ResultSet search(int tableType, int keyType, String key) 
+			throws IOException, SQLException, Exception {
+		
+		return null;
+	}
+	//{"Users", "Courses", "EnrollmentChart", "Assignments", "Submissions", "Grades"};
+	private String parseTableTag(int tag) {
+		switch (tag) {
+		//search for stud or prof in the user table
+		case Communicate.STUDENT :
+		case Communicate.PROFESSOR :	
+			return tables[0]; // userTable
+			
+		//search for available courses in the course table
+		case Communicate.COURSE :
+			return tables[1];
+			
+		case Communicate.ENROLL :
+		case Communicate.UNENROLL :
+			return tables[2];
+			
+		case Communicate.FILE :
+		}
+		return null; 	// just in case (lol puns)
+	}
+	private String parseColTag(int tag) {
+		switch (tag) {
+		case Communicate.EMAIL :
+		
+		case Communicate.COURSE :
+			
+		case Communicate.NAME :
+		
+		}
 		return null;
 	}
 	

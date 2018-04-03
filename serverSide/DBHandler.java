@@ -49,9 +49,22 @@ interface DBHandler {
 			throws IOException, SQLException, Exception;
 	
 	/**
-	 * 
+	 * search from specified table, in specified column, for a key
+	 * @param tableType the table to search
+	 * @param extraKeyType the type of key to search
+	 * @param key 
+	 * @return ResultSet, may be empty
+	 * @throws IOException
+	 * @throws SQLException
+	 * @throws Exception
+	 */
+	ResultSet search(int tableType, int keyType, String key) 
+			throws IOException, SQLException, Exception;
+	/**
+	 * A simplified search, returns all matching rows from most logical table
 	 * @param keyType
 	 * @param key
+	 * @return
 	 * @throws IOException
 	 * @throws SQLException
 	 * @throws Exception
