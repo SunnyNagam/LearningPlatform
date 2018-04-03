@@ -61,13 +61,22 @@ class DBHelper implements DBHandler, format.Communicate {
 			jdbc_connection = DriverManager.getConnection(connectionInfo + SSLtag, login, password);
 			statement = jdbc_connection.prepareStatement("CREATE DATABASE " + dbName);
 			statement.executeUpdate();
-			System.out.println("Created Database " + dbName);
 			
+			jdbc_connection = DriverManager.getConnection(connectionInfo + dbName + SSLtag, login, password);
+			System.err.println("Created Database " + dbName);
+			createTables();
 		} 
 		catch (SQLException e) { e.printStackTrace(); }
 		catch (Exception e) { e.printStackTrace(); }
 	}
-
+	private void createTables() {
+		createUserTable(tables[0]);
+		createCourseTable(tables[1]);
+		createEnrollTable(tables[2]);
+		createAssignTable(tables[3]);
+		createSubTable(tables[4]);
+		createGradeTable(tables[5]);
+	}
 	/**
 	 * @see serverSide.DBHandler#removeDB()
 	 */
@@ -104,22 +113,14 @@ class DBHelper implements DBHandler, format.Communicate {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	private void createTables() {
-		createUserTable(tables[0]);
-		createCourseTable(tables[1]);
-		createEnrollTable(tables[2]);
-		createAssignTable(tables[3]);
-		createSubTable(tables[4]);
-		createGradeTable(tables[5]);
-	}
-
+	
 	private void createGradeTable(String tableName) {	
 		String sql = "CREATE TABLE " + tableName + "(" +
 				"ID INT(8) NOT NULL, " +
 				"ASSIGN_ID INT(8) NOT NULL, " +
 				"STUDENT_ID INT(8) NOT NULL, " +
 				"COURSE_ID INT(8) NOT NULL, " +
-				"ASSIGNMENT_GRADE INT(3) " + 
+				"ASSIGNMENT_GRADE INT(3), " + 
 				"PRIMARY KEY ( id ))";
 		try{
 			statement = jdbc_connection.prepareStatement(sql);
@@ -154,7 +155,7 @@ class DBHelper implements DBHandler, format.Communicate {
 				"TITLE VARCHAR(50), " + 
 				"PATH VARCHAR(100), " + 
 				"ACTIVE BIT(1) NOT NULL, " + 
-				"DUE_DATE VARCHAR(16)" +
+				"DUE_DATE VARCHAR(16), " +
 				"PRIMARY KEY ( id ))";
 		try{
 			statement = jdbc_connection.prepareStatement(sql);
