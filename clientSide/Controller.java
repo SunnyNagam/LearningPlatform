@@ -18,7 +18,7 @@ class Controller {
 	
 	Controller(Client c) {
 		this.client = c;
-		this.gui = new UserView(Communicate.PROGRAMNAME);
+		this.gui = new UserView(Communicate.PROGRAM_NAME);
 	}
 	
 	/**
