@@ -18,8 +18,10 @@ import format.Communicate;
 class Instance implements Runnable {
 	ObjectInputStream in;
 	ObjectOutputStream out;
+	int clientType;
 	// modelhandler
 	Instance (InputStream in_, OutputStream out_/*, modelhandler */) {
+		clientType = 0;	// not a valid type
 		try {
 			//write connected
 			out = new ObjectOutputStream(out_);
@@ -58,9 +60,7 @@ class Instance implements Runnable {
 		case Communicate.SYNC : sync();
 			break;
 		case Communicate.DISCONNECT : disconnect();
-			throw new IOException ("Client requested disconnect.\n"
-					+ "Shutting down on " + Thread.currentThread().getName() );
-		
+			break;
 		}
 	}
 	private void login() {
@@ -72,21 +72,72 @@ class Instance implements Runnable {
 			// pass to modelhandler - get type or write Communicate.DB_ERROR
 
 			// write their type
-			int type = 0;
+			 clientType = 0;
 
 		} catch (IOException e) {}
 	}
-	private void get() {
+	private void get() throws IOException {
 		try {
-			//read type
-
-			//find object to send
+			//read type && find object to send
+			int type = in.readInt();
+			if ( checkDisconnect(in) ) disconnect();
+			get(type);
+			
 			int status = (true)? Communicate.DB_SUCCESS : Communicate.DB_ERROR;
 			out.writeInt(status);
 			//write object (cases) 
 		
 		} catch (IOException e) {}
 		
+	}
+	private void get(int tag) {
+		switch (tag) {
+		case Communicate.EMAIL : emailResponse();
+			break;
+		case Communicate.FILE : fileResponse();
+			break;
+		case Communicate.MESSAGE : messageResponse();
+			break;
+		}
+	}
+	private void messageResponse() {
+		// read message
+		
+		// send message to model
+	}
+	private void emailResponse() {
+		//read course
+		
+		//write prof email
+		
+	}
+	private void fileResponse() {
+		if (clientType == Communicate.STUDENT) {
+			studentFile();
+		} else {	//client type == prof
+			profFile();
+		}
+			
+	}
+	private void studentFile() {
+		//read student
+
+		//read course
+
+		//read assignment
+
+		//read file
+		
+		//give file to model
+	}
+	private void profFile() {
+		//read course
+
+		//read assignment
+
+		//read file
+		
+		//give file to model
 	}
 	private void refresh() { // maybe unnecessary
 		//read type
@@ -101,16 +152,18 @@ class Instance implements Runnable {
 		// compare object
 		// write back
 	}
-	private void disconnect() {
+	private void disconnect() throws IOException {
 		// write disconnect back
 		
 		// close everything 
 		
+		throw new IOException ("Client requested disconnect.\n"
+				+ "Shutting down on " + Thread.currentThread().getName() );
 	}
 	/**
 	 * use whenever reading an input, checks for unexpected client disconnect
 	 * @param input the object being read
-	 * @return true if disconnect was recieved
+	 * @return true if disconnect was received
 	 */
 	private boolean checkDisconnect(Object input) { 
 		int check = 0;
