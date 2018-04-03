@@ -23,6 +23,7 @@ class DBHelper implements DBHandler, format.Communicate {
 								dataFile = ".txt";
 	private static final String[] tables = 
 		{"Users", "Courses", "EnrollmentChart", "Assignments", "Submissions", "Grades"};
+	
 	private static final String connectionInfo = "jdbc:mysql://localhost:3306/", 
 								SSLtag   = "?useSSL=false",
 								login 	 = "root", 
@@ -55,7 +56,7 @@ class DBHelper implements DBHandler, format.Communicate {
 	 * @see serverSide.DBHandler#createDB()
 	 */
 	@Override
-	public void createDB() throws IOException, SQLException, Exception { //make this do the throw better
+	public void createDB() throws IOException, SQLException, Exception { // make this do the throw better
 		try {
 			jdbc_connection = DriverManager.getConnection(connectionInfo + SSLtag, login, password);
 			statement = jdbc_connection.prepareStatement("CREATE DATABASE " + dbName);
@@ -103,7 +104,115 @@ class DBHelper implements DBHandler, format.Communicate {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+	private void createTables() {
+		createUserTable(tables[0]);
+		createCourseTable(tables[1]);
+		createEnrollTable(tables[2]);
+		createAssignTable(tables[3]);
+		createSubTable(tables[4]);
+		createGradeTable(tables[5]);
+	}
+
+	private void createGradeTable(String tableName) {	
+		String sql = "CREATE TABLE " + tableName + "(" +
+				"ID INT(8) NOT NULL, " +
+				"ASSIGN_ID INT(8) NOT NULL, " +
+				"STUDENT_ID INT(8) NOT NULL, " +
+				"COURSE_ID INT(8) NOT NULL, " +
+				"ASSIGNMENT_GRADE INT(3) " + 
+				"PRIMARY KEY ( id ))";
+		try{
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.executeUpdate();
+			System.err.println("Created Grade table with name " + tableName);
+		}
+		catch(SQLException e) { e.printStackTrace(); }
+	}
+
+	private void createSubTable(String tableName) {
+//		String sql = "CREATE TABLE " + tableName + "(" + 
+//				"ID INT(8) NOT NULL, " +
+//				"ASSIGN_ID INT(8) NOT NULL, " +
+//				"STUDENT_ID INT(8) NOT NULL, " +
+//				"COURSE_ID INT(8) NOT NULL, " +
+//				"ASSIGNMENT_GRADE INT(3) " + 
+//				"PRIMARY KEY ( id ))";
+		String sql = "";
+		try{
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.executeUpdate();
+			System.err.println("Created Submissions table with name " + tableName);
+		}
+		catch(SQLException e) { e.printStackTrace(); }
+	}
+
+	private void createAssignTable(String tableName) {
+//		String sql = "CREATE TABLE " + tableName + "(" + 
+//				"ID INT(8) NOT NULL, " +
+//				"ASSIGN_ID INT(8) NOT NULL, " +
+//				"STUDENT_ID INT(8) NOT NULL, " +
+//				"COURSE_ID INT(8) NOT NULL, " +
+//				"ASSIGNMENT_GRADE INT(3) " + 
+//				"PRIMARY KEY ( id ))";
+		String sql = "";
+		try{
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.executeUpdate();
+			System.err.println("Created Assignment table with name " + tableName);
+		}
+		catch(SQLException e) { e.printStackTrace(); }
+	}
+
+	private void createEnrollTable(String tableName) {
+//		String sql = "CREATE TABLE " + tableName + "(" + 
+//				"ID INT(8) NOT NULL, " +
+//				"ASSIGN_ID INT(8) NOT NULL, " +
+//				"STUDENT_ID INT(8) NOT NULL, " +
+//				"COURSE_ID INT(8) NOT NULL, " +
+//				"ASSIGNMENT_GRADE INT(3) " + 
+//				"PRIMARY KEY ( id ))";
+		String sql = "";
+		try{
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.executeUpdate();
+			System.err.println("Created Enrollment table with name " + tableName);
+		}
+		catch(SQLException e) { e.printStackTrace(); }
+	}
+
+	private void createCourseTable(String tableName) {
+//		String sql = "CREATE TABLE " + tableName + "(" + 
+//				"ID INT(8) NOT NULL, " +
+//				"ASSIGN_ID INT(8) NOT NULL, " +
+//				"STUDENT_ID INT(8) NOT NULL, " +
+//				"COURSE_ID INT(8) NOT NULL, " +
+//				"ASSIGNMENT_GRADE INT(3) " + 
+//				"PRIMARY KEY ( id ))";
+		String sql = "";
+		try{
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.executeUpdate();
+			System.err.println("Created Courses table with name " + tableName);
+		}
+		catch(SQLException e) { e.printStackTrace(); }
+	}
+
+	private void createUserTable(String tableName) {
+//		String sql = "CREATE TABLE " + tableName + "(" + 
+//				"ID INT(8) NOT NULL, " +
+//				"ASSIGN_ID INT(8) NOT NULL, " +
+//				"STUDENT_ID INT(8) NOT NULL, " +
+//				"COURSE_ID INT(8) NOT NULL, " +
+//				"ASSIGNMENT_GRADE INT(3) " + 
+//				"PRIMARY KEY ( id ))";
+		String sql = "";
+		try{
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.executeUpdate();
+			System.err.println("Created User table with name " + tableName);
+		}
+		catch(SQLException e) { e.printStackTrace(); }
+	}
 }
 //
 //int attempts = 0;
