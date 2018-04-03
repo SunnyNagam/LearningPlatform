@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 import format.Communicate;
 
@@ -25,76 +26,21 @@ public class Client {
 		connected = false;
 		try {
 			cSocket = new Socket( name, Integer.parseInt(port) );
+			
 			out = new ObjectOutputStream(cSocket.getOutputStream());
-			connected = true;
-		} catch (Exception e) {}
+			out.writeInt(Communicate.CONNECTED);
+			
+			in = new ObjectInputStream(cSocket.getInputStream());
+			connected = (in.readInt() == Communicate.CONNECTED);
+		} catch (IOException e) { System.err.println(e.getMessage()); }
 	}
 	void communicate() {
 		try {
-			in = new ObjectInputStream(cSocket.getInputStream());
 			while(true) {
-				int tag = in.readInt();
-				parseTag(tag);
+				throw new IOException();
+				
 			}
 		} catch (IOException e) {}
 	}
-	private void parseTag(int tag) {
-		switch (tag) {
-		case Communicate.LOGIN :
-			login();
-			break;
-		case Communicate.GET :
-			get();
-			break;
-		case Communicate.REFRESH :
-			refresh();
-			break;
-		case Communicate.SYNC :
-			sync();
-			break;
-		case Communicate.DISCONNECT :
-			disconnect();
-			break;
-		}
-	}
-	private void login() {
-		try {
-		//submit username
-		//out.writeUTF(String);
-		//submit password
-		
-		// read my type
-		int type = in.readInt();
-		if ( check(type) ) disconnect();
-		} catch (IOException e) {}
-	}
-	private void get() {
-		//read type
-		
-		//read object
-		
-	}
-	private void refresh() {
-		//read type
-		
-		//write object
-		
-	}
-	private void sync() { //maybe
-		// read type
-		// read object
-		
-		// compare object
-		// write back
-	}
-	private void disconnect() {
-		// write disconnect back
-		
-		// close everything 
-		
-		// notify controller
-	}
-	private boolean check(int input) {
-		return (input == Communicate.DISCONNECT);
-	}
+	
 }

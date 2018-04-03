@@ -13,11 +13,15 @@ public interface Communicate {
 	static final int MAX_PORT 	= 4212;
 	
 	// commands
+	static final int DB_ERROR	= 0x40;
+	static final int DB_SUCCESS	= 0x41;
+	
 	static final int REFRESH	= 0x43;
 	static final int LOGIN 		= 0x44;
 	static final int GET		= 0x45;
 	static final int SYNC		= 0x46;
 	static final int DISCONNECT	= 0x47;
+	static final int CONNECTED	= 0x48;
 	
 	// types
 	static final int STUDENT	= 0x08;

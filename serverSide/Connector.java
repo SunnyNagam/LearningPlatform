@@ -28,11 +28,12 @@ public class Connector {
 	}
 	void accept() {
 		if (!running) return;
-		
 		while (true) {
 			try {
+				
 			cSocket = sSocket.accept();
 			pool.execute( new Instance(cSocket.getInputStream(), cSocket.getOutputStream()) );
+			
 			} catch(IOException e) { System.err.println(e.getMessage()); }
 		}
 		
