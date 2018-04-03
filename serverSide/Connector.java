@@ -12,9 +12,9 @@ public class Connector {
 
 	boolean running;
 	ServerSocket sSocket;
-	Socket cSocket;
-	
+	DBHandler db;
 	ExecutorService pool;
+	
 
 	Connector(String port) {
 		running = false;
@@ -32,8 +32,7 @@ public class Connector {
 			return;
 		while (true) {
 			try {
-
-				cSocket = sSocket.accept();
+				Socket cSocket = sSocket.accept();
 				System.out.println("Client connection received.");
 				pool.execute(new Instance(cSocket.getInputStream(), cSocket.getOutputStream()));
 				
@@ -42,7 +41,9 @@ public class Connector {
 				System.err.println(e.getMessage());
 			}
 		}
-
+	}
+	void startDB() {
+		db = new DBHelper();
 	}
 
 	/**
@@ -63,7 +64,7 @@ public class Connector {
 			// unofficially used for 'vrml-multi-use'
 			Connector c = new Connector(port);
 			System.out.println("The server is " + ((c.running) ? "" : "not ") + "running on port " + port);
-
+			c.startDB();
 			c.accept();
 
 		} catch (NumberFormatException e) {
