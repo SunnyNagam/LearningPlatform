@@ -28,6 +28,7 @@ class Instance implements Runnable {
 			//in = new ObjectInputStream(in_);
 			out.write(Communicate.CONNECTED);
 			out.flush();
+			
 			System.out.println("Got wrote mate");
 			
 			//wait for response
@@ -37,6 +38,7 @@ class Instance implements Runnable {
 			if (in.readInt() != Communicate.CONNECTED ) throw new IOException("Unexpected response from Client.");
 			System.out.println("Connection to client established.\n"
 					+ "server instance running on " + Thread.currentThread().getName() );
+			
 		} catch (IOException e) { System.err.println(e.getMessage()); }
 		// set up model handling here
 	}
