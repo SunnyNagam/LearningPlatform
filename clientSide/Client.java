@@ -28,9 +28,13 @@ public class Client {
 			
 			out = new ObjectOutputStream(cSocket.getOutputStream());
 			out.writeInt(Communicate.CONNECTED);
+			out.flush();
 			
 			in = new ObjectInputStream(cSocket.getInputStream());
+			System.out.println("Got input stream, waiting for input int");
 			connected = (in.readInt() == Communicate.CONNECTED);
+			
+			System.out.println("Client is "+ (connected ? " " : "not ") + "connected.");
 		} catch (IOException e) { System.err.println(e.getMessage()); }
 	}
 	void communicate() {

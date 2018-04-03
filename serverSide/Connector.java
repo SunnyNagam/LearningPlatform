@@ -33,6 +33,7 @@ public class Connector {
 			try {
 
 				cSocket = sSocket.accept();
+				System.out.println("Client connection recived.");
 				pool.execute(new Instance(cSocket.getInputStream(), cSocket.getOutputStream()));
 
 			} catch (IOException e) {

@@ -25,10 +25,14 @@ class Instance implements Runnable {
 		try {
 			//write connected
 			out = new ObjectOutputStream(out_);
+			//in = new ObjectInputStream(in_);
 			out.write(Communicate.CONNECTED);
+			out.flush();
+			System.out.println("Got wrote mate");
 			
 			//wait for response
 			in = new ObjectInputStream(in_);
+			System.out.println("Got input stream, waiting for input int");
 			//check if response is what we're expecting
 			if (in.readInt() != Communicate.CONNECTED ) throw new IOException("Unexpected response from Client.");
 			System.out.println("Connection to client established.\n"
