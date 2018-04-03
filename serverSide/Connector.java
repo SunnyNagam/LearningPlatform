@@ -13,11 +13,12 @@ public class Connector {
 	boolean running;
 	ServerSocket sSocket;
 	Socket cSocket;
-
+	
 	ExecutorService pool;
 
 	Connector(String port) {
 		running = false;
+		
 		try {
 			sSocket = new ServerSocket(Integer.parseInt(port));
 			pool = Executors.newCachedThreadPool();
@@ -33,9 +34,10 @@ public class Connector {
 			try {
 
 				cSocket = sSocket.accept();
-				System.out.println("Client connection recived.");
+				System.out.println("Client connection received.");
 				pool.execute(new Instance(cSocket.getInputStream(), cSocket.getOutputStream()));
-
+				
+				System.out.println("Connector: Client sent to external thread.");
 			} catch (IOException e) {
 				System.err.println(e.getMessage());
 			}
@@ -57,7 +59,7 @@ public class Connector {
 			if ((portCheck = Integer.parseInt(port)) < Communicate.MIN_PORT || portCheck > Communicate.MAX_PORT)
 				throw new NumberFormatException("Invalid Port Number: Port " + port + " out of range.");
 
-			// I have port-forwarded ports 4200 - 4212, they are unused on IANA,but
+			// I have port-forwarded ports 4200 - 4212, they are unused on IANA, but
 			// unofficially used for 'vrml-multi-use'
 			Connector c = new Connector(port);
 			System.out.println("The server is " + ((c.running) ? "" : "not ") + "running on port " + port);
