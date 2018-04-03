@@ -130,14 +130,15 @@ class DBHelper implements DBHandler, format.Communicate {
 	}
 
 	private void createSubTable(String tableName) {
-//		String sql = "CREATE TABLE " + tableName + "(" + 
-//				"ID INT(8) NOT NULL, " +
-//				"ASSIGN_ID INT(8) NOT NULL, " +
-//				"STUDENT_ID INT(8) NOT NULL, " +
-//				"COURSE_ID INT(8) NOT NULL, " +
-//				"ASSIGNMENT_GRADE INT(3) " + 
-//				"PRIMARY KEY ( id ))";
-		String sql = "";
+		String sql = "CREATE TABLE " + tableName + "(" + 
+				"ID INT(8) NOT NULL, " +
+				"ASSIGN_ID INT(8) NOT NULL, " +
+				"STUDENT_ID INT(8) NOT NULL, " +
+				"COURSE_ID INT(8) NOT NULL, " +
+				"PATH VARCHAR(100) NOT NULL, " + 
+				"TITLE VARCHAR(50), " +
+				"SUBMISSION_GRADE INT(3), " +
+				"PRIMARY KEY ( id ))";
 		try{
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.executeUpdate();
@@ -147,14 +148,14 @@ class DBHelper implements DBHandler, format.Communicate {
 	}
 
 	private void createAssignTable(String tableName) {
-//		String sql = "CREATE TABLE " + tableName + "(" + 
-//				"ID INT(8) NOT NULL, " +
-//				"ASSIGN_ID INT(8) NOT NULL, " +
-//				"STUDENT_ID INT(8) NOT NULL, " +
-//				"COURSE_ID INT(8) NOT NULL, " +
-//				"ASSIGNMENT_GRADE INT(3) " + 
-//				"PRIMARY KEY ( id ))";
-		String sql = "";
+		String sql = "CREATE TABLE " + tableName + "(" + 
+				"ID INT(8) NOT NULL, " +
+				"COURSE_ID INT(8) NOT NULL, " +
+				"TITLE VARCHAR(50), " + 
+				"PATH VARCHAR(100), " + 
+				"ACTIVE BIT(1) NOT NULL, " + 
+				"DUE_DATE VARCHAR(16)" +
+				"PRIMARY KEY ( id ))";
 		try{
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.executeUpdate();
@@ -164,14 +165,11 @@ class DBHelper implements DBHandler, format.Communicate {
 	}
 
 	private void createEnrollTable(String tableName) {
-//		String sql = "CREATE TABLE " + tableName + "(" + 
-//				"ID INT(8) NOT NULL, " +
-//				"ASSIGN_ID INT(8) NOT NULL, " +
-//				"STUDENT_ID INT(8) NOT NULL, " +
-//				"COURSE_ID INT(8) NOT NULL, " +
-//				"ASSIGNMENT_GRADE INT(3) " + 
-//				"PRIMARY KEY ( id ))";
-		String sql = "";
+		String sql = "CREATE TABLE " + tableName + "(" + 
+				"ID INT(8) NOT NULL, " +
+				"STUDENT_ID INT(8) NOT NULL, " +
+				"COURSE_ID INT(8) NOT NULL, " + 
+				"PRIMARY KEY ( id ))";
 		try{
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.executeUpdate();
@@ -181,14 +179,12 @@ class DBHelper implements DBHandler, format.Communicate {
 	}
 
 	private void createCourseTable(String tableName) {
-//		String sql = "CREATE TABLE " + tableName + "(" + 
-//				"ID INT(8) NOT NULL, " +
-//				"ASSIGN_ID INT(8) NOT NULL, " +
-//				"STUDENT_ID INT(8) NOT NULL, " +
-//				"COURSE_ID INT(8) NOT NULL, " +
-//				"ASSIGNMENT_GRADE INT(3) " + 
-//				"PRIMARY KEY ( id ))";
-		String sql = "";
+		String sql = "CREATE TABLE " + tableName + "(" + 
+				"ID INT(8) NOT NULL, " +
+				"PROF_ID INT(8) NOT NULL, " +
+				"NAME VARCHAR(50) NOT NULL, " + 
+				"ACTIVE BIT(1) NOT NULL," + 
+				"PRIMARY KEY ( id ))";
 		try{
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.executeUpdate();
@@ -198,14 +194,14 @@ class DBHelper implements DBHandler, format.Communicate {
 	}
 
 	private void createUserTable(String tableName) {
-//		String sql = "CREATE TABLE " + tableName + "(" + 
-//				"ID INT(8) NOT NULL, " +
-//				"ASSIGN_ID INT(8) NOT NULL, " +
-//				"STUDENT_ID INT(8) NOT NULL, " +
-//				"COURSE_ID INT(8) NOT NULL, " +
-//				"ASSIGNMENT_GRADE INT(3) " + 
-//				"PRIMARY KEY ( id ))";
-		String sql = "";
+		String sql = "CREATE TABLE " + tableName + "(" + 
+				"ID INT(8) NOT NULL, " +
+				"EMAIL VARCHAR(50) NOT NULL, " +
+				"FIRST_NAME VARCHAR(50) NOT NULL, " +
+				"LAST_NAME VARCHAR(50) NOT NULL, " +
+				"PASSWORD VARCHAR(50) NOT NULL, " +
+				"TYPE INT NOT NULL, " +
+				"PRIMARY KEY ( id ))";
 		try{
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.executeUpdate();
