@@ -17,10 +17,16 @@ public interface Communicate {
 	static final int LOGIN 		= 0x44;
 	static final int GET		= 0x45;
 	static final int SYNC		= 0x46;
+	static final int DISCONNECT	= 0x47;
 	
 	// types
+	static final int STUDENT	= 0x08;
+	static final int PROFESSOR	= 0x09;
+	
+	static final int STRING		= 0x14;
 	static final int FILE		= 0x15;
 	static final int EMAIL		= 0x16;
+	
 	static final int COURSE		= 0x20;
 	static final int ASSIGNMENT	= 0x21;
 	static final int SUBMISSION = 0x22;

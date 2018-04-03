@@ -18,6 +18,7 @@ public class Connector {
 	
 	
 	Connector(String port) {
+		running = false;
 		try {
 		sSocket = new ServerSocket(Integer.parseInt(port));
 		pool = Executors.newCachedThreadPool();
@@ -31,7 +32,7 @@ public class Connector {
 		while (true) {
 			try {
 			cSocket = sSocket.accept();
-			//pool.execute( new Instance(cSocket.getInputStream(), cSocket.getOutputStream()) );
+			pool.execute( new Instance(cSocket.getInputStream(), cSocket.getOutputStream()) );
 			} catch(IOException e) { System.err.println(e.getMessage()); }
 		}
 		
