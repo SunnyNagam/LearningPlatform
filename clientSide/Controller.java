@@ -3,6 +3,9 @@
  */
 package clientSide;
 
+import javax.swing.JFrame;
+
+import clientSide.gui.UserView;
 import format.Communicate;
 
 /**
@@ -11,17 +14,12 @@ import format.Communicate;
  */
 class Controller {
 	Client client;
+	UserView gui;
 	
 	Controller(Client c) {
-		
+		this.client = c;
+		this.gui = new UserView(Communicate.PROGRAMNAME);
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	/**
 	 * @param args

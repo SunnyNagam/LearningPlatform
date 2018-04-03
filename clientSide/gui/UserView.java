@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import format.Communicate;
+
 import javax.swing.JSplitPane;
 import javax.swing.JScrollPane;
 import javax.swing.JMenu;
@@ -28,7 +31,7 @@ public class UserView extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UserView frame = new UserView();
+					UserView frame = new UserView(Communicate.PROGRAMNAME);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,7 +43,9 @@ public class UserView extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public UserView() {
+	public UserView(String s) {
+		super(s);
+		
 		setBackground(new Color(204, 255, 153));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

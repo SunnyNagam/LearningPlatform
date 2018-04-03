@@ -70,7 +70,7 @@ class Instance implements Runnable {
 			// read password
 			String password = in.readUTF();
 			// pass to modelhandler - get type or write Communicate.DB_ERROR
-
+			
 			// write their type
 			 clientType = 0;
 
@@ -83,7 +83,7 @@ class Instance implements Runnable {
 			if ( checkDisconnect(in) ) disconnect();
 			get(type);
 			
-			int status = (true)? Communicate.DB_SUCCESS : Communicate.DB_ERROR;
+			int status = (true) ? Communicate.DB_SUCCESS : Communicate.DB_ERROR;
 			out.writeInt(status);
 			//write object (cases) 
 		
