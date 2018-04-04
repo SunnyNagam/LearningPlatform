@@ -1,9 +1,16 @@
 package clientSide;
 
-class Student extends User{
+public class Student extends User{
 
 	public Student() {
 		
+	}
+	public Student(String type, String first, String last, String email, int id) {
+		this.userType = type;
+		this.firstName = first;
+		this.lastName = last;
+		this.email = email;
+		this.id = id;
 	}
 	
 	@Override

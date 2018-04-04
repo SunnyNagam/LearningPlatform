@@ -95,15 +95,21 @@ public class UserView extends JFrame {
 				String password = pan.passwordField.getText();
 				
 				c.writeTag(Communicate.LOGIN);
-				c.write(userName);
+				try {
+					c.write(Integer.parseInt(userName));
+				}
+				catch(Exception ex) {
+					c.write(-1);
+				}
 				c.write(password);
 				
 				boolean success = c.readBoolean();
-				//System.out.println("Wow");
+				
 				if(!success) {
 					displayErrorMessage("Invalid Credentials");
 				}
 				else {
+					displayErrorMessage("YASSS");	// for now
 					// TODO load user details and go to next panel
 				}
 				

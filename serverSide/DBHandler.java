@@ -6,6 +6,7 @@ package serverSide;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import clientSide.User;
 
 /**
  * @author keenangaudio
@@ -39,6 +40,17 @@ interface DBHandler {
 			throws IOException, SQLException, Exception;
 	
 	/**
+	 * Note: Password should not be stored in user class, only db for security, therefor we add it seperately.
+	 * @param user
+	 * @param pass
+	 * @throws IOException
+	 * @throws SQLException
+	 * @throws Exception
+	 */
+	void addUser(User user, String pass)	 
+			throws IOException, SQLException, Exception;
+	
+	/**
 	 * updates a row according to input
 	 * @param clientType
 	 * @param clientID
@@ -47,6 +59,12 @@ interface DBHandler {
 	 */
 	void UpdateInfo(int clientType, int clientID, String info, int InsertType)
 			throws IOException, SQLException, Exception;
+	
+	/**
+	 * 
+	 * @param tableType
+	 */
+	void printTable(int tableType);
 	
 	/**
 	 * search from specified table, in specified column, for a key

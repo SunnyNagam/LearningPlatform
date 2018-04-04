@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import format.Communicate;
 
@@ -72,17 +74,39 @@ class Instance implements Runnable {
 	private void login() {
 		try {
 			// read username
-			String username = in.readUTF();
+			int username = in.readInt();
 			// read password
 			String password = in.readUTF();
 			// pass to modelhandler - get type or write Communicate.DB_ERROR
 			// TODO for now just to test:
-			out.writeBoolean(false);
+			DBHelper helper = new DBHelper();
+			ResultSet set = helper.search(0, 0, username);
+			if(!set.next()) {
+				out.writeBoolean(false);
+				System.out.println("Null set returned.");
+			}
+			else {
+				set.beforeFirst();
+				set.next();
+				if(password.equals(set.getString("PASSWORD"))) {
+					out.writeBoolean(true);
+				}
+				else {
+					out.writeBoolean(false);
+				}
+			}
 			out.flush();
 			// write their type
 			 clientType = 0;
 
-		} catch (IOException e) {}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	private void get() throws IOException {
 		try {

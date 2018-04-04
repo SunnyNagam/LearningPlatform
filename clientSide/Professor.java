@@ -1,6 +1,6 @@
 package clientSide;
 
-class Professor extends User{
+public class Professor extends User{
 
 	public Professor() {
 		

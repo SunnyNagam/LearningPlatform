@@ -3,9 +3,12 @@ package serverSide;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import clientSide.Student;
+import clientSide.User;
 import format.Communicate;
 
 public class Connector {
@@ -65,6 +68,18 @@ public class Connector {
 			Connector c = new Connector(port);
 			System.out.println("The server is " + ((c.running) ? "" : "not ") + "running on port " + port);
 			c.startDB();
+			
+			// TODO THIS IS JUST FOR TESTING PURPOSES REMOVE THIS LATER DUDES	------------------
+				User steve = new Student("Student","Steve","Boring","steveBoring@gmail.com",1);
+						// for some reason he doesnt show up when we search for him
+				try {
+					c.db.addUser(steve, "poop");
+				} catch (Exception e) {
+					e.printStackTrace();
+				} 
+				c.db.printTable(0);
+		// --------------------------------------------------------------------------------
+			
 			c.accept();
 
 		} catch (NumberFormatException e) {
