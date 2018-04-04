@@ -3,6 +3,9 @@
  */
 package clientSide;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 
 import clientSide.gui.UserView;
@@ -19,7 +22,10 @@ class Controller {
 	Controller(Client c) {
 		this.client = c;
 		this.gui = new UserView(Communicate.PROGRAM_NAME);
+		gui.setVisible(true);
+		gui.addLoginFunctionality(client);
 	}
+	
 	
 	/**
 	 * @param args

@@ -76,7 +76,9 @@ class Instance implements Runnable {
 			// read password
 			String password = in.readUTF();
 			// pass to modelhandler - get type or write Communicate.DB_ERROR
-			
+			// TODO for now just to test:
+			out.writeBoolean(false);
+			out.flush();
 			// write their type
 			 clientType = 0;
 

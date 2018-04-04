@@ -15,35 +15,93 @@ import format.Communicate;
  *
  */
 public class Client {
-	
+
 	boolean connected;
 	Socket cSocket;
-	ObjectInputStream in;
+	private ObjectInputStream in;
 	ObjectOutputStream out;
-	
-	Client (String name, String port) {
+
+	Client(String name, String port) {
 		connected = false;
 		try {
-			cSocket = new Socket( name, Integer.parseInt(port) );
-			
+			cSocket = new Socket(name, Integer.parseInt(port));
+
 			out = new ObjectOutputStream(cSocket.getOutputStream());
 			out.writeInt(Communicate.CONNECTED);
 			out.flush();
-			
-			in = new ObjectInputStream(cSocket.getInputStream());
+
+			setIn(new ObjectInputStream(cSocket.getInputStream()));
 			System.out.println("Got input stream, waiting for input int");
-			connected = (in.readInt() == Communicate.CONNECTED);
-			
-			System.out.println("Client is "+ (connected ? " " : "not ") + "connected.");
-		} catch (IOException e) { System.err.println(e.getMessage()); }
+			connected = (getIn().readInt() == Communicate.CONNECTED);
+
+			System.out.println("Client is " + (connected ? " " : "not ") + "connected.");
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
+		}
+	}
+
+	public void writeTag(int tag) {
+		try {
+			if (tag <= Communicate.maxCommand && tag >= Communicate.minCommand) {
+				out.writeInt(tag);
+				out.flush();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void write(int toWrite) {
+		try {
+			out.writeInt(toWrite);
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void write(String toWrite) {
+		try {
+			out.writeUTF(toWrite);
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public int readInt() {
+		try {
+			return in.readInt();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+
+	public boolean readBoolean() {
+		try {
+			return in.readBoolean();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	void communicate() {
 		try {
-			while(true) {
+			while (true) {
 				throw new IOException();
-				
+
 			}
-		} catch (IOException e) {}
+		} catch (IOException e) {
+		}
 	}
-	
+
+	public ObjectInputStream getIn() {
+		return in;
+	}
+
+	public void setIn(ObjectInputStream in) {
+		this.in = in;
+	}
+
 }

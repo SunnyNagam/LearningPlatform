@@ -39,6 +39,9 @@ public interface Communicate {
 	static final int SUBMISSION = 0x22;
 	static final int CHATROOM	= 0x23;
 	static final int MESSAGE	= 0x24;
+	
+	// program attributes
 	static final String PROGRAM_NAME = "Learning Platform";
+	static final int minCommand = 0x40, maxCommand = 0x50;
 	
 }
