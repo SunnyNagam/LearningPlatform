@@ -29,7 +29,7 @@ class DBHelper implements DBHandler, format.Communicate {
 	private static final String connectionInfo = "jdbc:mysql://localhost:3306/", 
 								SSLtag   = "?useSSL=false",
 								login 	 = "root", 
-								password = "bacon";
+								password = "rootpass"; // bacon if keenan
 	
 	DBHelper() {
 		int attempts = 0;
@@ -249,6 +249,7 @@ class DBHelper implements DBHandler, format.Communicate {
 		}
 		catch(SQLException e) { e.printStackTrace(); }
 	}
+
 }
 //
 //int attempts = 0;

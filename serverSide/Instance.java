@@ -27,7 +27,7 @@ class Instance implements Runnable {
 			out = new ObjectOutputStream(out_);
 			//in = new ObjectInputStream(in_);
 			out.writeInt(Communicate.CONNECTED);
-			//out.flush();
+			out.flush();
 			
 			System.out.println("Got wrote mate");
 			
