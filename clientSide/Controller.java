@@ -40,29 +40,33 @@ class Controller {
 				String password = pan.getPass();
 				
 				int type = client.attemptLogin(userName, password);
-				System.out.println(type);
+				System.err.println("here");
 				if(type == Communicate.INVALID) gui.displayErrorMessage("Invalid Credentials");
 				else {
 					clientType = type;
 					//gui.displayErrorMessage("YASSS");	// for now
 					setupClient(type, userName);
+					
 				}
 			}
 		});
 	}
 	
 	protected void setupClient(int type, String name) {
-		name = String.format( "%8d", Integer.parseInt(name) );
+		name = String.format( "%08d", Integer.parseInt(name) );
+		
 		if (type == Communicate.STUDENT) user = new Student();
 		else if (type == Communicate.PROFESSOR) user = new Professor();
 		else {
 			gui.displayErrorMessage("Fatal error.");
 			System.exit(-1);
 		}
-		user.instantiatePanels();
+		gui.addPanels( user.instantiatePanels() );
 		user.assignButtons(this);
-		
-		gui.switchWindow(PanelList.MY_COURSES);
+		System.err.println("setupClient()");
+		gui.initializeView(name);
+		gui.paintAll(gui.getGraphics());
+		//gui.switchWindow(PanelList.MY_COURSES);
 	}
 	/**
 	 * @param args

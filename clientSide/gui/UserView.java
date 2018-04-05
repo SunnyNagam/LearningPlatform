@@ -62,6 +62,7 @@ public class UserView extends JFrame {
 		setBounds(100, 100, 450, 300);
 		
 		outerPane = new JPanel();
+		outerPane.setLayout(new BorderLayout());
 		contentPane = new JPanel();
 		/*						
 		// commented out temporarily, idk why this is a popupmenu, but addit back later after login and make sure it's global
@@ -124,16 +125,35 @@ public class UserView extends JFrame {
 
 	public void switchWindow(int index) {
 		if (index >= 0 && index < PanelList.ARRAY_SIZE) {
+			outerPane.remove(contentPane);
 			contentPane = panels[index];
+			outerPane.add (contentPane);
 			System.out.println("Switched.");
 		}
 	}
 	public void initializeView(String name) {
+		System.err.println("initializeView()");
 		menu = new JMenu(name.toUpperCase());
 		setupMenu();
 		outerPane.add(menu, BorderLayout.WEST);
+		System.err.println("about to get layout");
+		BorderLayout layout = (BorderLayout) outerPane.getLayout();
+		System.err.println("got layout");
+		outerPane.remove(layout.getLayoutComponent(BorderLayout.CENTER));
+		System.err.println("removed center component");
+		
+		contentPane = panels[PanelList.MY_COURSES];
+		System.err.println("done setting new centerPane");
+		outerPane.add (contentPane);
+		System.err.println("added centerPane");
 	}
 	private void setupMenu() {
 		//add the buttony bois
+	}
+
+	public void addPanels(JPanel[] p) {
+		panels = new JPanel[p.length];
+		for(int i = 0; i < p.length; i++)
+			panels[i] = p[i];
 	}
 }

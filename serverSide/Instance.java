@@ -21,7 +21,8 @@ class Instance implements Runnable {
 	ObjectInputStream in;
 	ObjectOutputStream out;
 	int clientType;
-	// modelhandler
+	DBHandler helper;
+	
 	Instance (InputStream in_, OutputStream out_/*, modelhandler */) {
 		clientType = 0;	// not a valid type
 		try {
@@ -41,6 +42,7 @@ class Instance implements Runnable {
 			System.out.println("Connection to client established.\n"
 					+ "server instance running on " + Thread.currentThread().getName() );
 			
+			helper = new DBHelper();
 		} catch (IOException e) { System.err.println(e.getMessage()); }
 		// set up model handling here
 	}
@@ -78,8 +80,8 @@ class Instance implements Runnable {
 			String password = in.readUTF();
 			// pass to modelhandler - get type or write Communicate.DB_ERROR
 			// TODO for now just to test:
-			DBHelper helper = new DBHelper();
-			ResultSet set = helper.search(0, 0, username);
+			
+			ResultSet set = helper.search(0, 0, String.format("%d",username) );
 			if(!set.next()) {
 				out.writeInt(Communicate.INVALID);
 				System.out.println("Null set returned.");

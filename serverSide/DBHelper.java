@@ -122,7 +122,7 @@ class DBHelper implements DBHandler, format.Communicate {
 			ResultSet set = statement.executeQuery();
 			System.out.println(tables[tableType]+":");
 			while (set.next()) {
-				System.out.println(set.getInt("ID") + " " + set.getString("PASSWORD"));
+				System.out.println(String.format("%8d",set.getInt("ID")) + " " + set.getString("PASSWORD"));
 			}
 			set.close();
 		} catch (SQLException e) {
@@ -170,7 +170,7 @@ class DBHelper implements DBHandler, format.Communicate {
 		ResultSet set;
 		statement = jdbc_connection.prepareStatement(sql);
 		statement.setInt(1, key);
-		System.out.println(sql);
+		System.out.println(statement);
 		set = statement.executeQuery();
 		return set;
 	}
