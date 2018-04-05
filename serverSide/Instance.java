@@ -55,7 +55,6 @@ class Instance implements Runnable {
 				parseTag(tag);
 			}
 		} catch (IOException e) { System.err.println(e.getMessage()); }
-
 	}
 	private void parseTag(int tag) throws IOException {
 		switch (tag) {
@@ -98,15 +97,10 @@ class Instance implements Runnable {
 			out.flush();
 			// write their type
 			 clientType = 0;
-
-		} catch (IOException e) {
-			e.printStackTrace();
 		} 
-		catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		catch (IOException e) { e.printStackTrace(); } 
+		catch (SQLException e) { e.printStackTrace(); } 
+		catch (Exception e) { e.printStackTrace(); }
 	}
 	private void get() throws IOException {
 		try {

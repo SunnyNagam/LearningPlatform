@@ -69,7 +69,7 @@ public class Connector {
 			System.out.println("The server is " + ((c.running) ? "" : "not ") + "running on port " + port);
 			c.startDB();
 			
-			// TODO THIS IS JUST FOR TESTING PURPOSES REMOVE THIS LATER DUDES	------------------
+		// TODO THIS IS JUST FOR TESTING PURPOSES REMOVE THIS LATER DUDES	------------------
 				User steve = new Student("Student","Steve","Boring","steveBoring@gmail.com",1);
 						// for some reason he doesnt show up when we search for him
 				try {
