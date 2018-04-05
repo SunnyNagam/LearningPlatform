@@ -4,9 +4,11 @@
 package clientSide.gui;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
+
+import format.*;
 
 /**
  * @author keenangaudio, sunnynagam
@@ -14,12 +16,41 @@ import javax.swing.JPanel;
  */
 public class MyCoursesPanel extends JPanel {
 	private JButton createNew;
+	public DefaultListModel<Course> myCourses;
+	private JList<Course> courseList;
+	
+	//private JPanel display;
 	
 	public MyCoursesPanel() {
+		myCourses = new DefaultListModel<Course>();
 		
+		courseList = new JList<Course> (myCourses);
 	}
-	public void profTools() {
-		createNew = new JButton("Create new Course");
-		add(createNew, BorderLayout.SOUTH);
+	
+	public void StudTools() {
+		add( setupStud() );
+		//maybe add grades here
 	}
+	public void profTools(ActionListener a) {
+		add( setupProf() );
+		
+		createNew = new JButton( "Create new Course" );
+		createNew.addActionListener(a);
+		add( createNew, BorderLayout.SOUTH );
+	}
+	
+	private JPanel setupStud() {
+		JPanel tmp = new JPanel();
+		tmp.add(new JLabel("Course ID // Course Name // Prof ID "));
+		
+		return tmp;
+	}
+	private JPanel setupProf() {
+		JPanel tmp = new JPanel();
+		tmp.add(new JLabel("Course ID // Course Name // Active "));
+		tmp.add(courseList);
+		return tmp;
+	}
+	
+
 }

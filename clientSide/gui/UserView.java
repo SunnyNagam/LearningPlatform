@@ -3,6 +3,7 @@ package clientSide.gui;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -13,9 +14,11 @@ import javax.swing.border.EmptyBorder;
 
 import clientSide.Client;
 import format.Communicate;
+import format.Course;
 
 import javax.swing.JSplitPane;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -32,6 +35,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class UserView extends JFrame {
 
@@ -138,14 +143,17 @@ public class UserView extends JFrame {
 	}
 	private JPanel setupMenu(String name, int type) {
 		JPanel menuPanel = new JPanel();
-		menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
-		menuPanel.setBackground(new Color(124, 112, 140));
+		menuPanel.setLayout( new BoxLayout(menuPanel, BoxLayout.Y_AXIS) );
+		menuPanel.setBackground( new Color(124, 112, 140) );
 		menuPanel.add( new JLabel(name) );
+		menuPanel.add( new JSeparator() );
 		setupMListener();
 		createMenuButtons(type);
 		
-		for(JRadioButton b : this.menu) if (b != null) menuPanel.add( b );
-		
+		for(JRadioButton b : this.menu) if (b != null) {
+			menuPanel.add( b );
+			menuPanel.add(Box.createVerticalGlue());
+		}
 		return menuPanel;
 	}
 	public void addPanels(JPanel[] p) {
@@ -166,9 +174,6 @@ public class UserView extends JFrame {
 	    	g.add( b );
 	    	b.addActionListener(menuListener);
 	    }
-	    
-	    
-	      
 	}
 	private void instanciateButton(int key, int type) {
 		String label = PanelList.AT[key];
@@ -195,4 +200,10 @@ public class UserView extends JFrame {
 		return Communicate.INVALID;
 	}
 	
+	private void updateCourses(ResultSet r) {
+		try {
+			while (r.next()) 
+				((MyCoursesPanel)panels[PanelList.MY_COURSES]).myCourses.addElement(Course.castRR(r));
+		} catch (SQLException e) { e.printStackTrace(); }
+	}
 }
