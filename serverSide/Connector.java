@@ -68,7 +68,7 @@ public class Connector {
 			c.startDB();
 			
 		// TODO THIS IS JUST FOR TESTING PURPOSES REMOVE THIS LATER DUDES	------------------
-				User steve = new User(Communicate.PROFESSOR,"Steve","Boring","steveBoring@gmail.com",1);
+				serverSide.User steve = new User(Communicate.PROFESSOR,"Steve","Boring","steveBoring@gmail.com",1);
 						// for some reason he doesn't show up when we search for him
 				try {
 					c.db.addUser(steve, "poop");
