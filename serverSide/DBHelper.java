@@ -296,7 +296,7 @@ class DBHelper implements DBHandler, format.Communicate {
 			statement.setString(3, user.getFirstName());
 			statement.setString(4, user.getLastName());
 			statement.setString(5, pass);
-			statement.setInt(6, (user.getUserType().equals("Student")?0x08:0x09));
+			statement.setInt(6, user.getUserType());
 			statement.executeUpdate();
 			jdbc_connection.commit();		// idk why this is needed but it just is and it took me a hour and a half to figure this out :(
 		} catch (SQLException e) {

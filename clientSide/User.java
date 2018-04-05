@@ -3,8 +3,8 @@ package clientSide;
 import javax.swing.JPanel;
 import clientSide.gui.PanelList;
 
-public abstract class User implements PanelList{
-	public String getUserType() {
+abstract class User implements PanelList{
+	public int getUserType() {
 		return userType;
 	}
 	public String getFirstName() {
@@ -19,7 +19,7 @@ public abstract class User implements PanelList{
 	public int getId() {
 		return id;
 	}
-	String userType;
+	int userType;
 	String firstName, lastName, email;
 	int id;
 	

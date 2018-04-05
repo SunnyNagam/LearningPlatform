@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import clientSide.gui.LoginPanel;
+import clientSide.gui.PanelList;
 import clientSide.gui.UserView;
 import format.Communicate;
 
@@ -19,6 +20,7 @@ import format.Communicate;
  */
 class Controller {
 	Client client;
+	User user;
 	UserView gui;
 	int clientType;
 	
@@ -39,18 +41,29 @@ class Controller {
 				
 				int type = client.attemptLogin(userName, password);
 				System.out.println(type);
-				if(type == Communicate.INVALID) {
-					gui.displayErrorMessage("Invalid Credentials");
-				}
+				if(type == Communicate.INVALID) gui.displayErrorMessage("Invalid Credentials");
 				else {
 					clientType = type;
-					gui.displayErrorMessage("YASSS");	// for now
-					
+					//gui.displayErrorMessage("YASSS");	// for now
+					setupClient(type, userName);
 				}
 			}
 		});
 	}
 	
+	protected void setupClient(int type, String name) {
+		name = String.format( "%8d", Integer.parseInt(name) );
+		if (type == Communicate.STUDENT) user = new Student();
+		else if (type == Communicate.PROFESSOR) user = new Professor();
+		else {
+			gui.displayErrorMessage("Fatal error.");
+			System.exit(-1);
+		}
+		user.instantiatePanels();
+		user.assignButtons(this);
+		
+		gui.switchWindow(PanelList.MY_COURSES);
+	}
 	/**
 	 * @param args
 	 */

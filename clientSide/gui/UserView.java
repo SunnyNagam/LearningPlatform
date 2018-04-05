@@ -29,9 +29,10 @@ import java.awt.event.MouseEvent;
 
 public class UserView extends JFrame {
 
+	private JPanel outerPane;
 	private JPanel contentPane;
 	private LoginPanel loginPanel;
-	private JPanel viewPanel[];
+	private JPanel[] panels;
 	private JMenu menu;
 
 	/**
@@ -60,7 +61,7 @@ public class UserView extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		
-		
+		outerPane = new JPanel();
 		contentPane = new JPanel();
 		/*						
 		// commented out temporarily, idk why this is a popupmenu, but addit back later after login and make sure it's global
@@ -82,7 +83,8 @@ public class UserView extends JFrame {
 		*/
 		loginPanel = new LoginPanel();
 		contentPane.add(loginPanel, BorderLayout.CENTER);
-		add(contentPane);
+		outerPane.add(contentPane);
+		add(outerPane);
 		//panel.setLayout(new CardLayout());
 		
 	}
@@ -118,5 +120,20 @@ public class UserView extends JFrame {
 	 */
 	public void displayErrorMessage(String errorMessage) {
 		JOptionPane.showMessageDialog(this, errorMessage);
+	}
+
+	public void switchWindow(int index) {
+		if (index >= 0 && index < PanelList.ARRAY_SIZE) {
+			contentPane = panels[index];
+			System.out.println("Switched.");
+		}
+	}
+	public void initializeView(String name) {
+		menu = new JMenu(name.toUpperCase());
+		setupMenu();
+		outerPane.add(menu, BorderLayout.WEST);
+	}
+	private void setupMenu() {
+		//add the buttony bois
 	}
 }

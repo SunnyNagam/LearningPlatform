@@ -4,12 +4,12 @@ import javax.swing.JPanel;
 
 import clientSide.gui.*;
 
-public class Student extends User {
+class Student extends User {
 
 	public Student() {
 		
 	}
-	public Student(String type, String first, String last, String email, int id) {
+	public Student(int type, String first, String last, String email, int id) {
 		this.userType = type;
 		this.firstName = first;
 		this.lastName = last;

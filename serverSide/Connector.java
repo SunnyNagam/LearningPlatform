@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import clientSide.Student;
-import clientSide.User;
 import format.Communicate;
 
 public class Connector {
@@ -70,8 +68,8 @@ public class Connector {
 			c.startDB();
 			
 		// TODO THIS IS JUST FOR TESTING PURPOSES REMOVE THIS LATER DUDES	------------------
-				User steve = new Student("Student","Steve","Boring","steveBoring@gmail.com",1);
-						// for some reason he doesnt show up when we search for him
+				User steve = new User(Communicate.PROFESSOR,"Steve","Boring","steveBoring@gmail.com",1);
+						// for some reason he doesn't show up when we search for him
 				try {
 					c.db.addUser(steve, "poop");
 				} catch (Exception e) {

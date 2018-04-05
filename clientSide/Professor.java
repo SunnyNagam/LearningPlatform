@@ -4,7 +4,7 @@ import javax.swing.JPanel;
 
 import clientSide.gui.*;
 
-public class Professor extends User{
+class Professor extends User{
 
 	public Professor() {
 		
