@@ -15,7 +15,7 @@ import javax.swing.JTextField;
  * @author keenangaudio, sunnynagam
  *
  */
-class LoginPanel extends JPanel {
+public class LoginPanel extends JPanel {
 	JTextField userNameField, passwordField;
 	JLabel uNameLab, passLab, introLab;
 	JButton submitButton;
@@ -47,5 +47,14 @@ class LoginPanel extends JPanel {
 		botPan.add(submitButton);
 		
 		add(botPan, BorderLayout.PAGE_END);
+	}
+	public JButton getSub() {
+		return submitButton;
+	}
+	public String getUser() {
+		return userNameField.getText();
+	}
+	public String getPass() {
+		return passwordField.getText();
 	}
 }

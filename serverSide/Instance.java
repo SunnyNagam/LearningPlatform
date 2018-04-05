@@ -81,22 +81,20 @@ class Instance implements Runnable {
 			DBHelper helper = new DBHelper();
 			ResultSet set = helper.search(0, 0, username);
 			if(!set.next()) {
-				out.writeBoolean(false);
+				out.writeInt(Communicate.INVALID);
 				System.out.println("Null set returned.");
 			}
 			else {
 				set.beforeFirst();
 				set.next();
 				if(password.equals(set.getString("PASSWORD"))) {
-					out.writeBoolean(true);
+					out.writeInt(clientType = set.getInt("TYPE"));
 				}
 				else {
-					out.writeBoolean(false);
+					out.writeInt(Communicate.INVALID);
 				}
 			}
 			out.flush();
-			// write their type
-			 clientType = 0;
 		} 
 		catch (IOException e) { e.printStackTrace(); } 
 		catch (SQLException e) { e.printStackTrace(); } 

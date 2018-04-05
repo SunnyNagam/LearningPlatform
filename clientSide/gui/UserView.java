@@ -3,6 +3,7 @@ package clientSide.gui;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -61,7 +62,8 @@ public class UserView extends JFrame {
 		
 		
 		contentPane = new JPanel();
-		/*						// commented out temporarily, idk why this is a popupmenu, but addit back later after login and make sure it's global
+		/*						
+		// commented out temporarily, idk why this is a popupmenu, but addit back later after login and make sure it's global
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
@@ -85,36 +87,9 @@ public class UserView extends JFrame {
 		
 	}
 
-	public void addLoginFunctionality(Client c) {
+	public LoginPanel addLoginFunctionality() {
 		LoginPanel pan = ((LoginPanel)loginPanel);
-		pan.submitButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String userName = pan.userNameField.getText();
-				String password = pan.passwordField.getText();
-				
-				c.writeTag(Communicate.LOGIN);
-				try {
-					c.write(Integer.parseInt(userName));
-				}
-				catch(Exception ex) {
-					c.write(-1);
-				}
-				c.write(password);
-				
-				boolean success = c.readBoolean();
-				
-				if(!success) {
-					displayErrorMessage("Invalid Credentials");
-				}
-				else {
-					displayErrorMessage("YASSS");	// for now
-					// TODO load user details and go to next panel
-				}
-				
-			}
-		});;
+		return pan;
 	}
 
 
@@ -143,13 +118,5 @@ public class UserView extends JFrame {
 	 */
 	public void displayErrorMessage(String errorMessage) {
 		JOptionPane.showMessageDialog(this, errorMessage);
-	}
-	/**
-	 * use for testing
-	 * @param args - unused
-	 */
-	public static void main(String[] args) {
-		UserView v = new UserView("TestView");
-		
 	}
 }

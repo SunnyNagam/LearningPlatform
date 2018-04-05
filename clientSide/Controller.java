@@ -7,7 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
+import clientSide.gui.LoginPanel;
 import clientSide.gui.UserView;
 import format.Communicate;
 
@@ -18,14 +20,36 @@ import format.Communicate;
 class Controller {
 	Client client;
 	UserView gui;
+	int clientType;
 	
 	Controller(Client c) {
 		this.client = c;
 		this.gui = new UserView(Communicate.PROGRAM_NAME);
-		gui.setVisible(true);
-		gui.addLoginFunctionality(client);
+		
+		login();
 	}
-	
+	private void login () {
+		gui.setVisible(true);
+		LoginPanel pan = gui.addLoginFunctionality();
+		pan.getSub().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String userName = pan.getUser();
+				String password = pan.getPass();
+				
+				int type = client.attemptLogin(userName, password);
+				System.out.println(type);
+				if(type == Communicate.INVALID) {
+					gui.displayErrorMessage("Invalid Credentials");
+				}
+				else {
+					clientType = type;
+					gui.displayErrorMessage("YASSS");	// for now
+					
+				}
+			}
+		});
+	}
 	
 	/**
 	 * @param args

@@ -26,6 +26,8 @@ public interface Communicate {
 	static final int UNENROLL	= 0x50;
 	
 	// types
+	static final int INVALID	= -0x1;
+	
 	static final int STUDENT	= 0x08;
 	static final int PROFESSOR	= 0x09;
 	

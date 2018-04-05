@@ -39,6 +39,20 @@ public class Client {
 			System.err.println(e.getMessage());
 		}
 	}
+	public int attemptLogin(String userName, String password) {
+		writeTag(Communicate.LOGIN);
+		try {
+			write(Integer.parseInt(userName));
+		}
+		catch(Exception ex) {
+			System.err.println("yikes");
+			write(Communicate.INVALID);
+		}
+		System.out.println("Almost yass");
+		write(password);
+		System.out.println("yass");
+		return readInt();
+	}
 
 	public void writeTag(int tag) {
 		try {
@@ -74,7 +88,7 @@ public class Client {
 			return in.readInt();
 		} catch (IOException e) {
 			e.printStackTrace();
-			return -1;
+			return Communicate.INVALID;
 		}
 	}
 
