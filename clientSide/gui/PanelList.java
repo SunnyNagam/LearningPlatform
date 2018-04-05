@@ -1,6 +1,10 @@
 package clientSide.gui;
 
 public interface PanelList {
+	public static final String[] AT	= {"LOGIN", "My Courses", 
+			"Course", "Assignments", "Students;Grades", 
+			"ChatRoom", "My Inbox", "Send New Email" /*add more here*/ };
+	
 	public static final int LOGIN		= 0;
 	public static final int MY_COURSES	= 1;
 	public static final int COURSE		= 2;

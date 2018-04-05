@@ -64,7 +64,7 @@ class Controller {
 		gui.addPanels( user.instantiatePanels() );
 		user.assignButtons(this);
 		System.err.println("setupClient()");
-		gui.initializeView(name);
+		gui.initializeView(name, type);
 		gui.paintAll(gui.getGraphics());
 		//gui.switchWindow(PanelList.MY_COURSES);
 	}

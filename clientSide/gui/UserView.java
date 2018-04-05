@@ -3,8 +3,11 @@ package clientSide.gui;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -21,9 +24,12 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JPopupMenu;
+import javax.swing.JRadioButton;
+
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -33,7 +39,10 @@ public class UserView extends JFrame {
 	private JPanel contentPane;
 	private LoginPanel loginPanel;
 	private JPanel[] panels;
-	private JMenu menu;
+	private JRadioButton[] menu;
+	private ActionListener menuListener;
+	public int[] keyEvents = {KeyEvent.VK_0,KeyEvent.VK_1,KeyEvent.VK_2,KeyEvent.VK_3,
+			KeyEvent.VK_4,KeyEvent.VK_5,KeyEvent.VK_6,KeyEvent.VK_7,KeyEvent.VK_9};
 
 	/**
 	 * Launch the application.
@@ -64,29 +73,12 @@ public class UserView extends JFrame {
 		outerPane = new JPanel();
 		outerPane.setLayout(new BorderLayout());
 		contentPane = new JPanel();
-		/*						
-		// commented out temporarily, idk why this is a popupmenu, but addit back later after login and make sure it's global
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		contentPane.add(scrollPane, BorderLayout.WEST);
-		
-		JMenu mnMenu = new JMenu("Menu");
-		mnMenu.setFont(new Font("Apple Braille", Font.PLAIN, 14));
-		scrollPane.setViewportView(mnMenu);
-		
-		JPopupMenu popupMenu = new JPopupMenu();
-		JMenuItem coursesButton = new JMenuItem("My Courses");
-		popupMenu.add(coursesButton);
-		addPopup(mnMenu, popupMenu);
-		*/
+
 		loginPanel = new LoginPanel();
 		contentPane.add(loginPanel, BorderLayout.CENTER);
 		outerPane.add(contentPane);
 		add(outerPane);
-		//panel.setLayout(new CardLayout());
+		
 		
 	}
 
@@ -131,29 +123,76 @@ public class UserView extends JFrame {
 			System.out.println("Switched.");
 		}
 	}
-	public void initializeView(String name) {
-		System.err.println("initializeView()");
-		menu = new JMenu(name.toUpperCase());
-		setupMenu();
-		outerPane.add(menu, BorderLayout.WEST);
-		System.err.println("about to get layout");
-		BorderLayout layout = (BorderLayout) outerPane.getLayout();
-		System.err.println("got layout");
-		outerPane.remove(layout.getLayoutComponent(BorderLayout.CENTER));
-		System.err.println("removed center component");
-		
-		contentPane = panels[PanelList.MY_COURSES];
-		System.err.println("done setting new centerPane");
-		outerPane.add (contentPane);
-		System.err.println("added centerPane");
-	}
-	private void setupMenu() {
-		//add the buttony bois
-	}
+	public void initializeView(String name, int type) {
+		menu = new JRadioButton[PanelList.ARRAY_SIZE];
+		outerPane.add(setupMenu(name, type), BorderLayout.WEST);
 
+		BorderLayout layout = (BorderLayout) outerPane.getLayout();
+
+		outerPane.remove(layout.getLayoutComponent(BorderLayout.CENTER));
+
+		contentPane = panels[PanelList.MY_COURSES];
+
+		outerPane.add (contentPane);
+
+	}
+	private JPanel setupMenu(String name, int type) {
+		JPanel menuPanel = new JPanel();
+		menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
+		menuPanel.setBackground(new Color(124, 112, 140));
+		menuPanel.add( new JLabel(name) );
+		setupMListener();
+		createMenuButtons(type);
+		
+		for(JRadioButton b : this.menu) if (b != null) menuPanel.add( b );
+		
+		return menuPanel;
+	}
 	public void addPanels(JPanel[] p) {
 		panels = new JPanel[p.length];
 		for(int i = 0; i < p.length; i++)
 			panels[i] = p[i];
 	}
+	private void createMenuButtons(int type) {
+		instanciateButton(PanelList.MY_COURSES, type);
+	    menu[PanelList.MY_COURSES].setSelected(true);
+	    
+	    instanciateButton(PanelList.EMAIL_INBOX, type);
+	    instanciateButton(PanelList.STUDENTS, type);
+	    
+	    ButtonGroup g = new ButtonGroup();
+	    for(JRadioButton b : menu) {
+	    	if(b == null) continue; // not all panels are used?
+	    	g.add( b );
+	    	b.addActionListener(menuListener);
+	    }
+	    
+	    
+	      
+	}
+	private void instanciateButton(int key, int type) {
+		String label = PanelList.AT[key];
+		if (key == PanelList.STUDENTS)
+			label = PanelList.AT[key].split(";")[(type == Communicate.PROFESSOR)?0:1];
+			
+		menu[key] = new JRadioButton(label);
+		if (key <= 9) menu[key].setMnemonic(keyEvents[key]);
+		menu[key].setActionCommand(label);
+		menu[key].setSelected(false);
+	}
+	private void setupMListener() {
+		menuListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int p = parse(e.getActionCommand());
+				if (p != Communicate.INVALID) switchWindow( p );
+			}
+		};
+	}
+	private int parse (String s) {
+		for(int i = 0; i < PanelList.ARRAY_SIZE; i++)
+			if (s.equals(PanelList.AT[i])) return i;
+		return Communicate.INVALID;
+	}
+	
 }
