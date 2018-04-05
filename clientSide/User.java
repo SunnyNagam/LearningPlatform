@@ -1,6 +1,9 @@
 package clientSide;
 
-public abstract class User {
+import javax.swing.JPanel;
+import clientSide.gui.PanelList;
+
+public abstract class User implements PanelList{
 	public String getUserType() {
 		return userType;
 	}
@@ -20,6 +23,6 @@ public abstract class User {
 	String firstName, lastName, email;
 	int id;
 	
-	abstract void instantiatePanels();
+	abstract JPanel[] instantiatePanels();
 	abstract void assignButtons(Controller c);
 }

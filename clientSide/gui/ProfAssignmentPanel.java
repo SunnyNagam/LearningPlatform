@@ -9,6 +9,6 @@ import javax.swing.JPanel;
  * @author keenangaudio, sunnynagam
  *
  */
-class ProfAssignmentPanel extends JPanel {
+public class ProfAssignmentPanel extends JPanel {
 
 }

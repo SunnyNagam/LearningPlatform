@@ -144,4 +144,12 @@ public class UserView extends JFrame {
 	public void displayErrorMessage(String errorMessage) {
 		JOptionPane.showMessageDialog(this, errorMessage);
 	}
+	/**
+	 * use for testing
+	 * @param args - unused
+	 */
+	public static void main(String[] args) {
+		UserView v = new UserView("TestView");
+		
+	}
 }
