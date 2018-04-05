@@ -80,7 +80,8 @@ class Controller {
 
 			// I have port-forwarded ports 4200 - 4212, they are unused on IANA,but unofficially used for 'vrml-multi-use' 
 			Client client = new Client(name, port);	
-			System.out.println("The server is " + ((client.connected)?"":"not ") + "running on port " + port);
+			System.out.println("The client is " + ((client.connected)?"":"not ") + "connected to"
+					+ "server " + name + " on port " + port);
 			
 			client.communicate();
 			Controller c = new Controller(client);
