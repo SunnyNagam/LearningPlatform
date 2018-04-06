@@ -38,7 +38,7 @@ class DBHelper implements DBHandler, format.Communicate {
 	};
 
 	private static final String connectionInfo = "jdbc:mysql://localhost:3306/", SSLtag = "?useSSL=false",
-			login = "root", password = "rootpass"; // bacon if keenan, rootpass if sunny
+			login = "root", password = "bacon"; // bacon if keenan, rootpass if sunny
 
 	DBHelper() {
 		int attempts = 0;
@@ -177,7 +177,7 @@ class DBHelper implements DBHandler, format.Communicate {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+	@Override
 	public ResultSet search(int tableType, int keyType, int key) throws IOException, SQLException, Exception {
 		String sql = "SELECT * FROM " + tables[tableType] + " WHERE " + keys[tableType][keyType] + "=" + "?";
 		//String sql = "SELECT * FROM " + tables[tableType];

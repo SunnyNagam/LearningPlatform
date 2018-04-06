@@ -130,7 +130,7 @@ public class Client {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return new ArrayList<Course>();
 	}
 	
 	public void addCourse(int id, String cName, boolean b) {

@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @author sunnynagam, keenangaudio
  *
  */
-public class Course implements Serializable{
+public class Course implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int courseID;
 	private String courseName;
