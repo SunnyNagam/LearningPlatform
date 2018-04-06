@@ -28,6 +28,7 @@ public class ProfAssignmentPanel extends JPanel {
 	private JButton addB;
 	public DefaultListModel<Assignment> assignments;
 	private JList<Assignment> assignmnetsList;
+	public InsertView uploadPanel;
 	
 	//private JPanel display;
 	
@@ -47,6 +48,9 @@ public class ProfAssignmentPanel extends JPanel {
 		
 		add(tmp);
 		add (addButton());
+		
+		uploadPanel = new InsertView("Upload New Assignment");
+		uploadPanel.setVisible(false);
 	}
 	private JPanel addButton() {
 		JPanel x = new JPanel();
