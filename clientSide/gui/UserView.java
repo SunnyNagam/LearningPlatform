@@ -34,6 +34,7 @@ public class UserView extends JFrame {
 
 	private JPanel outerPane;
 	private JPanel contentPane;
+	public JLabel selectedCourse;
 	private LoginPanel loginPanel;
 	private JPanel[] panels;
 	public JPanel[] getPanels() {
@@ -145,7 +146,7 @@ public class UserView extends JFrame {
 		JPanel menuPanel = new JPanel();
 		menuPanel.setLayout( new BoxLayout(menuPanel, BoxLayout.Y_AXIS) );
 		menuPanel.setBackground( new Color(124, 112, 140) );
-		menuPanel.add( new JLabel(name) );
+		menuPanel.add( selectedCourse = new JLabel("Select A Course") );
 		menuPanel.add( new JSeparator() );
 		setupMListener();
 		createMenuButtons(type);
