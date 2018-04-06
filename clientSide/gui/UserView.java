@@ -126,8 +126,10 @@ public class UserView extends JFrame {
 				outerPane.remove(contentPane);
 			} catch (NullPointerException e) {}
 			contentPane = panels[index];
-			outerPane.add (contentPane);
+			if (contentPane != null) outerPane.add (contentPane);
 			System.out.println("Switched.");
+			
+			this.paintAll(this.getGraphics());
 		}
 	}
 	public void initializeView(String name, int type) {

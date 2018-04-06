@@ -6,7 +6,6 @@ package serverSide;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import clientSide.User;
 
 /**
  * @author keenangaudio
