@@ -139,7 +139,7 @@ class Instance implements Runnable {
 			System.err.println("getting courses from db");
 			ResultSet r = helper.search(Communicate.COURSE, Communicate.PROFESSOR, String.valueOf(key) );
 			System.err.println("writing courses from db");
-			out.writeObject(r);
+			out.writeObject( parseRR(r) );
 			out.flush();
 		} catch (Exception e) {
 			try {
