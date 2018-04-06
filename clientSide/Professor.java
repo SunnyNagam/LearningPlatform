@@ -69,7 +69,7 @@ class Professor extends User{
 				System.err.println("prof tool butt assigned");
 				// create a course 
 				String cName = JOptionPane.showInputDialog("Enter the new course name: ");
-				c.client.addCourse(c.user.id, cName,String.valueOf(getId()), false);
+				c.client.addCourse(-1, cName,String.valueOf(getId()), false);
 				ArrayList<Course> set = c.client.getCourses(c.user.id);
 				((MyCoursesPanel)c.gui.getPanels()[PanelList.MY_COURSES]).refreshData(set);
 			}

@@ -429,10 +429,13 @@ class DBHelper implements DBHandler, format.Communicate {
 		} catch(Exception e) { return null; }
 	}
 	private int getRows(String table_name) {
-		String sql = "SELECT * FROM " + table_name + ";";
+		String sql = "SELECT COUNT(*) FROM " + table_name + ";";
 		int set = 0;
 		try {
-			set = statement.executeUpdate(sql);
+			ResultSet setq = statement.executeQuery(sql);
+			setq.next();
+			set = setq.getInt(1);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
