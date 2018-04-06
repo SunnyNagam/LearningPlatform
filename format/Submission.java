@@ -1,9 +1,11 @@
 package format;
 
+import java.io.Serializable;
 import java.nio.file.Path;
 import java.time.LocalDate;
 
-public class Submission {
+public class Submission implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private String submitter;
 	private Path submissionPath;
 	private double grade;
