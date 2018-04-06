@@ -10,8 +10,10 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import format.Communicate;
+import format.Course;
 
 /**
  * @author keenangaudio
@@ -216,6 +218,15 @@ class Instance implements Runnable {
 			check = (int) input;
 		} catch(ClassCastException e) {}
 		return (check == Communicate.DISCONNECT);
+	}
+	private ArrayList<Course> parseRR (ResultSet r) {
+		ArrayList<Course> arr = new ArrayList<Course>();
+		try {
+			while (r.next()) arr.add(Course.castRR(r));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return arr;
 	}
 
 }
