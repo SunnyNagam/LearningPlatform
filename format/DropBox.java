@@ -1,9 +1,11 @@
 package format;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class DropBox {
+public class DropBox implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private LocalDate dueTime;
 	private ArrayList<Submission> submission;
 	public ArrayList<Submission> getSubmissons() {
