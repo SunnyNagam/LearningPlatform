@@ -77,7 +77,21 @@ class Professor extends User{
 				((MyCoursesPanel)c.gui.getPanels()[PanelList.MY_COURSES]).refreshData(set);
 			}
 			
-		});
+		},
+		
+		new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.err.println("toggle butt setup");
+				// create a course 
+				c.client.toggleCourse(c.selectedCourse);
+				ArrayList<Course> set = c.client.getCourses(c.user.id);
+				((MyCoursesPanel)c.gui.getPanels()[PanelList.MY_COURSES]).refreshData(set);
+			}
+			
+		}
+		);
 		
 		//  Course menu botton
 		c.gui.getMenu()[PanelList.MY_COURSES].addActionListener(new ActionListener() {
