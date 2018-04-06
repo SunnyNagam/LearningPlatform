@@ -85,7 +85,7 @@ class Professor extends User{
 				public void actionPerformed(ActionEvent e) {
 					System.err.println("Students menu action started");
 					ArrayList<User>  set = c.client.getStudents(c.user.id);
-					System.err.println("Got responce set from db.");
+					System.err.println("Got responce set from db. "+set.size());
 					((StudentsPanel)c.gui.getPanels()[PanelList.STUDENTS]).refreshData(set);
 				}
 			});

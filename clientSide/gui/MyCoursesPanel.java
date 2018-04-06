@@ -54,7 +54,6 @@ public class MyCoursesPanel extends JPanel {
 		try {
 			myCourses.removeAllElements();
 			for(int x = 0; x < set.size(); x++) {
-				System.err.println("Adding course: "+set.get(x).getCourseID());
 				myCourses.addElement(set.get(x));
 			}
 		}

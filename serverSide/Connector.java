@@ -69,9 +69,11 @@ public class Connector {
 			
 		// TODO THIS IS JUST FOR TESTING PURPOSES REMOVE THIS LATER DUDES	------------------
 				serverSide.User steve = new User(Communicate.PROFESSOR,"Steve","Boring","steveBoring@gmail.com",1);
+				serverSide.User carl = new User(Communicate.STUDENT,"CARL","LAME","killmenow@gmail.com",7);
 						// for some reason he doesn't show up when we search for him
 				try {
-					c.db.addUser(steve, "poop");
+					//c.db.addUser(steve, "poop");
+					c.db.addUser(carl, "y");
 				} catch (Exception e) {
 					e.printStackTrace();
 				} 
