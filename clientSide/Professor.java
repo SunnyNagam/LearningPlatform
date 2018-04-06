@@ -52,6 +52,8 @@ class Professor extends User{
 	@Override
 	void assignButtons(Controller c) {
 		System.err.println("assigning buttons");
+		
+		// Create new course button 
 		((MyCoursesPanel)c.gui.getPanels()[PanelList.MY_COURSES]).profTools(new ActionListener() {
 
 			@Override
@@ -65,15 +67,28 @@ class Professor extends User{
 			}
 			
 		});
+		
+		//  Course menu botton
 		c.gui.getMenu()[PanelList.MY_COURSES].addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Heyooo");
+				System.err.println("Courses menu action started");
 				ArrayList<Course>  set = c.client.getCourses(c.user.id);
 				System.err.println("Got responce set from db.");
 				((MyCoursesPanel)c.gui.getPanels()[PanelList.MY_COURSES]).refreshData(set);
 			}
 		});
+		
+		//  students menu botton
+			c.gui.getMenu()[PanelList.STUDENTS].addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					System.err.println("Students menu action started");
+					ArrayList<User>  set = c.client.getStudents(c.user.id);
+					System.err.println("Got responce set from db.");
+					((StudentsPanel)c.gui.getPanels()[PanelList.STUDENTS]).refreshData(set);
+				}
+			});
 	}
 	
 }

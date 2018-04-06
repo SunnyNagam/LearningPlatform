@@ -137,5 +137,18 @@ public class Client {
 		writeTag(Communicate.SYNC);
 		writeTag(Communicate.COURSE);
 	}
+	public ArrayList<User> getStudents(int id) {
+		writeTag(Communicate.GET);
+		writeTag(Communicate.STUDENT);
+		write(id);
+		try {
+			return (ArrayList<User>) in.readObject();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return new ArrayList<User>();
+	}
 
 }

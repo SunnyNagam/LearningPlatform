@@ -3,7 +3,7 @@ package clientSide;
 import javax.swing.JPanel;
 import clientSide.gui.PanelList;
 
-abstract class User implements PanelList{
+public abstract class User implements PanelList{
 	public int getUserType() {
 		return userType;
 	}
