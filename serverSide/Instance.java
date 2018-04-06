@@ -139,9 +139,12 @@ class Instance implements Runnable {
 			System.err.println("getting courses from db");
 			ResultSet r = helper.search(Communicate.COURSE, Communicate.PROFESSOR, key );
 			System.err.println("writing courses from db");
+			
+			out.writeInt(Communicate.SYNC);
 			out.writeObject( parseRR(r) );
 			out.flush();
 		} catch (Exception e) {
+			e.printStackTrace();
 			try {
 				out.writeObject(null);
 			} catch (IOException e1) { e1.printStackTrace(); }

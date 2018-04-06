@@ -124,7 +124,8 @@ public class Client {
 		writeTag(Communicate.COURSE);
 		write(id);
 		try {
-			return (ArrayList<Course>) in.readObject();
+			if (in.readInt() == Communicate.SYNC)
+				return (ArrayList<Course>) in.readObject();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
