@@ -3,6 +3,7 @@
  */
 package serverSide;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import format.Communicate;
+import format.Submission;
 
 /**
  * @author keenangaudio
@@ -302,6 +304,13 @@ class DBHelper implements DBHandler, format.Communicate {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void storeFile(Submission s, File f) throws IOException, SQLException {
+		
+		
+	}
+	
 
 }
 //

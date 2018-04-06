@@ -3,9 +3,12 @@
  */
 package serverSide;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import format.Submission;
 
 /**
  * @author keenangaudio
@@ -18,7 +21,8 @@ interface DBHandler {
 	 * @throws SQLException
 	 * @throws Exception
 	 */
-	void createDB() throws IOException, SQLException, Exception;
+	void createDB() 
+			throws IOException, SQLException, Exception;
 	
 	/**
 	 * 
@@ -26,7 +30,8 @@ interface DBHandler {
 	 * @throws SQLException
 	 * @throws Exception
 	 */
-	void removeDB() throws IOException, SQLException, Exception;
+	void removeDB() 
+			throws IOException, SQLException, Exception;
 	
 	/**
 	 * 
@@ -88,4 +93,13 @@ interface DBHandler {
 	 */
 	ResultSet search(int keyType, String key) 
 			throws IOException, SQLException, Exception;
+	
+	/**
+	 * stores a file on the server machine, and records the path to it in the database
+	 * @param s the submission information
+	 * @param f the file to store
+	 * @throws IOException if fails to save file, SQLException if fails to write path to database
+	 */
+	public void storeFile(Submission s, File f) 
+			throws IOException, SQLException;
 }
