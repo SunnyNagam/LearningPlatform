@@ -22,10 +22,10 @@ public class InsertView extends JFrame{
 	/**
 	 * Text fields to enter info about new assignment to insert
 	 */
-	protected JTextField titletxt = new JTextField(10), pathtxt = new JTextField(10),
+	public JTextField titletxt = new JTextField(10), pathtxt = new JTextField(10),
 			duetxt = new JTextField(10);
 	
-	protected JCheckBox activeBox = new JCheckBox("Active");
+	public JCheckBox activeBox = new JCheckBox("Active");
 	
 	/**
 	 * Buttons to insert new student or quit
