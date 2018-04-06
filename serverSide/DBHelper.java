@@ -406,7 +406,7 @@ class DBHelper implements DBHandler, format.Communicate {
 		} else {
 			String sql = "INSERT INTO " + tables[2] + " SET (ID=?, STUDENT_ID=?, COURSE_ID=?);";
 			statement = jdbc_connection.prepareStatement(sql);
-			statement.setInt(2, enrollCount);
+			statement.setInt(1, enrollCount);
 			statement.setInt(2, studentID);
 			statement.setInt(3, courseID);
 			enrollCount++;
@@ -443,6 +443,25 @@ class DBHelper implements DBHandler, format.Communicate {
 			e.printStackTrace();
 		}
 		return set;
+	}
+	@Override
+	public void toggleActive(int id) {
+		String sql = "SELECT * FROM " + tables[2] + " WHERE ID=?";
+		try {
+		ResultSet set;
+		statement = jdbc_connection.prepareStatement(sql);
+		statement.setInt(1, id);
+		//System.err.println(statement);
+		set = statement.executeQuery();
+		set.next();
+		boolean b  = set.getBoolean("ACTIVE");
+		
+		sql = "UPDATE " + tables[1] + " SET (ACTIVE=?) WHERE ID=?;";
+		statement = jdbc_connection.prepareStatement(sql);
+		statement.setInt(2, b?0:1);
+		statement.setInt(3, id);
+		} catch (Exception e) {e.printStackTrace();}
+		
 	}
 
 }

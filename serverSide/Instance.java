@@ -214,9 +214,16 @@ class Instance implements Runnable {
 		//give file to model
 	}
 	private void refresh() { // actually toggle active
-		//read type
+		try {
+			int id = in.readInt();
+			helper.toggleActive(id);
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		//read object
 		
 	}
 	private void sync() { //maybe unnecessary

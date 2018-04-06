@@ -130,4 +130,10 @@ interface DBHandler {
 	 * @param c
 	 */
 	void toggleEnroll(int studentID, int courseID) throws SQLException;
+
+	/**
+	 * 
+	 * @param id
+	 */
+	void toggleActive(int id);
 }
