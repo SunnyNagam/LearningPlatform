@@ -2,6 +2,9 @@ package clientSide;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -84,6 +87,14 @@ class Professor extends User{
 				ArrayList<Course>  set = c.client.getCourses(c.user.id);
 				System.err.println("Got responce set from db. "+set.size());
 				((MyCoursesPanel)c.gui.getPanels()[PanelList.MY_COURSES]).refreshData(set);
+			}
+		});
+		
+		// getting selected course
+		((MyCoursesPanel)c.gui.getPanels()[PanelList.MY_COURSES]).courseList.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				c.selectedCourse = ((Course) ((MyCoursesPanel)c.gui.getPanels()[PanelList.MY_COURSES]).courseList.getSelectedValue()).getCourseID();
+				System.err.println("Course selected = "+c.selectedCourse);
 			}
 		});
 		

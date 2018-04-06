@@ -7,6 +7,9 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -21,7 +24,7 @@ import format.*;
 public class MyCoursesPanel extends JPanel {
 	private JButton createNew;
 	public DefaultListModel<Course> myCourses;
-	private JList<Course> courseList;
+	public JList<Course> courseList;
 	
 	//private JPanel display;
 	

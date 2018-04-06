@@ -25,6 +25,7 @@ import format.Course;
 class Controller {
 	Client client;
 	User user;
+	public int selectedCourse = -1;
 	UserView gui;
 	int clientType;
 	
