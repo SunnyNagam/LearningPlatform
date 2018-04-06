@@ -55,8 +55,14 @@ class Controller {
 	protected void setupClient(int type, String name) {
 		name = String.format( "%08d", Integer.parseInt(name) );
 		
-		if (type == Communicate.STUDENT) user = new Student();
-		else if (type == Communicate.PROFESSOR) user = new Professor();
+		if (type == Communicate.STUDENT) {
+			user = new Student();
+			System.err.println("created student");
+		}
+		else if (type == Communicate.PROFESSOR) { 
+			user = new Professor();
+			System.err.println("created prof");
+			}
 		else {
 			gui.displayErrorMessage("Fatal error.");
 			System.exit(-1);

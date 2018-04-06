@@ -310,6 +310,7 @@ class DBHelper implements DBHandler, format.Communicate {
 			statement.setString(4, user.getLastName());
 			statement.setString(5, pass);
 			statement.setInt(6, user.getUserType());
+			System.err.println(user.getUserType());
 			statement.executeUpdate();
 			jdbc_connection.commit();		// idk why this is needed but it just is and it took me a hour and a half to figure this out :(
 		} catch (SQLException e) {

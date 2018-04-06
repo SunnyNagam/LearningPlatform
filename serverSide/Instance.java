@@ -54,6 +54,7 @@ class Instance implements Runnable {
 		try {
 			while (true) {
 				int tag = in.readInt();
+				System.err.println("Got command: "+tag);
 				parseTag(tag);
 			}
 		} catch (IOException e) { System.err.println(e.getMessage()); }
@@ -104,9 +105,11 @@ class Instance implements Runnable {
 	}
 	private void get() throws IOException {
 		try {
+			
 			//read type && find object to send
 			int type = in.readInt();
 			if ( checkDisconnect(in) ) disconnect();
+			System.err.println("getting type "+ type);
 			get(type);
 			
 			int status = (true) ? Communicate.DB_SUCCESS : Communicate.DB_ERROR;
@@ -131,8 +134,11 @@ class Instance implements Runnable {
 	private void getCourses() {
 		try {
 			int key = in.readInt();
+			System.err.println("getting courses from db");
 			ResultSet r = helper.search(Communicate.COURSE, Communicate.PROFESSOR, String.valueOf(key) );
+			System.err.println("writing courses from db");
 			out.writeObject(r);
+			out.flush();
 		} catch (Exception e) {
 			try {
 				out.writeObject(null);

@@ -57,10 +57,8 @@ public class Client {
 
 	public void writeTag(int tag) {
 		try {
-			if (tag <= Communicate.maxCommand && tag >= Communicate.minCommand) {
-				out.writeInt(tag);
-				out.flush();
-			}
+			out.writeInt(tag);
+			out.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
