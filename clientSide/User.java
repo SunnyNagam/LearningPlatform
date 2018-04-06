@@ -24,11 +24,12 @@ public abstract class User implements PanelList, Serializable{
 	}
 	int userType;
 	String firstName, lastName, email;
-	int id;
+	int id, SelectedCourse = -1;
 	
 	@Override 
 	public String toString() {
-		return String.format("%11d %13s %13s", id, firstName, lastName);
+		return String.format("%11d %13s %13s" + 
+				((SelectedCourse==-1)?"":String.valueOf(SelectedCourse)), id, firstName, lastName);
 	}
 	
 	abstract JPanel[] instantiatePanels();
