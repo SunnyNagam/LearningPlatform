@@ -122,9 +122,11 @@ public class UserView extends JFrame {
 
 	public void switchWindow(int index) {
 		if (index >= 0 && index < PanelList.ARRAY_SIZE) {
-			outerPane.remove(contentPane);
+			try {
+				outerPane.remove(contentPane);
+			} catch (Exception e) {}
 			contentPane = panels[index];
-			outerPane.add (contentPane);
+			if (contentPane != null) outerPane.add (contentPane);
 			System.out.println("Switched.");
 			
 			this.paintAll(this.getGraphics());
