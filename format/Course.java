@@ -13,7 +13,19 @@ import java.util.ArrayList;
 public class Course implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int courseID;
+	public int getCourseID() {
+		return courseID;
+	}
 	private String courseName;
+	public String getCourseName() {
+		return courseName;
+	}
+	public String getProfName() {
+		return profName;
+	}
+	public boolean isActive() {
+		return active;
+	}
 	private String profName;
 	private boolean active;
 	private ArrayList<Assignment> assignment;
@@ -35,6 +47,6 @@ public class Course implements Serializable {
 	}
 	@Override 
 	public String toString() {
-		return String.format("%b%9s%51s", active, courseName, profName);
+		return String.format("%11s %51s %9s", (active?"Active":"Not Active"), courseName, profName);
 	}
 }

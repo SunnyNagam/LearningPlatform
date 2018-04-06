@@ -5,14 +5,18 @@ package clientSide;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import clientSide.gui.LoginPanel;
+import clientSide.gui.MyCoursesPanel;
 import clientSide.gui.PanelList;
+import clientSide.gui.StudentsPanel;
 import clientSide.gui.UserView;
 import format.Communicate;
+import format.Course;
 
 /**
  * @author keenangaudio
@@ -71,11 +75,19 @@ class Controller {
 		user.id = Integer.parseInt(name);
 		
 		gui.addPanels( user.instantiatePanels() );
+		
 		System.err.println("setupClient()");
-		gui.initializeView(name, type);
+		initializeView(name, type);
 		user.assignButtons(this);
 		gui.paintAll(gui.getGraphics());
 		//gui.switchWindow(PanelList.MY_COURSES);
+	}
+	private void initializeView(String name, int type) {
+		System.err.println("Courses menu action started");
+		ArrayList<Course>  set = client.getCourses(user.id);
+		System.err.println("Got responce set from db. "+set.size());
+		((MyCoursesPanel) gui.getPanels()[PanelList.MY_COURSES]).refreshData(set);
+		gui.initializeView(name, type);
 	}
 	/**
 	 * @param args

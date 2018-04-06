@@ -4,6 +4,8 @@
 package clientSide.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -24,9 +26,11 @@ public class MyCoursesPanel extends JPanel {
 	//private JPanel display;
 	
 	public MyCoursesPanel() {
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		myCourses = new DefaultListModel<Course>();
 		
 		courseList = new JList<Course> (myCourses);
+		courseList.setFont(new Font("menlo",Font.PLAIN,12));
 	}
 	
 	public void update() {
@@ -34,20 +38,23 @@ public class MyCoursesPanel extends JPanel {
 	}
 	
 	public void StudTools() {
-		add( setupStud() );
+		add( setup() );
 		//maybe add grades here
 	}
 	public void profTools(ActionListener a) {
-		add( setupProf() );
-		
+		add( setup() );
+		System.err.println("Creating profTools.");
 		createNew = new JButton( "Create new Course" );
 		createNew.addActionListener(a);
 		add( createNew, BorderLayout.SOUTH );
 	}
 	
 	public void refreshData(ArrayList<Course> set) {
+		System.err.println("Refreshing course data in gui");
 		try {
+			myCourses.removeAllElements();
 			for(int x = 0; x < set.size(); x++) {
+				System.err.println("Adding course: "+set.get(x).getCourseID());
 				myCourses.addElement(set.get(x));
 			}
 		}
@@ -56,16 +63,12 @@ public class MyCoursesPanel extends JPanel {
 		}
 		update();
 	}
-	private JPanel setupStud() {
-		JPanel tmp = new JPanel();
-		tmp.add(new JLabel("Course ID // Course Name // Prof ID "));
-		tmp.add(courseList);
-		return tmp;
-	}
-	private JPanel setupProf() {
+	private JPanel setup() {
 		JPanel tmp = new JPanel();
 		tmp.add(new JLabel("Course ID // Course Name // Active "));
-		tmp.add(courseList);
+		JScrollPane x = new JScrollPane(courseList);
+		//x.setPreferredSize(new Dimension(300,200));
+		tmp.add(x);
 		return tmp;
 	}
 	

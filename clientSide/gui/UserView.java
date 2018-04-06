@@ -11,6 +11,9 @@ import format.Communicate;
 import format.Course;
 
 import javax.swing.JSeparator;
+
+import clientSide.User;
+
 import javax.swing.JOptionPane;
 
 import java.awt.Color;
@@ -25,6 +28,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UserView extends JFrame {
 

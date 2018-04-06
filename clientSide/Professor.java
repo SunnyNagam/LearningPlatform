@@ -61,7 +61,7 @@ class Professor extends User{
 				System.err.println("prof tool butt assigned");
 				// create a course 
 				String cName = JOptionPane.showInputDialog("Enter the new course name: ");
-				c.client.addCourse(c.user.id, cName, false);
+				c.client.addCourse(c.user.id, cName,String.valueOf(getId()), false);
 				ArrayList<Course> set = c.client.getCourses(c.user.id);
 				((MyCoursesPanel)c.gui.getPanels()[PanelList.MY_COURSES]).refreshData(set);
 			}
@@ -74,7 +74,7 @@ class Professor extends User{
 			public void actionPerformed(ActionEvent e) {
 				System.err.println("Courses menu action started");
 				ArrayList<Course>  set = c.client.getCourses(c.user.id);
-				System.err.println("Got responce set from db.");
+				System.err.println("Got responce set from db. "+set.size());
 				((MyCoursesPanel)c.gui.getPanels()[PanelList.MY_COURSES]).refreshData(set);
 			}
 		});

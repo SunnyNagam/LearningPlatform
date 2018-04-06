@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import format.Communicate;
+import format.Course;
 import format.Submission;
 
 /**
@@ -29,16 +30,9 @@ class DBHelper implements DBHandler, format.Communicate {
 	private static final String[] tables = { "Users", "Courses", "EnrollmentChart", "Assignments", "Submissions",
 			"Grades" };
 	
-	/**
-	 * 	keys[tableType][keyType]
-	 */
-	private static final String[][] keys = {
-			{"ID","EMAIL","FIRST_NAME","LAST_NAME","PASSWORD","TYPE"},	// USER TABLE
-			{"ID", "PROF_ID", "NAME", "ACTIVE"}							// COURSES TABLE
-	};
 
 	private static final String connectionInfo = "jdbc:mysql://localhost:3306/", SSLtag = "?useSSL=false",
-			login = "root", password = "bacon"; // bacon if keenan, rootpass if sunny
+			login = "root", password = "rootpass"; // bacon if keenan, rootpass if sunny
 
 	DBHelper() {
 		int attempts = 0;
@@ -125,13 +119,19 @@ class DBHelper implements DBHandler, format.Communicate {
 		}
 		return tables[0];
 	}
+	/**
+	 * to only be used for keys[][i], TODO
+	 * @param type i
+	 * @return
+	 */
 	private int parseTableInt(int type) {
 		switch (type) {
 		case Communicate.PROFESSOR :
-		case Communicate.STUDENT :
-			return 0;
-		case Communicate.COURSE :
 			return 1;
+		case Communicate.STUDENT :
+			return 4;
+		case Communicate.COURSE :
+			return 0;
 		case Communicate.ENROLL :
 			return 2;
 		case Communicate.ASSIGNMENT :
@@ -200,9 +200,11 @@ class DBHelper implements DBHandler, format.Communicate {
 	 * 
 	 *  TODO key might not always be a string!
 	 */
-	public ResultSet search(int tableType, int keyType, String key) throws IOException, SQLException, Exception {
+	public ResultSet search(int tableType, String keyType, String key) throws IOException, SQLException, Exception {
+		System.err.println("Searching in table: "+parseTableType(tableType) + " where "
+				+ keyType +" = "+key);
 		String sql = "SELECT * FROM " + parseTableType(tableType) + " WHERE " + 
-				keys[parseTableInt(tableType)][parseTableInt(keyType)] + "=" + "?";
+				keyType + "=" + "?";
 		ResultSet set;
 		statement = jdbc_connection.prepareStatement(sql);
 		statement.setString(1, key);
@@ -216,10 +218,11 @@ class DBHelper implements DBHandler, format.Communicate {
 		return null;
 	}
 	@Override
-	public ResultSet search(int tableType, int keyType, int key) throws IOException, SQLException, Exception {
-		System.err.println(tableType);
+	public ResultSet search(int tableType, String keyType, int key) throws IOException, SQLException, Exception {
+		System.err.println("Searching in table: "+parseTableType(tableType) + " where "
+				+ keyType +" = "+key);
 		String sql = "SELECT * FROM " + parseTableType(tableType) + " WHERE " + 
-				keys[parseTableInt(tableType)][parseTableInt(keyType)] + "=" + "?";
+				keyType + "=" + "?";
 		//String sql = "SELECT * FROM " + parseTableType(tableType);
 		ResultSet set;
 		statement = jdbc_connection.prepareStatement(sql);
@@ -363,6 +366,22 @@ class DBHelper implements DBHandler, format.Communicate {
 		Path currentRelativePath = Paths.get("");
 		String path = currentRelativePath.toAbsolutePath().toString();
 		
+		
+	}
+	@Override
+	public void addCourse(Course x) {
+		String sql = "INSERT INTO " + tables[1] + " VALUES (?, ?, ?, ?);";
+		try {
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(1, x.getCourseID());
+			statement.setString(2, x.getProfName());
+			statement.setString(3, x.getCourseName());
+			statement.setBoolean(4, x.isActive());
+			statement.executeUpdate();
+			jdbc_connection.commit();		// idk why this is needed but it just is and it took me a hour and a half to figure this out :(
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	

@@ -84,7 +84,7 @@ class Instance implements Runnable {
 			// pass to modelhandler - get type or write Communicate.DB_ERROR
 			// TODO for now just to test:
 			
-			ResultSet set = helper.search(0, 0, String.format("%d",username) );
+			ResultSet set = helper.search(0, "ID", String.format("%d",username) );
 			if(!set.next()) {
 				out.writeInt(Communicate.INVALID);
 				System.out.println("Null set returned.");
@@ -137,10 +137,11 @@ class Instance implements Runnable {
 		try {
 			int key = in.readInt();
 			System.err.println("getting courses from db");
-			ResultSet r = helper.search(Communicate.COURSE, Communicate.PROFESSOR, key );
+			ResultSet r = helper.search(Communicate.COURSE, "PROF_ID", key );
 			System.err.println("writing courses from db");
 			
 			out.writeInt(Communicate.SYNC);
+			out.reset();
 			out.writeObject( parseRR(r) );
 			out.flush();
 		} catch (Exception e) {
@@ -196,11 +197,18 @@ class Instance implements Runnable {
 		
 	}
 	private void sync() { //maybe unnecessary
-		// read type
-		// read object
+		Course x;
+		try {
+			x = (Course) in.readObject();
+			helper.addCourse(x);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		// compare object
-		// write back
 	}
 	private void disconnect() throws IOException {
 		// write disconnect back
@@ -225,7 +233,10 @@ class Instance implements Runnable {
 	private ArrayList<Course> parseRR (ResultSet r) {
 		ArrayList<Course> arr = new ArrayList<Course>();
 		try {
-			while (r.next()) arr.add(Course.castRR(r));
+			while (r.next()) {
+				arr.add(Course.castRR(r));
+			}
+			System.err.println("Elements in set: "+arr.size());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -124,19 +124,31 @@ public class Client {
 		writeTag(Communicate.COURSE);
 		write(id);
 		try {
-			if (in.readInt() == Communicate.SYNC)
-				return (ArrayList<Course>) in.readObject();
+			if (in.readInt() == Communicate.SYNC) {
+				ArrayList<Course> c = (ArrayList<Course>) in.readObject();
+				System.err.println("Client got "+c.size()+" courses from db");
+				return c;
+			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return new ArrayList<Course>();
+		return null;
 	}
 	
-	public void addCourse(int id, String cName, boolean b) {
+	public void addCourse(int id, String cName,String p_id, boolean b) {
 		writeTag(Communicate.SYNC);
-		writeTag(Communicate.COURSE);
+		writeObject(new Course(id, cName, p_id, b));
+	}
+	private void writeObject(Object toWrite) {
+		try {
+			out.reset();
+			out.writeObject(toWrite);
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	public ArrayList<User> getStudents(int id) {
 		writeTag(Communicate.GET);

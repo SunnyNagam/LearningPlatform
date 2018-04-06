@@ -36,6 +36,7 @@ public class StudentsPanel extends JPanel {
 	
 	public void refreshData(ArrayList<User> set) {
 		try {
+			students.clear();
 			for(int x=0; x< set.size(); x++) {
 				students.addElement(set.get(x));
 			}

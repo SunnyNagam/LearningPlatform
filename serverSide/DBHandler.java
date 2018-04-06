@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import format.Course;
 import format.Submission;
 
 /**
@@ -80,7 +81,7 @@ interface DBHandler {
 	 * @throws SQLException
 	 * @throws Exception
 	 */
-	ResultSet search(int tableType, int keyType, String key) 
+	ResultSet search(int tableType, String keyType, String key) 
 			throws IOException, SQLException, Exception;
 	
 	/**
@@ -93,7 +94,7 @@ interface DBHandler {
 	 * @throws SQLException
 	 * @throws Exception
 	 */
-	ResultSet search(int tableType, int keyType, int key) 
+	ResultSet search(int tableType, String keyType, int key) 
 			throws IOException, SQLException, Exception;
 	
 	/**
@@ -116,4 +117,10 @@ interface DBHandler {
 	 */
 	public void storeFile(Submission s, File f) 
 			throws IOException, SQLException;
+
+	/**
+	 * 
+	 * @param x
+	 */
+	void addCourse(Course x);
 }
