@@ -51,6 +51,7 @@ public class StudentsPanel extends JPanel {
 	}
 	
 	public void refreshData(ArrayList<String[]> set) {
+		
 		System.err.println("Refreshing student data in gui");
 		try {
 			students.removeAllElements();
