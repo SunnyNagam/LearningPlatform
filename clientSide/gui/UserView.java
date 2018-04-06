@@ -174,6 +174,7 @@ public class UserView extends JFrame {
 	    
 	    instanciateButton(PanelList.EMAIL_INBOX, type);
 	    instanciateButton(PanelList.STUDENTS, type);
+	    instanciateButton(PanelList.ASSIGNMENTS, type);
 	    
 	    ButtonGroup g = new ButtonGroup();
 	    for(JRadioButton b : menu) {

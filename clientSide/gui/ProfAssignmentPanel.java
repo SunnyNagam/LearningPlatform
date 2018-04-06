@@ -10,5 +10,5 @@ import javax.swing.JPanel;
  *
  */
 public class ProfAssignmentPanel extends JPanel {
-
+	
 }
