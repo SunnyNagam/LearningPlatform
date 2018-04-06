@@ -382,7 +382,7 @@ class DBHelper implements DBHandler, format.Communicate {
 		String sql = "INSERT INTO " + tables[1] + " VALUES (?, ?, ?, ?);";
 		try {
 			statement = jdbc_connection.prepareStatement(sql);
-			statement.setInt(1, x.getCourseID());
+			statement.setInt(1, getRows(tables[1]));
 			statement.setString(2, x.getProfName());
 			statement.setString(3, x.getCourseName());
 			statement.setBoolean(4, x.isActive());
