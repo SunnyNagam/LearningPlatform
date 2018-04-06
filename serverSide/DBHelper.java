@@ -396,27 +396,28 @@ class DBHelper implements DBHandler, format.Communicate {
 	@Override
 	public void toggleEnroll(int studentID, int courseID) throws SQLException {
 		if (enrolled(studentID,courseID).first()) {
-//			String sql = "UPDATE " + tables[2] + "  ;";
-//			try {
-//				statement = jdbc_connection.prepareStatement(sql);
-//				statement.setInt(1, user.getId());
-//				statement.setString(2, user.getEmail());
-//				statement.setString(3, user.getFirstName());
-//				statement.setString(4, user.getLastName());
-//				statement.setString(5, pass);
-//				statement.setInt(6, user.getUserType());
-//				System.err.println(user.getUserType());
-//				statement.executeUpdate();
-//				jdbc_connection.commit();		// idk why this is needed but it just is and it took me a hour and a half to figure this out :(
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
+			String sql = "UPDATE " + tables[2] + " STUDENT_ID=?, COURSE_ID=?;";
+			
+				statement = jdbc_connection.prepareStatement(sql);
+				statement.setInt(1, studentID);
+				statement.setInt(2, courseID);
+		} else {
+			String sql = "INSERT INTO " + tables[2] + " SET (ID=?, STUDENT_ID=?, COURSE_ID=? );";
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(2, getRows(tables[2]));
+			statement.setInt(2, studentID);
+			statement.setInt(3, courseID);
 		}
-		
+		try {
+			statement.executeUpdate();
+			jdbc_connection.commit();		// idk why this is needed but it just is and it took me a hour and a half to figure this out :(
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	private ResultSet enrolled(int studentID, int courseID) {
 		try {
-			String sql = "SELECT * FROM EnrollmentChart WHERE STUDENT_ID=? AND COURSE_ID=?";
+			String sql = "SELECT * FROM " + tables[2] + " WHERE STUDENT_ID=? AND COURSE_ID=?";
 			
 			ResultSet set;
 			statement = jdbc_connection.prepareStatement(sql);
@@ -426,6 +427,16 @@ class DBHelper implements DBHandler, format.Communicate {
 			set = statement.executeQuery();
 			return set;
 		} catch(Exception e) { return null; }
+	}
+	private int getRows(String table_name) {
+		String sql = "SELECT * FROM " + table_name + ";";
+		int set = 0;
+		try {
+			set = statement.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return set;
 	}
 
 }
