@@ -24,6 +24,8 @@ public interface Communicate {
 	static final int CONNECTED	= 0x48;
 	static final int ENROLL		= 0x49;
 	static final int ENROLLED	= 0x50;
+	static final int SEARCH_STRING = 0x51;
+	static final int SEARCH_NAME = 0x52;
 	
 	// types
 	static final int INVALID	= -0x1;
@@ -46,5 +48,6 @@ public interface Communicate {
 	// program attributes
 	static final String PROGRAM_NAME = "Learning Platform";
 	static final int minCommand = 0x40, maxCommand = 0x50;
+	
 	
 }

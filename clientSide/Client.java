@@ -239,4 +239,30 @@ public class Client {
 		writeObject(file);
 	}
 
+	public ArrayList<String[]> searchId(int sKey) {
+		writeTag(Communicate.SEARCH_NAME);
+		write(sKey);
+		try {
+			return (ArrayList<String[]>) in.readObject();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public ArrayList<String[]> searchNm(String sKey) {
+		writeTag(Communicate.SEARCH_STRING);
+		write(sKey);
+		try {
+			return (ArrayList<String[]>) in.readObject();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

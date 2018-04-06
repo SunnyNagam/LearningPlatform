@@ -80,6 +80,12 @@ class Instance implements Runnable {
 		case Communicate.GET:
 			get();
 			break;
+		case Communicate.SEARCH_STRING:
+			searchNm();
+			break;
+		case Communicate.SEARCH_NAME:
+			searchId();
+			break;
 		case Communicate.TOGGLECOURSE:
 			refresh();
 			break;
@@ -98,6 +104,46 @@ class Instance implements Runnable {
 		case Communicate.DISCONNECT:
 			disconnect();
 			break;
+		}
+	}
+
+	private void searchId() {
+		try {
+			int key = in.readInt();
+			System.err.println("getting students from db");
+			ResultSet r = helper.search(Communicate.STUDENT, "ID", key);
+			System.err.println("writing students from db");
+
+			out.writeObject(parseRRUser(r));
+			out.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				out.writeObject(null);
+				out.flush();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
+
+	private void searchNm() {
+		try {
+			String key = in.readUTF();
+			System.err.println("getting students from db");
+			ResultSet r = helper.search(Communicate.STUDENT, "LAST_NAME", key);
+			System.err.println("writing students from db");
+
+			out.writeObject(parseRRUser(r));
+			out.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				out.writeObject(null);
+				out.flush();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 

@@ -32,6 +32,7 @@ public class StudentsPanel extends JPanel {
 	public DefaultListModel<User> students;
 	private JList<User> studentsList;
 	public JLabel title;
+	public SearchPanel searchPanel;
 	
 	//private JPanel display;
 	
@@ -49,8 +50,9 @@ public class StudentsPanel extends JPanel {
 		JScrollPane x = new JScrollPane(studentsList);
 		//x.setPreferredSize(new Dimension(300,200));
 		tmp.add(x);
-		
+		searchPanel = new SearchPanel();
 		add (tmp);
+		add ( searchPanel );
 		add (enrollButton());
 	}
 	
@@ -69,7 +71,7 @@ public class StudentsPanel extends JPanel {
 	}
 	
 	public void refreshData(ArrayList<String[]> set, Controller c) {
-		
+		//if (set == null) return;
 		System.err.println("Refreshing student data in gui");
 		try {
 			students.removeAllElements();

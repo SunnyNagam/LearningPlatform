@@ -191,6 +191,24 @@ class Professor extends User {
 				((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).refreshData(set);
 			}
 		});
+		//searchPanel stuff
+		SearchPanel s = ((StudentsPanel) c.gui.getPanels()[PanelList.STUDENTS]).searchPanel;
+		s.searchButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) { //search button
+				try {
+					String sKey = s.getKey();
+					ArrayList<String[]> set = new ArrayList<String[]>();
+					if (s.by().equals(SearchPanel.ID_STRING)) {
+						set =  c.client.searchId(Integer.parseInt(s.getKey())) ;
+					} else if (s.by().equals(SearchPanel.NAME_STRING)) {
+						set =  c.client.searchNm(sKey) ;
+					} else throw new Exception("Something is VERY wrong.\nPlease restart the program.");
+					((StudentsPanel) c.gui.getPanels()[PanelList.STUDENTS]).refreshData(set, c);
+				} catch (Exception ex) { c.gui.displayErrorMessage( ex.getMessage() ); }
+				
+			}	
+		});
 	}
 
 	private void uploadAssign(Controller c) {
