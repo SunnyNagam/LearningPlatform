@@ -8,14 +8,17 @@ public class Assignment implements Serializable {
 	private boolean active;
 	private String name;
 	private String path;
+	public int courseID, id;
 	private DropBox dropbox;
 	
 	public double getGradeFor(String name) {
 		return dropbox.getGrade(name);
 	}
-	public Assignment(String name, String path, boolean active) {
+	public Assignment(String name, String path, boolean active, int courseID, int id) {
 		this.name = name;
 		this.path = path;
+		this.courseID = courseID;
+		this.id = id;
 		this.active = active;
 		dropbox = new DropBox();
 	}

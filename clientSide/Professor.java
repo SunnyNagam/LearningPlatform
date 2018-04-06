@@ -142,10 +142,19 @@ class Professor extends User{
 						System.err.println("Upload assign action started");
 						//TODO UPLOAD
 						((ProfAssignmentPanel)c.gui.getPanels()[PanelList.ASSIGNMENTS]).uploadPanel.setVisible(true);
+					}
+				},
+						
+						new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						System.err.println("Toggle assign action started");
+						Assignment temp = ((ProfAssignmentPanel)c.gui.getPanels()[PanelList.ASSIGNMENTS]).assignmnetsList.getSelectedValue();
+						c.client.toggleAssignment(temp.id);
 						ArrayList<Assignment> set = c.client.getAssignments(c.selectedCourse);
 						((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).refreshData(set);
 					}
-				});
+				}		);
 		
 		//  students menu botton
 			c.gui.getMenu()[PanelList.STUDENTS].addActionListener(new ActionListener() {
@@ -185,6 +194,8 @@ class Professor extends User{
 				// add to db
 				f.setVisible(false);
 				f.clearInput();
+				ArrayList<Assignment> set = c.client.getAssignments(c.selectedCourse);
+				((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).refreshData(set);
 			}
 			
 		});

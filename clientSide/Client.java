@@ -220,4 +220,9 @@ public class Client {
 		return str;
 	}
 
+	public void toggleAssignment(int ID) {
+		writeTag(Communicate.ASSIGNMENT);
+		write(ID);
+	}
+
 }

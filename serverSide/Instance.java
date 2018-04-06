@@ -348,7 +348,7 @@ class Instance implements Runnable {
 		try {
 			while (r.next()) {
 				//nt(int type, String first, String last, String email, int id)
-				arr.add(new Assignment(r.getString("TITLE"),r.getString("PATH"),r.getBoolean("ACTIVE")));
+				arr.add(new Assignment(r.getString("TITLE"),r.getString("PATH"),r.getBoolean("ACTIVE"), r.getInt("COURSE_ID"), r.getInt("ID")));
 			}
 			System.err.println("Elements in set: "+arr.size());
 		} catch (SQLException e) {

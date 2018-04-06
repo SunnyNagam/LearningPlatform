@@ -25,9 +25,9 @@ import format.Assignment;
  *
  */
 public class ProfAssignmentPanel extends JPanel {
-	private JButton addB;
+	private JButton addB, toggleB;
 	public DefaultListModel<Assignment> assignments;
-	private JList<Assignment> assignmnetsList;
+	public JList<Assignment> assignmnetsList;
 	public InsertView uploadPanel;
 	
 	//private JPanel display;
@@ -57,10 +57,13 @@ public class ProfAssignmentPanel extends JPanel {
 		x.setLayout(new BoxLayout(x, BoxLayout.X_AXIS));
 		x.add(Box.createHorizontalGlue());
 		x.add(addB = new JButton("Upload"));
+		x.add(Box.createHorizontalGlue());
+		x.add(toggleB = new JButton("Toggle Active"));
 		return x;
 	}
-	public void addListen(ActionListener a) {
+	public void addListen(ActionListener a, ActionListener b) {
 		addB.addActionListener(a);
+		toggleB.addActionListener(b);
 	}
 	public void update() {
 		assignmnetsList.updateUI();
