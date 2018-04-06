@@ -150,6 +150,7 @@ class Professor extends User{
 					public void actionPerformed(ActionEvent e) {
 						System.err.println("Toggle assign action started");
 						Assignment temp = ((ProfAssignmentPanel)c.gui.getPanels()[PanelList.ASSIGNMENTS]).assignmnetsList.getSelectedValue();
+						if (temp == null) return;
 						c.client.toggleAssignment(temp.id);
 						ArrayList<Assignment> set = c.client.getAssignments(c.selectedCourse);
 						((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).refreshData(set);

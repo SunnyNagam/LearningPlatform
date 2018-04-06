@@ -24,6 +24,6 @@ public class Assignment implements Serializable {
 	}
 	@Override 
 	public String toString() {
-		return String.format("%11s %51s", (active?"Active":"Not Active"), name);
+		return String.format("%11s %51s %8d", (active?"Active":"Not Active"), name, id);
 	}
 }

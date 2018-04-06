@@ -76,9 +76,22 @@ class Instance implements Runnable {
 			break;
 		case Communicate.ENROLLED : enrolled();
 			break;
+		case Communicate.ASSIGNMENT : toggleAssignment();
+			break;
 		case Communicate.DISCONNECT : disconnect();
 			break;
 		}
+	}
+	private void toggleAssignment() {
+		int key;
+		try {
+			key = in.readInt();
+			helper.toggleAssActive(key);
+			
+		} catch (IOException | SQLException e) { e.printStackTrace(); 
+		} catch (Exception e) { e.printStackTrace(); }
+		
+		
 	}
 	private void login() {
 		try {

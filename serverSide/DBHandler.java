@@ -144,4 +144,21 @@ interface DBHandler {
 	 * @param id
 	 */
 	void toggleActive(int id);
+
+	/**
+	 * 
+	 * @param string
+	 * @param keyType
+	 * @param key
+	 * @return
+	 */
+	ResultSet search(String string, String keyType, int key) 
+			throws IOException, SQLException, Exception;
+
+	/**
+	 * 
+	 * @param key
+	 */
+	void toggleAssActive(int key)
+			throws IOException, SQLException, Exception;
 }

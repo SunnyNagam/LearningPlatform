@@ -33,7 +33,7 @@ class DBHelper implements DBHandler, format.Communicate {
 	
 
 	private static final String connectionInfo = "jdbc:mysql://localhost:3306/", SSLtag = "?useSSL=false",
-			login = "root", password = "rootpass"; // bacon if keenan, rootpass if sunny
+			login = "root", password = "bacon"; // bacon if keenan, rootpass if sunny
 
 	DBHelper() {
 		int attempts = 0;
@@ -234,6 +234,18 @@ class DBHelper implements DBHandler, format.Communicate {
 				+ keyType +" = "+key);
 		String sql = "SELECT * FROM " + parseTableType(tableType) + " WHERE " + 
 				keyType + "=" + "?";
+		//String sql = "SELECT * FROM " + parseTableType(tableType);
+		ResultSet set;
+		statement = jdbc_connection.prepareStatement(sql);
+		statement.setInt(1, key);
+		System.err.println(statement);
+		set = statement.executeQuery();
+		return set;
+	}
+	@Override
+	public ResultSet search(String tableType, String keyType, int key) throws IOException, SQLException, Exception {
+		System.err.println("Searching in table: "+ tableType + " where " + keyType +" = "+key);
+		String sql = "SELECT * FROM " + tableType + " WHERE " + keyType + "=" + "?";
 		//String sql = "SELECT * FROM " + parseTableType(tableType);
 		ResultSet set;
 		statement = jdbc_connection.prepareStatement(sql);
@@ -452,7 +464,33 @@ class DBHelper implements DBHandler, format.Communicate {
 	}
 	@Override
 	public void toggleActive(int id) {
-		String sql = "SELECT * FROM " + tables[1] + " WHERE ID=?";
+		 toggle(1, id);
+//		String sql = "SELECT * FROM " + tables[1] + " WHERE ID=?";
+//		try {
+//		ResultSet set;
+//		statement = jdbc_connection.prepareStatement(sql);
+//		statement.setInt(1, id);
+//		//System.err.println(statement);
+//		set = statement.executeQuery();
+//		System.err.println(statement);
+//		set.next();
+//		boolean b  = set.getBoolean("ACTIVE");
+//		
+//		sql = "UPDATE " + tables[1] + " SET ACTIVE=? WHERE ID=?;";
+//		statement = jdbc_connection.prepareStatement(sql);
+//		statement.setBoolean(1, !b);
+//		statement.setInt(2, id);
+//		statement.executeUpdate();
+//		jdbc_connection.commit();
+//		System.err.println(statement);
+//		} catch (Exception e) {e.printStackTrace();}
+	}
+	@Override
+	public void toggleAssActive(int key) throws IOException, SQLException, Exception {
+		 toggle(3, key);
+	}
+	private void toggle(int table, int id) {
+		String sql = "SELECT * FROM " + tables[table] + " WHERE ID=?";
 		try {
 		ResultSet set;
 		statement = jdbc_connection.prepareStatement(sql);
@@ -462,8 +500,9 @@ class DBHelper implements DBHandler, format.Communicate {
 		System.err.println(statement);
 		set.next();
 		boolean b  = set.getBoolean("ACTIVE");
+		System.err.println("original boolean = " + b);
 		
-		sql = "UPDATE " + tables[1] + " SET ACTIVE=? WHERE ID=?;";
+		sql = "UPDATE " + tables[table] + " SET ACTIVE=? WHERE ID=?;";
 		statement = jdbc_connection.prepareStatement(sql);
 		statement.setBoolean(1, !b);
 		statement.setInt(2, id);
