@@ -227,7 +227,7 @@ class DBHelper implements DBHandler, format.Communicate {
 		ResultSet set;
 		statement = jdbc_connection.prepareStatement(sql);
 		statement.setInt(1, key);
-		System.out.println(statement);
+		System.err.println(statement);
 		set = statement.executeQuery();
 		return set;
 	}

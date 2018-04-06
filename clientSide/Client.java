@@ -42,12 +42,12 @@ public class Client {
 			System.err.println(e.getMessage());
 		}
 	}
+
 	public int attemptLogin(String userName, String password) {
 		writeTag(Communicate.LOGIN);
 		try {
 			write(Integer.parseInt(userName));
-		}
-		catch(Exception ex) {
+		} catch (Exception ex) {
 			System.err.println("yikes");
 			write(Communicate.INVALID);
 		}
@@ -65,7 +65,7 @@ public class Client {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void write(int toWrite) {
 		try {
 			out.writeInt(toWrite);
@@ -74,7 +74,7 @@ public class Client {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void write(String toWrite) {
 		try {
 			out.writeUTF(toWrite);
@@ -83,7 +83,7 @@ public class Client {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public int readInt() {
 		try {
 			return in.readInt();
@@ -101,6 +101,7 @@ public class Client {
 			return false;
 		}
 	}
+
 	void communicate() {
 		try {
 			while (true) {
@@ -118,17 +119,19 @@ public class Client {
 	public void setIn(ObjectInputStream in) {
 		this.in = in;
 	}
-	
+
 	public ArrayList<Course> getCourses(int id) {
 		writeTag(Communicate.GET);
 		writeTag(Communicate.COURSE);
 		write(id);
 		try {
-			if (in.readInt() == Communicate.SYNC) {
-				ArrayList<Course> c = (ArrayList<Course>) in.readObject();
-				System.err.println("Client got "+c.size()+" courses from db");
-				return c;
-			}
+			Object o = in.readObject();
+			System.err.println("Got from server: "+o);
+			ArrayList<Course> c = (ArrayList<Course>) o;
+			System.err.println("Client got " + c.size() + " courses from db");
+			return c;
+		} catch (ClassCastException e) {
+			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -136,24 +139,24 @@ public class Client {
 		}
 		return null;
 	}
-	
-	public void addCourse(int id, String cName,String p_id, boolean b) {
+
+	public void addCourse(int id, String cName, String p_id, boolean b) {
 		writeTag(Communicate.SYNC);
 		writeObject(new Course(id, cName, p_id, b));
 	}
+
 	private void writeObject(Object toWrite) {
 		try {
-			out.reset();
 			out.writeObject(toWrite);
 			out.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+
 	public ArrayList<User> getStudents(int id) {
 		writeTag(Communicate.GET);
 		writeTag(Communicate.STUDENT);
-		write(id);
 		try {
 			return (ArrayList<User>) in.readObject();
 		} catch (ClassNotFoundException e) {

@@ -59,7 +59,7 @@ class Instance implements Runnable {
 				System.err.println("Got command: "+tag);
 				parseTag(tag);
 			}
-		} catch (IOException e) { System.err.println(e.getMessage()); }
+		} catch (IOException e) { e.printStackTrace(); }
 	}
 	private void parseTag(int tag) throws IOException {
 		switch (tag) {
@@ -114,8 +114,8 @@ class Instance implements Runnable {
 			System.err.println("getting type "+ type);
 			get(type);
 			
-			int status = (true) ? Communicate.DB_SUCCESS : Communicate.DB_ERROR;
-			out.writeInt(status);
+			//int status = (true) ? Communicate.DB_SUCCESS : Communicate.DB_ERROR;
+			//out.writeInt(status);
 			//write object (cases) 
 		
 		} catch (IOException e) {}
@@ -123,6 +123,8 @@ class Instance implements Runnable {
 	}
 	private void get(int tag) {
 		switch (tag) {
+		case Communicate.STUDENT: getStudent();
+			break;
 		case Communicate.COURSE: getCourses();
 			break;
 		case Communicate.EMAIL : emailResponse();
@@ -140,17 +142,33 @@ class Instance implements Runnable {
 			ResultSet r = helper.search(Communicate.COURSE, "PROF_ID", key );
 			System.err.println("writing courses from db");
 			
-			out.writeInt(Communicate.SYNC);
-			out.reset();
 			out.writeObject( parseRR(r) );
 			out.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
 			try {
-				out.writeObject(null);
+				out.writeObject( null );
+				out.flush();
 			} catch (IOException e1) { e1.printStackTrace(); }
 		}
 	}
+	private void getStudent() {
+		try {
+			System.err.println("getting students from db");
+			ResultSet r = helper.search(Communicate.STUDENT, "TYPE", 8 );
+			System.err.println("writing students from db");
+			
+			out.writeObject( parseRR(r) );
+			out.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				out.writeObject( null );
+				out.flush();
+			} catch (IOException e1) { e1.printStackTrace(); }
+		}
+	}
+	
 	private void messageResponse() {
 		// read message
 		
