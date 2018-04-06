@@ -118,12 +118,25 @@ class Instance implements Runnable {
 	}
 	private void get(int tag) {
 		switch (tag) {
+		case Communicate.COURSE: getCourses();
+			break;
 		case Communicate.EMAIL : emailResponse();
 			break;
 		case Communicate.FILE : fileResponse();
 			break;
 		case Communicate.MESSAGE : messageResponse();
 			break;
+		}
+	}
+	private void getCourses() {
+		try {
+			int key = in.readInt();
+			ResultSet r = helper.search(Communicate.COURSE, Communicate.PROFESSOR, String.valueOf(key) );
+			out.writeObject(r);
+		} catch (Exception e) {
+			try {
+				out.writeObject(null);
+			} catch (IOException e1) { e1.printStackTrace(); }
 		}
 	}
 	private void messageResponse() {

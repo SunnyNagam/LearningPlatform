@@ -33,6 +33,6 @@ public class Course {
 	}
 	@Override 
 	public String toString() {
-		return String.format("%9s%9s%51s%b", courseID, courseName, profName, active);
+		return String.format("%b%9s%51s", active, courseName, profName);
 	}
 }

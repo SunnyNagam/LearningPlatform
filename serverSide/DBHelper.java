@@ -5,6 +5,8 @@ package serverSide;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -52,6 +54,9 @@ class DBHelper implements DBHandler, format.Communicate {
 				jdbc_connection.setAutoCommit(false);
 				System.out.println("Connected to: " + connectionInfo + dbName + SSLtag + "\n");
 				attempts = MAX_ATTEMPTS + 1;
+				if (!makeDirPath(tables[3])) {System.err.println("Could Not Create Submission Directory.");}
+				if (!makeDirPath(tables[4])) {System.err.println("Could Not Create Assignment Directory.");}
+
 			} catch (SQLException e) {
 				attempts++;
 				System.err.println("No database, attempting to create one.");
@@ -64,6 +69,13 @@ class DBHelper implements DBHandler, format.Communicate {
 				e.printStackTrace();
 			}
 		}
+	}
+	private boolean makeDirPath(String folder) {
+		boolean fDir = false;
+		int fileTries = 0;
+		while (!fDir && fileTries++ < MAX_ATTEMPTS + 1)
+			fDir = (new File("../" + folder)).mkdirs();
+		return fDir;
 	}
 
 	/**
@@ -307,6 +319,8 @@ class DBHelper implements DBHandler, format.Communicate {
 
 	@Override
 	public void storeFile(Submission s, File f) throws IOException, SQLException {
+		Path currentRelativePath = Paths.get("");
+		String path = currentRelativePath.toAbsolutePath().toString();
 		
 		
 	}
