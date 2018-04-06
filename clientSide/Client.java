@@ -193,4 +193,12 @@ public class Client {
 		write(courseID);
 	}
 
+	public boolean inSelectedCourse(User usr,int selectedCourse) {
+		writeTag(Communicate.ENROLLED);
+		write(usr.id);
+		write(selectedCourse);
+		boolean t = readBoolean();
+		return t;
+	}
+
 }

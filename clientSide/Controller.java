@@ -22,8 +22,8 @@ import format.Course;
  * @author keenangaudio
  *
  */
-class Controller {
-	Client client;
+public class Controller {
+	public Client client;
 	User user;
 	public int selectedCourse = -1;
 	UserView gui;

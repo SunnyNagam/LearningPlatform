@@ -114,18 +114,20 @@ class Professor extends User{
 			}
 		});
 		
-		// add functionaliity to button in students panel
+		// add functionaliity to ENROLL button in students panel
 		((StudentsPanel)c.gui.getPanels()[PanelList.STUDENTS]).addListen(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.err.println("Students enroll action started");
 				Student stu;
-				if ((stu = ((StudentsPanel) c.gui.getPanels()[PanelList.STUDENTS]).getSelectedStudent()) != null)
+				if ((stu = ((StudentsPanel) c.gui.getPanels()[PanelList.STUDENTS]).getSelectedStudent()) != null) {
+					//stu.currentCourse(c.selectedCourse);
 					c.client.toggleEnroll(stu, c.selectedCourse);
+				}
 				
 				ArrayList<String[]>  set = c.client.getStudents(c.user.id);
 				System.err.println("Got responce set from db. "+set.size());
-				((StudentsPanel)c.gui.getPanels()[PanelList.STUDENTS]).refreshData(set);
+				((StudentsPanel)c.gui.getPanels()[PanelList.STUDENTS]).refreshData(set, c);
 			}
 		});
 		
@@ -148,7 +150,7 @@ class Professor extends User{
 					System.err.println("Students menu action started");
 					ArrayList<String[]>  set = c.client.getStudents(c.user.id);
 					System.err.println("Got responce set from db. "+set.size());
-					((StudentsPanel)c.gui.getPanels()[PanelList.STUDENTS]).refreshData(set);
+					((StudentsPanel)c.gui.getPanels()[PanelList.STUDENTS]).refreshData(set,c);
 				}
 			});
 			

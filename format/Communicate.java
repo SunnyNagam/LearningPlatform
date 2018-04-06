@@ -23,7 +23,7 @@ public interface Communicate {
 	static final int DISCONNECT	= 0x47;
 	static final int CONNECTED	= 0x48;
 	static final int ENROLL		= 0x49;
-	static final int UNENROLL	= 0x50;
+	static final int ENROLLED	= 0x50;
 	
 	// types
 	static final int INVALID	= -0x1;

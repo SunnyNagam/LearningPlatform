@@ -33,7 +33,7 @@ class DBHelper implements DBHandler, format.Communicate {
 	
 
 	private static final String connectionInfo = "jdbc:mysql://localhost:3306/", SSLtag = "?useSSL=false",
-			login = "root", password = "rootpass"; // bacon if keenan, rootpass if sunny
+			login = "root", password = "bacon"; // bacon if keenan, rootpass if sunny
 
 	DBHelper() {
 		int attempts = 0;
@@ -51,7 +51,7 @@ class DBHelper implements DBHandler, format.Communicate {
 				attempts = MAX_ATTEMPTS + 1;
 				if (!makeDirPath(tables[3])) {System.err.println("Could Not Create Assignment Directory.");}
 				if (!makeDirPath(tables[4])) {System.err.println("Could Not Create Submission Directory.");}
-
+				
 			} catch (SQLException e) {
 				attempts++;
 				System.err.println("No database, attempting to create one.");
@@ -64,6 +64,7 @@ class DBHelper implements DBHandler, format.Communicate {
 				e.printStackTrace();
 			}
 		}
+		enrollCount = getRows(tables[2]);
 	}
 	private boolean makeDirPath(String folder) {
 		boolean fDir = false;
@@ -256,7 +257,7 @@ class DBHelper implements DBHandler, format.Communicate {
 			return tables[1];
 
 		case Communicate.ENROLL:
-		case Communicate.UNENROLL:
+		case Communicate.ENROLLED:
 			return tables[2];
 
 		case Communicate.FILE:
@@ -420,7 +421,8 @@ class DBHelper implements DBHandler, format.Communicate {
 			e.printStackTrace();
 		}
 	}
-	private ResultSet enrolled(int studentID, int courseID) {
+	@Override
+	public ResultSet enrolled(int studentID, int courseID) {
 		try {
 			String sql = "SELECT * FROM " + tables[2] + " WHERE STUDENT_ID=? AND COURSE_ID=?";
 			
@@ -437,6 +439,7 @@ class DBHelper implements DBHandler, format.Communicate {
 		String sql = "SELECT COUNT(*) FROM " + table_name + ";";
 		int set = 0;
 		try {
+			statement = jdbc_connection.prepareStatement(sql);
 			ResultSet setq = statement.executeQuery(sql);
 			setq.next();
 			set = setq.getInt(1);
@@ -467,7 +470,6 @@ class DBHelper implements DBHandler, format.Communicate {
 		jdbc_connection.commit();
 		System.err.println(statement);
 		} catch (Exception e) {e.printStackTrace();}
-		
 	}
 
 }

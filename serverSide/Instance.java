@@ -74,6 +74,8 @@ class Instance implements Runnable {
 			break;
 		case Communicate.ENROLL : enroll();
 			break;
+		case Communicate.ENROLLED : enrolled();
+			break;
 		case Communicate.DISCONNECT : disconnect();
 			break;
 		}
@@ -108,14 +110,18 @@ class Instance implements Runnable {
 		catch (SQLException e) { e.printStackTrace(); } 
 		catch (Exception e) { e.printStackTrace(); }
 	}
-	//writeTag(Communicate.ENROLL);
-	//write(stu.id);
-	//write(courseID);
 	private void enroll() {
 		try {
 			int studentID = in.readInt();
 			int courseID = in.readInt();
 			helper.toggleEnroll(studentID, courseID);
+		} catch (IOException | SQLException e) { e.printStackTrace(); }
+	}
+	private void enrolled() {
+		try {
+			int studentID = in.readInt();
+			int courseID = in.readInt();
+			out.writeBoolean(helper.enrolled(studentID, courseID).first());
 		} catch (IOException | SQLException e) { e.printStackTrace(); }
 	}
 	private void get() throws IOException {

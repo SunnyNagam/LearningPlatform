@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 import format.Course;
 import clientSide.Student;
 import clientSide.User;
+import clientSide.Controller;
 
 /**
  * @author keenangaudio, sunnynagam
@@ -65,7 +66,7 @@ public class StudentsPanel extends JPanel {
 		studentsList.updateUI();
 	}
 	
-	public void refreshData(ArrayList<String[]> set) {
+	public void refreshData(ArrayList<String[]> set, Controller c) {
 		
 		System.err.println("Refreshing student data in gui");
 		try {
@@ -73,6 +74,7 @@ public class StudentsPanel extends JPanel {
 			for(int x=0; x< set.size(); x++) {
 				String[] arr = set.get(x);
 				User stud = new Student(Integer.parseInt(arr[0]),arr[1],arr[2],arr[3], Integer.parseInt(arr[4]));
+				stud.currentCourse(c.client.inSelectedCourse(stud, c.selectedCourse));
 				students.addElement(stud);
 				System.err.println("Adding: "+students.get(x)+", ID: "+set.get(x)[4]);
 			}
