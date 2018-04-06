@@ -28,8 +28,11 @@ public abstract class User implements PanelList, Serializable{
 	
 	@Override 
 	public String toString() {
-		return String.format("%11d %13s %13s" + 
+		return String.format("%11d %13s %13s " + 
 				((SelectedCourse==-1)?"":String.valueOf(SelectedCourse)), id, firstName, lastName);
+	}
+	public void currentCourse(int c_ID) {
+		SelectedCourse = c_ID;
 	}
 	
 	abstract JPanel[] instantiatePanels();
