@@ -17,6 +17,14 @@ class Professor extends User{
 		
 	}
 	
+	public Professor(int type, String first, String last, String email, int id) {
+		this.userType = type;
+		this.firstName = first;
+		this.lastName = last;
+		this.email = email;
+		this.id = id;
+	}
+	
 	@Override
 	JPanel[] instantiatePanels() {
 		JPanel[] tmp = new JPanel[PanelList.ARRAY_SIZE]; 
@@ -84,7 +92,7 @@ class Professor extends User{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					System.err.println("Students menu action started");
-					ArrayList<User>  set = c.client.getStudents(c.user.id);
+					ArrayList<String[]>  set = c.client.getStudents(c.user.id);
 					System.err.println("Got responce set from db. "+set.size());
 					((StudentsPanel)c.gui.getPanels()[PanelList.STUDENTS]).refreshData(set);
 				}

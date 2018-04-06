@@ -142,7 +142,7 @@ class Instance implements Runnable {
 			ResultSet r = helper.search(Communicate.COURSE, "PROF_ID", key );
 			System.err.println("writing courses from db");
 			
-			out.writeObject( parseRR(r) );
+			out.writeObject( parseRRCourse(r) );
 			out.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -158,7 +158,7 @@ class Instance implements Runnable {
 			ResultSet r = helper.search(Communicate.STUDENT, "TYPE", 8 );
 			System.err.println("writing students from db");
 			
-			out.writeObject( parseRR(r) );
+			out.writeObject( parseRRUser(r) );
 			out.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -248,11 +248,24 @@ class Instance implements Runnable {
 		} catch(ClassCastException e) {}
 		return (check == Communicate.DISCONNECT);
 	}
-	private ArrayList<Course> parseRR (ResultSet r) {
+	private ArrayList<Course> parseRRCourse (ResultSet r) {
 		ArrayList<Course> arr = new ArrayList<Course>();
 		try {
 			while (r.next()) {
 				arr.add(Course.castRR(r));
+			}
+			System.err.println("Elements in set: "+arr.size());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return arr;
+	}
+	private ArrayList<String[]> parseRRUser (ResultSet r) {
+		ArrayList<String[]> arr = new ArrayList<String[]>();
+		try {
+			while (r.next()) {
+				//nt(int type, String first, String last, String email, int id)
+				arr.add(new String[] {String.valueOf(r.getInt("TYPE")),r.getString("FIRST_NAME"),r.getString("LAST_NAME"),r.getString("EMAIL"),String.valueOf(r.getInt("ID"))});
 			}
 			System.err.println("Elements in set: "+arr.size());
 		} catch (SQLException e) {

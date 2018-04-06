@@ -154,17 +154,17 @@ public class Client {
 		}
 	}
 
-	public ArrayList<User> getStudents(int id) {
+	public ArrayList<String[]> getStudents(int id) {
 		writeTag(Communicate.GET);
 		writeTag(Communicate.STUDENT);
 		try {
-			return (ArrayList<User>) in.readObject();
+			return (ArrayList<String[]>) in.readObject();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return new ArrayList<User>();
+		return null;
 	}
 
 }
