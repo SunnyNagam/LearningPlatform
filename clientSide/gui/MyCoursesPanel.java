@@ -22,7 +22,7 @@ import format.*;
  *
  */
 public class MyCoursesPanel extends JPanel {
-	private JButton createNew;
+	private JButton createNew, toggleB;
 	public DefaultListModel<Course> myCourses;
 	public JList<Course> courseList;
 	
@@ -44,12 +44,16 @@ public class MyCoursesPanel extends JPanel {
 		add( setup() );
 		//maybe add grades here
 	}
-	public void profTools(ActionListener a) {
+	public void profTools(ActionListener a, ActionListener b) {
 		add( setup() );
 		System.err.println("Creating profTools.");
 		createNew = new JButton( "Create new Course" );
 		createNew.addActionListener(a);
 		add( createNew, BorderLayout.SOUTH );
+		
+		toggleB = new JButton( "Toggle Active" );
+		toggleB.addActionListener(b);
+		add( toggleB, BorderLayout.SOUTH );
 	}
 	
 	public void refreshData(ArrayList<Course> set) {

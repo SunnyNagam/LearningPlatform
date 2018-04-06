@@ -167,4 +167,9 @@ public class Client {
 		return null;
 	}
 
+	public void toggleCourse(int selectedCourse) {
+		writeTag(Communicate.TOGGLECOURSE);
+		write(selectedCourse);
+	}
+
 }
