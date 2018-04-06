@@ -1,12 +1,14 @@
 package format;
 
+import java.nio.file.Path;
 import java.time.LocalDate;
 
 public class Submission {
 	private String submitter;
-	private String submissionPath;
+	private Path submissionPath;
 	private double grade;
 	private LocalDate submissionDate;
+	
 	public double getGrade() {
 		return grade;
 	}
@@ -19,4 +21,5 @@ public class Submission {
 	public void setSubmitter(String submitter) {
 		this.submitter = submitter;
 	}
+	
 }
