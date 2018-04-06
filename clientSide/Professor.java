@@ -129,6 +129,18 @@ class Professor extends User{
 			}
 		});
 		
+		// add functionaliity to button in profassignment panel
+				((ProfAssignmentPanel)c.gui.getPanels()[PanelList.ASSIGNMENTS]).addListen(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						System.err.println("Upload assign action started");
+						//TODO UPLOAD
+						
+						ArrayList<Assignment> set = c.client.getAssignments(c.selectedCourse);
+						((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).refreshData(set);
+					}
+				});
+		
 		//  students menu botton
 			c.gui.getMenu()[PanelList.STUDENTS].addActionListener(new ActionListener() {
 				@Override

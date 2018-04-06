@@ -4,8 +4,10 @@
 package clientSide.gui;
 
 import java.awt.Font;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -44,8 +46,18 @@ public class ProfAssignmentPanel extends JPanel {
 		tmp.add(x);
 		
 		add(tmp);
+		add (addButton());
 	}
-	
+	private JPanel addButton() {
+		JPanel x = new JPanel();
+		x.setLayout(new BoxLayout(x, BoxLayout.X_AXIS));
+		x.add(Box.createHorizontalGlue());
+		x.add(addB = new JButton("Upload"));
+		return x;
+	}
+	public void addListen(ActionListener a) {
+		addB.addActionListener(a);
+	}
 	public void update() {
 		assignmnetsList.updateUI();
 	}
