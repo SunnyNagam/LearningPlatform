@@ -108,8 +108,15 @@ class Instance implements Runnable {
 		catch (SQLException e) { e.printStackTrace(); } 
 		catch (Exception e) { e.printStackTrace(); }
 	}
+	//writeTag(Communicate.ENROLL);
+	//write(stu.id);
+	//write(courseID);
 	private void enroll() {
-		
+		try {
+			int studentID = in.readInt();
+			int courseID = in.readInt();
+			helper.toggleEnroll(studentID, courseID);
+		} catch (IOException | SQLException e) { e.printStackTrace(); }
 	}
 	private void get() throws IOException {
 		try {
