@@ -106,7 +106,44 @@ class DBHelper implements DBHandler, format.Communicate {
 		createSubTable(tables[4]);
 		createGradeTable(tables[5]);
 	}
-
+	private String parseTableType(int type) {
+		switch (type) {
+		case Communicate.PROFESSOR :
+		case Communicate.STUDENT :
+			return tables[0];
+		case Communicate.COURSE :
+			return tables[1];
+		case Communicate.ENROLL :
+			return tables[2];
+		case Communicate.ASSIGNMENT :
+			return tables[3];
+		case Communicate.SUBMISSION :
+			return tables[4];
+		case Communicate.GRADES :
+			return tables[5];
+		default : ;
+		}
+		return tables[0];
+	}
+	private int parseTableInt(int type) {
+		switch (type) {
+		case Communicate.PROFESSOR :
+		case Communicate.STUDENT :
+			return 0;
+		case Communicate.COURSE :
+			return 1;
+		case Communicate.ENROLL :
+			return 2;
+		case Communicate.ASSIGNMENT :
+			return 3;
+		case Communicate.SUBMISSION :
+			return 4;
+		case Communicate.GRADES :
+			return 5;
+		default : ;
+		}
+		return 0;
+	}
 	/**
 	 * @see serverSide.DBHandler#removeDB()
 	 */
@@ -131,10 +168,10 @@ class DBHelper implements DBHandler, format.Communicate {
 	 */
 	public void printTable(int tableType) {
 		try {
-			String sql = "SELECT * FROM " + tables[tableType];
+			String sql = "SELECT * FROM " + parseTableType(tableType);
 			statement = jdbc_connection.prepareStatement(sql);
 			ResultSet set = statement.executeQuery();
-			System.out.println(tables[tableType]+":");
+			System.out.println(parseTableType(tableType)+":");
 			while (set.next()) {
 				System.out.println(String.format("%8d",set.getInt("ID")) + " " + set.getString("PASSWORD"));
 			}
@@ -164,7 +201,8 @@ class DBHelper implements DBHandler, format.Communicate {
 	 *  TODO key might not always be a string!
 	 */
 	public ResultSet search(int tableType, int keyType, String key) throws IOException, SQLException, Exception {
-		String sql = "SELECT * FROM " + tables[tableType] + " WHERE " + keys[tableType][keyType] + "=" + "?";
+		String sql = "SELECT * FROM " + parseTableType(tableType) + " WHERE " + 
+				keys[parseTableInt(tableType)][parseTableInt(keyType)] + "=" + "?";
 		ResultSet set;
 		statement = jdbc_connection.prepareStatement(sql);
 		statement.setString(1, key);
@@ -179,8 +217,10 @@ class DBHelper implements DBHandler, format.Communicate {
 	}
 	@Override
 	public ResultSet search(int tableType, int keyType, int key) throws IOException, SQLException, Exception {
-		String sql = "SELECT * FROM " + tables[tableType] + " WHERE " + keys[tableType][keyType] + "=" + "?";
-		//String sql = "SELECT * FROM " + tables[tableType];
+		System.err.println(tableType);
+		String sql = "SELECT * FROM " + parseTableType(tableType) + " WHERE " + 
+				keys[parseTableInt(tableType)][parseTableInt(keyType)] + "=" + "?";
+		//String sql = "SELECT * FROM " + parseTableType(tableType);
 		ResultSet set;
 		statement = jdbc_connection.prepareStatement(sql);
 		statement.setInt(1, key);

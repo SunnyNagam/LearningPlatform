@@ -47,7 +47,7 @@ public class MyCoursesPanel extends JPanel {
 	
 	public void refreshData(ArrayList<Course> set) {
 		try {
-			for(int x=0; x< set.size(); x++) {
+			for(int x = 0; x < set.size(); x++) {
 				myCourses.addElement(set.get(x));
 			}
 		}
