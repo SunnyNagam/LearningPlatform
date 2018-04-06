@@ -111,9 +111,9 @@ class Professor extends User{
 		((MyCoursesPanel)c.gui.getPanels()[PanelList.MY_COURSES]).courseList.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				Course n = ((Course) ((MyCoursesPanel)c.gui.getPanels()[PanelList.MY_COURSES]).courseList.getSelectedValue());
-				c.gui.selectedCourse.setText(c.selectedCourse==-1?"Select A Course":String.valueOf("Selected: "+c.selectedCourse));
 				c.selectedCourse = n.getCourseID();
 				c.selectedName = n.getCourseName();
+				c.gui.selectedCourse.setText(c.selectedCourse == -1?"Select A Course":String.valueOf("Selected: "+c.selectedName));
 				System.err.println("Course selected = "+c.selectedCourse);
 			}
 		});
