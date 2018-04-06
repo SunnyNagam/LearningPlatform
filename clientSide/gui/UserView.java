@@ -69,7 +69,7 @@ public class UserView extends JFrame {
 		
 		setBackground(new Color(204, 255, 153));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 650, 600);
 		
 		outerPane = new JPanel();
 		outerPane.setLayout(new BorderLayout());
