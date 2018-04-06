@@ -16,7 +16,7 @@ public interface Communicate {
 	static final int DB_ERROR	= 0x40;
 	static final int DB_SUCCESS	= 0x41;
 	
-	static final int REFRESH	= 0x43;
+	static final int TOGGLECOURSE	= 0x43;
 	static final int LOGIN 		= 0x44;
 	static final int GET		= 0x45;
 	static final int SYNC		= 0x46;

@@ -67,9 +67,11 @@ class Instance implements Runnable {
 			break;
 		case Communicate.GET : get();
 			break;
-		case Communicate.REFRESH : refresh();
+		case Communicate.TOGGLECOURSE : refresh();
 			break;
 		case Communicate.SYNC : sync();
+			break;
+		case Communicate.ENROLL : enroll();
 			break;
 		case Communicate.DISCONNECT : disconnect();
 			break;
@@ -104,6 +106,9 @@ class Instance implements Runnable {
 		catch (IOException e) { e.printStackTrace(); } 
 		catch (SQLException e) { e.printStackTrace(); } 
 		catch (Exception e) { e.printStackTrace(); }
+	}
+	private void enroll() {
+		
 	}
 	private void get() throws IOException {
 		try {
@@ -208,7 +213,7 @@ class Instance implements Runnable {
 		
 		//give file to model
 	}
-	private void refresh() { // maybe unnecessary
+	private void refresh() { // actually toggle active
 		//read type
 		
 		//read object
