@@ -6,6 +6,7 @@ package clientSide.gui;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -44,10 +45,10 @@ public class MyCoursesPanel extends JPanel {
 		add( createNew, BorderLayout.SOUTH );
 	}
 	
-	public void refreshData(ResultSet set) {
+	public void refreshData(ArrayList<Course> set) {
 		try {
-			while(set.next()) {
-				myCourses.addElement(new Course(set.getInt("ID"), set.getString("NAME"), set.getString("PROF"), set.getBoolean("ACTIVE")));
+			for(int x=0; x< set.size(); x++) {
+				myCourses.addElement(set.get(x));
 			}
 		}
 		catch (Exception e) {

@@ -1,5 +1,6 @@
 package format;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,7 +10,8 @@ import java.util.ArrayList;
  * @author sunnynagam, keenangaudio
  *
  */
-public class Course {
+public class Course implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private int courseID;
 	private String courseName;
 	private String profName;
