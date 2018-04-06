@@ -1,5 +1,10 @@
 package clientSide;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import clientSide.gui.*;
@@ -39,14 +44,31 @@ class Professor extends User{
 	private JPanel createMyCourses() {
 		JPanel tmp = new MyCoursesPanel();
 		//include the 'create course' button
-		
 		return tmp;
 	}
 
 	@Override
 	void assignButtons(Controller c) {
-		// TODO Auto-generated method stub
-		
+		((MyCoursesPanel)c.gui.getPanels()[PanelList.MY_COURSES]).profTools(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// create a course 
+				String cName = JOptionPane.showInputDialog("Enter the new course name: ");
+				c.client.addCourse(c.user.id, cName, false);
+				
+				ResultSet set = c.client.getCourses(c.user.id);
+				((MyCoursesPanel)c.gui.getPanels()[PanelList.MY_COURSES]).refreshData(set);
+			}
+			
+		});
+		c.gui.getMenu()[PanelList.MY_COURSES].addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ResultSet set = c.client.getCourses(c.user.id);
+				((MyCoursesPanel)c.gui.getPanels()[PanelList.MY_COURSES]).refreshData(set);
+			}
+		});
 	}
 	
 }

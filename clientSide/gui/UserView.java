@@ -1,31 +1,19 @@
 package clientSide.gui;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import clientSide.Client;
 import format.Communicate;
 import format.Course;
 
-import javax.swing.JSplitPane;
-import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
-import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Font;
 import javax.swing.JPopupMenu;
 import javax.swing.JRadioButton;
 
@@ -44,6 +32,10 @@ public class UserView extends JFrame {
 	private JPanel contentPane;
 	private LoginPanel loginPanel;
 	private JPanel[] panels;
+	public JPanel[] getPanels() {
+		return panels;
+	}
+
 	private JRadioButton[] menu;
 	private ActionListener menuListener;
 	public int[] keyEvents = {KeyEvent.VK_0,KeyEvent.VK_1,KeyEvent.VK_2,KeyEvent.VK_3,
@@ -122,7 +114,7 @@ public class UserView extends JFrame {
 
 	public void switchWindow(int index) {
 		if (index >= 0 && index < PanelList.ARRAY_SIZE) {
-			try {
+			try {								
 				outerPane.remove(contentPane);
 			} catch (NullPointerException e) {}
 			contentPane = panels[index];
@@ -160,11 +152,16 @@ public class UserView extends JFrame {
 		}
 		return menuPanel;
 	}
+	public JRadioButton[] getMenu() {
+		return menu;
+	}
+
 	public void addPanels(JPanel[] p) {
 		panels = new JPanel[p.length];
 		for(int i = 0; i < p.length; i++)
 			panels[i] = p[i];
 	}
+	
 	private void createMenuButtons(int type) {
 		instanciateButton(PanelList.MY_COURSES, type);
 	    menu[PanelList.MY_COURSES].setSelected(true);
@@ -174,11 +171,12 @@ public class UserView extends JFrame {
 	    
 	    ButtonGroup g = new ButtonGroup();
 	    for(JRadioButton b : menu) {
-	    	if(b == null) continue; // not all panels are used?
-	    	g.add( b );
-	    	b.addActionListener(menuListener);
+	    		if(b == null) continue; // not all panels are used?
+	    		g.add( b );
+	    		b.addActionListener(menuListener);
 	    }
 	}
+	
 	private void instanciateButton(int key, int type) {
 		String label = PanelList.AT[key];
 		if (key == PanelList.STUDENTS)
@@ -186,9 +184,10 @@ public class UserView extends JFrame {
 			
 		menu[key] = new JRadioButton(label);
 		if (key <= 9) menu[key].setMnemonic(keyEvents[key]);
-		menu[key].setActionCommand(label);
+		menu[key].setActionCommand(PanelList.AT[key]);		//unshortened label
 		menu[key].setSelected(false);
 	}
+	
 	private void setupMListener() {
 		menuListener = new ActionListener() {
 			@Override
@@ -198,6 +197,7 @@ public class UserView extends JFrame {
 			}
 		};
 	}
+	
 	private int parse (String s) {
 		for(int i = 0; i < PanelList.ARRAY_SIZE; i++)
 			if (s.equals(PanelList.AT[i])) return i;

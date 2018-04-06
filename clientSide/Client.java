@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.sql.ResultSet;
 
 import format.Communicate;
 
@@ -116,6 +117,25 @@ public class Client {
 
 	public void setIn(ObjectInputStream in) {
 		this.in = in;
+	}
+	
+	public ResultSet getCourses(int id) {
+		writeTag(Communicate.GET);
+		writeTag(Communicate.COURSE);
+		write(id);
+		try {
+			return (ResultSet) in.readObject();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public void addCourse(int id, String cName, boolean b) {
+		writeTag(Communicate.SYNC);
+		writeTag(Communicate.COURSE);
 	}
 
 }

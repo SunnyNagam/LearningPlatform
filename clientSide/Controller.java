@@ -33,6 +33,7 @@ class Controller {
 	private void login () {
 		gui.setVisible(true);
 		LoginPanel pan = gui.getLoginPanel();
+		
 		pan.getSub().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -40,11 +41,11 @@ class Controller {
 				String password = pan.getPass();
 				
 				int type = client.attemptLogin(userName, password);
-				System.err.println("here");
+				 
 				if(type == Communicate.INVALID) gui.displayErrorMessage("Invalid Credentials");
 				else {
 					clientType = type;
-					//gui.displayErrorMessage("YASSS");	// for now
+					
 					setupClient(type, userName);
 					
 				}
@@ -61,10 +62,13 @@ class Controller {
 			gui.displayErrorMessage("Fatal error.");
 			System.exit(-1);
 		}
+		
+		user.id = Integer.parseInt(name);
+		
 		gui.addPanels( user.instantiatePanels() );
-		user.assignButtons(this);
 		System.err.println("setupClient()");
 		gui.initializeView(name, type);
+		user.assignButtons(this);
 		gui.paintAll(gui.getGraphics());
 		//gui.switchWindow(PanelList.MY_COURSES);
 	}
@@ -86,6 +90,8 @@ class Controller {
 			Client client = new Client(name, port);	
 			System.out.println("The client is " + ((client.connected)?"":"not ") + "connected to"
 					+ " server " + name + " on port " + port);
+			
+			if(!client.connected) System.exit(-1);
 			
 			client.communicate();
 			Controller c = new Controller(client);
