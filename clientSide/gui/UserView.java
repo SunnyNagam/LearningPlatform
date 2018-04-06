@@ -87,7 +87,7 @@ public class UserView extends JFrame {
 		
 	}
 
-	public LoginPanel addLoginFunctionality() {
+	public LoginPanel getLoginPanel() {
 		LoginPanel pan = ((LoginPanel)loginPanel);
 		return pan;
 	}
@@ -122,7 +122,9 @@ public class UserView extends JFrame {
 
 	public void switchWindow(int index) {
 		if (index >= 0 && index < PanelList.ARRAY_SIZE) {
-			outerPane.remove(contentPane);
+			try {
+				outerPane.remove(contentPane);
+			} catch (NullPointerException e) {}
 			contentPane = panels[index];
 			outerPane.add (contentPane);
 			System.out.println("Switched.");

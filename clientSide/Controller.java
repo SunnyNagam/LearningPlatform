@@ -32,7 +32,7 @@ class Controller {
 	}
 	private void login () {
 		gui.setVisible(true);
-		LoginPanel pan = gui.addLoginFunctionality();
+		LoginPanel pan = gui.getLoginPanel();
 		pan.getSub().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
