@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import format.Assignment;
 import format.Communicate;
 import format.Course;
 
@@ -136,6 +137,8 @@ class Instance implements Runnable {
 			break;
 		case Communicate.FILE : fileResponse();
 			break;
+		case Communicate.ASSIGNMENT: getAssignment();
+			break;
 		case Communicate.MESSAGE : messageResponse();
 			break;
 		}
@@ -164,6 +167,24 @@ class Instance implements Runnable {
 			System.err.println("writing students from db");
 			
 			out.writeObject( parseRRUser(r) );
+			out.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				out.writeObject( null );
+				out.flush();
+			} catch (IOException e1) { e1.printStackTrace(); }
+		}
+	}
+	
+	private void getAssignment() {
+		try {
+			int key = in.readInt();
+			System.err.println("getting assognments from db");
+			ResultSet r = helper.search(Communicate.ASSIGNMENT, "COURSE_ID", key);
+			System.err.println("writing assignments from db");
+			
+			out.writeObject( parseRRAssignment(r) );
 			out.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -278,6 +299,20 @@ class Instance implements Runnable {
 			while (r.next()) {
 				//nt(int type, String first, String last, String email, int id)
 				arr.add(new String[] {String.valueOf(r.getInt("TYPE")),r.getString("FIRST_NAME"),r.getString("LAST_NAME"),r.getString("EMAIL"),String.valueOf(r.getInt("ID"))});
+			}
+			System.err.println("Elements in set: "+arr.size());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return arr;
+	}
+	
+	private ArrayList<Assignment> parseRRAssignment (ResultSet r) {
+		ArrayList<Assignment> arr = new ArrayList<Assignment>();
+		try {
+			while (r.next()) {
+				//nt(int type, String first, String last, String email, int id)
+				arr.add(new Assignment(r.getString("TITLE"),r.getString("PATH"),r.getBoolean("ACTIVE")));
 			}
 			System.err.println("Elements in set: "+arr.size());
 		} catch (SQLException e) {

@@ -174,7 +174,16 @@ public class Client {
 	}
 
 	public ArrayList<Assignment> getAssignments(int selectedCourse) {
-		// TODO Auto-generated method stub
+		writeTag(Communicate.GET);
+		writeTag(Communicate.ASSIGNMENT);
+		write(selectedCourse);
+		try {
+			return (ArrayList<Assignment>) in.readObject();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 

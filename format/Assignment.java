@@ -13,4 +13,14 @@ public class Assignment implements Serializable {
 	public double getGradeFor(String name) {
 		return dropbox.getGrade(name);
 	}
+	public Assignment(String name, String path, boolean active) {
+		this.name = name;
+		this.path = path;
+		this.active = active;
+		dropbox = new DropBox();
+	}
+	@Override 
+	public String toString() {
+		return String.format("%11s %51s", (active?"Active":"Not Active"), name);
+	}
 }
