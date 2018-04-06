@@ -37,6 +37,7 @@ public class StudentsPanel extends JPanel {
 		studentsList.setFont(new Font("menlo",Font.PLAIN,12));
 		
 		JPanel tmp = new JPanel();
+		tmp.setLayout(new BoxLayout(tmp, BoxLayout.Y_AXIS));
 		tmp.add(new JLabel("User ID // First Name // Last Name "));
 		JScrollPane x = new JScrollPane(studentsList);
 		//x.setPreferredSize(new Dimension(300,200));
