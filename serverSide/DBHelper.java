@@ -25,6 +25,7 @@ class DBHelper implements DBHandler, format.Communicate {
 	private final int MAX_ATTEMPTS = 5;
 	private Connection jdbc_connection;
 	private PreparedStatement statement;
+	private int enrollCount = 0;
 
 	private static final String dbName = "LearningPlatformDB", dataFile = ".txt";
 	private static final String[] tables = { "Users", "Courses", "EnrollmentChart", "Assignments", "Submissions",
@@ -396,17 +397,19 @@ class DBHelper implements DBHandler, format.Communicate {
 	@Override
 	public void toggleEnroll(int studentID, int courseID) throws SQLException {
 		if (enrolled(studentID,courseID).first()) {
-			String sql = "UPDATE " + tables[2] + " STUDENT_ID=?, COURSE_ID=?;";
+			String sql = "DELETE FROM " + tables[2] + "WHERE STUDENT_ID=? AND COURSE_ID=?;";
 			
 				statement = jdbc_connection.prepareStatement(sql);
 				statement.setInt(1, studentID);
 				statement.setInt(2, courseID);
+				enrollCount--;
 		} else {
-			String sql = "INSERT INTO " + tables[2] + " SET (ID=?, STUDENT_ID=?, COURSE_ID=? );";
+			String sql = "INSERT INTO " + tables[2] + " SET (ID=?, STUDENT_ID=?, COURSE_ID=?);";
 			statement = jdbc_connection.prepareStatement(sql);
-			statement.setInt(2, getRows(tables[2]));
+			statement.setInt(2, enrollCount);
 			statement.setInt(2, studentID);
 			statement.setInt(3, courseID);
+			enrollCount++;
 		}
 		try {
 			statement.executeUpdate();
