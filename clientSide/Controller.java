@@ -47,7 +47,6 @@ class Controller {
 					clientType = type;
 					
 					setupClient(type, userName);
-					
 				}
 			}
 		});

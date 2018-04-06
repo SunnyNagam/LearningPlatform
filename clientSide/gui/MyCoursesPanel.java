@@ -28,7 +28,7 @@ public class MyCoursesPanel extends JPanel {
 		courseList = new JList<Course> (myCourses);
 	}
 	
-	public void updateUI() {
+	public void update() {
 		courseList.updateUI();
 	}
 	
@@ -53,7 +53,7 @@ public class MyCoursesPanel extends JPanel {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		updateUI();
+		update();
 	}
 	private JPanel setupStud() {
 		JPanel tmp = new JPanel();
