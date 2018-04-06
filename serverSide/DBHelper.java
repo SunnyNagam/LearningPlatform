@@ -404,7 +404,7 @@ class DBHelper implements DBHandler, format.Communicate {
 				statement.setInt(2, courseID);
 				enrollCount--;
 		} else {
-			String sql = "INSERT INTO " + tables[2] + " SET (ID=?, STUDENT_ID=?, COURSE_ID=?);";
+			String sql = "INSERT INTO " + tables[2] + " SET ID=?, STUDENT_ID=?, COURSE_ID=?;";
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.setInt(1, enrollCount);
 			statement.setInt(2, studentID);
