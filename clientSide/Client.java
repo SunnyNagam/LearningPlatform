@@ -10,6 +10,7 @@ import java.net.Socket;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import format.Assignment;
 import format.Communicate;
 import format.Course;
 
@@ -170,6 +171,11 @@ public class Client {
 	public void toggleCourse(int selectedCourse) {
 		writeTag(Communicate.TOGGLECOURSE);
 		write(selectedCourse);
+	}
+
+	public ArrayList<Assignment> getAssignments(int selectedCourse) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
