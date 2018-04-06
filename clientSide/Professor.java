@@ -137,7 +137,7 @@ class Professor extends User{
 					public void actionPerformed(ActionEvent e) {
 						System.err.println("Upload assign action started");
 						//TODO UPLOAD
-						
+						((ProfAssignmentPanel)c.gui.getPanels()[PanelList.ASSIGNMENTS]).uploadPanel.setVisible(true);
 						ArrayList<Assignment> set = c.client.getAssignments(c.selectedCourse);
 						((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).refreshData(set);
 					}

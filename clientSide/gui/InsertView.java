@@ -56,7 +56,7 @@ public class InsertView extends JFrame{
 		JPanel dispPanel = new JPanel ();
 		//JPanel titlePanel = new JPanel ();
 		this.setSize(500, 150);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		
 		dispPanel.add(titleL);
 		dispPanel.add(titletxt);
