@@ -5,6 +5,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -187,11 +192,22 @@ class Professor extends User{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// get text fields
-				// send it to client to send to db
-				// check if file is legit
-				// print err message?
-				// add to db
+				File selectedFile = new File(f.pathtxt.getText());
+				System.err.println("Looking for file: "+f.pathtxt.getText());
+				if (!selectedFile.exists()) {
+					c.gui.displayErrorMessage("Invalid file path!");
+					return;
+				}
+				long length = selectedFile.length();
+				byte[] content = new byte[(int) length];
+				try {
+					FileInputStream fis = new FileInputStream(selectedFile); 
+					BufferedInputStream bos = new BufferedInputStream(fis); 
+					bos.read(content, 0, (int)length);
+					} catch (FileNotFoundException e) { e.printStackTrace();
+					} catch(IOException e){ e.printStackTrace();
+					}
+				c.client.upload(f.titletxt.getText(), f.pathtxt.getText(), f.duetxt.getText(), f.activeBox.isSelected(), c.selectedCourse, content);
 				f.setVisible(false);
 				f.clearInput();
 				ArrayList<Assignment> set = c.client.getAssignments(c.selectedCourse);

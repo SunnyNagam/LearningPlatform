@@ -3,12 +3,15 @@
  */
 package clientSide;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 import format.Assignment;
 import format.Communicate;
@@ -223,6 +226,12 @@ public class Client {
 	public void toggleAssignment(int ID) {
 		writeTag(Communicate.ASSIGNMENT);
 		write(ID);
+	}
+
+	public void upload(String title, String path, String due, boolean active, int course, byte[] file) {
+		writeTag(Communicate.SYNC);
+		writeObject(new Assignment(title,"default",active,course,-1));	// assign but path is 'default' and id is -1
+		writeObject(file);
 	}
 
 }
