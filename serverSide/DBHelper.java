@@ -400,12 +400,12 @@ class DBHelper implements DBHandler, format.Communicate {
 		if (courseID == -1) return;
 		
 		if (enrolled(studentID,courseID).first()) {
-			String sql = "DELETE FROM " + tables[2] + "WHERE STUDENT_ID=? AND COURSE_ID=?;";
+			String sql = "DELETE FROM " + tables[2] + " WHERE STUDENT_ID=? AND COURSE_ID=?;";
 			
 				statement = jdbc_connection.prepareStatement(sql);
 				statement.setInt(1, studentID);
 				statement.setInt(2, courseID);
-				enrollCount--;
+				//enrollCount--;
 		} else {
 			String sql = "INSERT INTO " + tables[2] + " SET ID=?, STUDENT_ID=?, COURSE_ID=?;";
 			statement = jdbc_connection.prepareStatement(sql);
@@ -423,6 +423,7 @@ class DBHelper implements DBHandler, format.Communicate {
 	}
 	@Override
 	public ResultSet enrolled(int studentID, int courseID) {
+		if (courseID == -1) return null;
 		try {
 			String sql = "SELECT * FROM " + tables[2] + " WHERE STUDENT_ID=? AND COURSE_ID=?";
 			

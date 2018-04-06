@@ -93,6 +93,14 @@ public class Client {
 			return Communicate.INVALID;
 		}
 	}
+	public String readString() {
+		try {
+			return in.readUTF();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	public boolean readBoolean() {
 		try {
@@ -198,7 +206,18 @@ public class Client {
 		write(usr.id);
 		write(selectedCourse);
 		boolean t = readBoolean();
+		System.err.println("CLIENT::student " + usr.id + " in course: " + t);
 		return t;
+	}
+
+	public String getCourseName(int selectedCourse) {
+		writeTag(Communicate.GET);
+		writeTag(Communicate.COURSE);
+		writeTag(Communicate.NAME);
+		write(selectedCourse);
+		String str = readString();
+		str = (str==null)?"NULL":str;
+		return str;
 	}
 
 }

@@ -32,6 +32,7 @@ public abstract class User implements PanelList, Serializable{
 		return String.format("%11d %13s %13s %12s", id, firstName, lastName,(inSelectedCourse?"Enrolled":"Not Enrolled"));
 	}
 	public void currentCourse(boolean c_ID) {
+		System.err.println("student " + id + " in course: " + c_ID);
 		inSelectedCourse = c_ID;
 	}
 	

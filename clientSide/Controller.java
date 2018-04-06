@@ -28,6 +28,7 @@ public class Controller {
 	public int selectedCourse = -1;
 	UserView gui;
 	int clientType;
+	protected String selectedName;
 	
 	Controller(Client c) {
 		this.client = c;

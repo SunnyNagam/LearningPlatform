@@ -31,6 +31,7 @@ public class StudentsPanel extends JPanel {
 	private JButton enrolB;
 	public DefaultListModel<User> students;
 	private JList<User> studentsList;
+	public JLabel title;
 	
 	//private JPanel display;
 	
@@ -43,7 +44,8 @@ public class StudentsPanel extends JPanel {
 		
 		JPanel tmp = new JPanel();
 		tmp.setLayout(new BoxLayout(tmp, BoxLayout.Y_AXIS));
-		tmp.add(new JLabel("User ID // First Name // Last Name "));
+		title = new JLabel("");
+		tmp.add(title);
 		JScrollPane x = new JScrollPane(studentsList);
 		//x.setPreferredSize(new Dimension(300,200));
 		tmp.add(x);
@@ -74,6 +76,7 @@ public class StudentsPanel extends JPanel {
 			for(int x=0; x< set.size(); x++) {
 				String[] arr = set.get(x);
 				User stud = new Student(Integer.parseInt(arr[0]),arr[1],arr[2],arr[3], Integer.parseInt(arr[4]));
+				System.err.println("about to check if in selected");
 				stud.currentCourse(c.client.inSelectedCourse(stud, c.selectedCourse));
 				students.addElement(stud);
 				System.err.println("Adding: "+students.get(x)+", ID: "+set.get(x)[4]);

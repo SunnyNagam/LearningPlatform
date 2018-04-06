@@ -113,15 +113,25 @@ class Instance implements Runnable {
 	private void enroll() {
 		try {
 			int studentID = in.readInt();
+			System.err.println("got student: " + studentID);
 			int courseID = in.readInt();
+			System.err.println("got course: " + courseID);
 			helper.toggleEnroll(studentID, courseID);
 		} catch (IOException | SQLException e) { e.printStackTrace(); }
 	}
 	private void enrolled() {
 		try {
 			int studentID = in.readInt();
+			System.err.println("got student: " + studentID);
 			int courseID = in.readInt();
-			out.writeBoolean(helper.enrolled(studentID, courseID).first());
+			System.err.println("got course: " + courseID);
+			ResultSet r = helper.enrolled(studentID, courseID);
+			boolean b = (r != null) && r.first();
+			System.err.println("enrolled: " + b);
+			out.writeBoolean(b);
+			out.flush();
+			System.err.println("wrote^");
+			
 		} catch (IOException | SQLException e) { e.printStackTrace(); }
 	}
 	private void get() throws IOException {
@@ -159,6 +169,8 @@ class Instance implements Runnable {
 	private void getCourses() {
 		try {
 			int key = in.readInt();
+			if (key == Communicate.NAME) getCourseName();
+			
 			System.err.println("getting courses from db");
 			ResultSet r = helper.search(Communicate.COURSE, "PROF_ID", key );
 			System.err.println("writing courses from db");
@@ -172,6 +184,17 @@ class Instance implements Runnable {
 				out.flush();
 			} catch (IOException e1) { e1.printStackTrace(); }
 		}
+	}
+	private void getCourseName() {
+		//write(selectedCourse);
+		try {
+			int id = in.readInt();
+			ResultSet r;
+			if ((r = helper.search(Communicate.COURSE, "ID", id )).first())
+				out.writeUTF(r.getString("NAME"));
+			else out.writeUTF("");
+			out.flush();
+		} catch(Exception e) {e.printStackTrace();}
 	}
 	private void getStudent() {
 		try {

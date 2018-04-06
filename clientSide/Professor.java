@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -16,7 +17,7 @@ import format.Assignment;
 import format.Course;
 
 class Professor extends User{
-
+	private String first = "User ID // First Name // Last Name // Enrolled in ";
 	public Professor() {
 		
 	}
@@ -108,8 +109,10 @@ class Professor extends User{
 		// getting selected course
 		((MyCoursesPanel)c.gui.getPanels()[PanelList.MY_COURSES]).courseList.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				c.selectedCourse = ((Course) ((MyCoursesPanel)c.gui.getPanels()[PanelList.MY_COURSES]).courseList.getSelectedValue()).getCourseID();
+				Course n = ((Course) ((MyCoursesPanel)c.gui.getPanels()[PanelList.MY_COURSES]).courseList.getSelectedValue());
 				c.gui.selectedCourse.setText(c.selectedCourse==-1?"Select A Course":String.valueOf("Selected: "+c.selectedCourse));
+				c.selectedCourse = n.getCourseID();
+				c.selectedName = n.getCourseName();
 				System.err.println("Course selected = "+c.selectedCourse);
 			}
 		});
@@ -131,7 +134,7 @@ class Professor extends User{
 			}
 		});
 		
-		// add functionaliity to button in profassignment panel
+		// add functionaliity to button in prof assignment panel
 				((ProfAssignmentPanel)c.gui.getPanels()[PanelList.ASSIGNMENTS]).addListen(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -147,6 +150,7 @@ class Professor extends User{
 			c.gui.getMenu()[PanelList.STUDENTS].addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					((StudentsPanel)c.gui.getPanels()[PanelList.STUDENTS]).title.setText(first + c.selectedName);
 					System.err.println("Students menu action started");
 					ArrayList<String[]>  set = c.client.getStudents(c.user.id);
 					System.err.println("Got responce set from db. "+set.size());
