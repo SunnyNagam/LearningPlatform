@@ -33,7 +33,7 @@ class DBHelper implements DBHandler, format.Communicate {
 	
 
 	private static final String connectionInfo = "jdbc:mysql://localhost:3306/", SSLtag = "?useSSL=false",
-			login = "root", password = "rootpass"; // bacon if keenan, rootpass if sunny
+			login = "root", password = "bacon"; // bacon if keenan, rootpass if sunny
 
 	DBHelper() {
 		int attempts = 0;
@@ -396,6 +396,8 @@ class DBHelper implements DBHandler, format.Communicate {
 	}
 	@Override
 	public void toggleEnroll(int studentID, int courseID) throws SQLException {
+		if (courseID == -1) return;
+		
 		if (enrolled(studentID,courseID).first()) {
 			String sql = "DELETE FROM " + tables[2] + "WHERE STUDENT_ID=? AND COURSE_ID=?;";
 			
