@@ -3,9 +3,13 @@
  */
 package clientSide.gui;
 
+import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -43,9 +47,20 @@ public class StudentsPanel extends JPanel {
 		//x.setPreferredSize(new Dimension(300,200));
 		tmp.add(x);
 		
-		add(tmp);
+		add (tmp);
+		add (enrollButton());
 	}
 	
+	private JPanel enrollButton() {
+		JPanel x = new JPanel();
+		x.setLayout(new BoxLayout(x, BoxLayout.X_AXIS));
+		x.add(Box.createHorizontalGlue());
+		x.add(enrolB = new JButton("Toggle Enrollment"));
+		return x;
+	}
+	public void addListen(ActionListener a) {
+		enrolB.addActionListener(a);
+	}
 	public void update() {
 		studentsList.updateUI();
 	}
@@ -66,5 +81,9 @@ public class StudentsPanel extends JPanel {
 			e.printStackTrace();
 		}
 		update();
+	}
+	public Student getSelectedStudent() {
+		return (Student) studentsList.getSelectedValue();
+		
 	}
 }

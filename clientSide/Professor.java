@@ -114,6 +114,21 @@ class Professor extends User{
 			}
 		});
 		
+		// add functionaliity to button in students panel
+		((StudentsPanel)c.gui.getPanels()[PanelList.STUDENTS]).addListen(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.err.println("Students enroll action started");
+				Student stu;
+				if ((stu = ((StudentsPanel) c.gui.getPanels()[PanelList.STUDENTS]).getSelectedStudent()) != null)
+					c.client.toggleEnroll(stu, c.selectedCourse);
+				
+				ArrayList<String[]>  set = c.client.getStudents(c.user.id);
+				System.err.println("Got responce set from db. "+set.size());
+				((StudentsPanel)c.gui.getPanels()[PanelList.STUDENTS]).refreshData(set);
+			}
+		});
+		
 		//  students menu botton
 			c.gui.getMenu()[PanelList.STUDENTS].addActionListener(new ActionListener() {
 				@Override

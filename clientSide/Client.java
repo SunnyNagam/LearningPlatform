@@ -178,4 +178,10 @@ public class Client {
 		return null;
 	}
 
+	public void toggleEnroll(Student stu, int courseID) {
+		writeTag(Communicate.ENROLL);
+		write(stu.id);
+		write(courseID);
+	}
+
 }
