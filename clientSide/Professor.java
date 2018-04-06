@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import clientSide.gui.*;
+import format.Assignment;
 import format.Course;
 
 class Professor extends User{
@@ -123,6 +124,17 @@ class Professor extends User{
 					((StudentsPanel)c.gui.getPanels()[PanelList.STUDENTS]).refreshData(set);
 				}
 			});
+			
+		//  assignments menu botton
+					c.gui.getMenu()[PanelList.ASSIGNMENTS].addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							System.err.println("Assignment menu action started");
+							
+							ArrayList<Assignment> set = c.client.getAssignments(c.selectedCourse);
+							((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).refreshData(set);
+						}
+					});
 	}
 	
 }
