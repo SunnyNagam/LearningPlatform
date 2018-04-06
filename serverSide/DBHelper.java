@@ -33,7 +33,7 @@ class DBHelper implements DBHandler, format.Communicate {
 	
 
 	private static final String connectionInfo = "jdbc:mysql://localhost:3306/", SSLtag = "?useSSL=false",
-			login = "root", password = "bacon"; // bacon if keenan, rootpass if sunny
+			login = "root", password = "rootpass"; // bacon if keenan, rootpass if sunny
 
 	DBHelper() {
 		int attempts = 0;
@@ -49,8 +49,8 @@ class DBHelper implements DBHandler, format.Communicate {
 				jdbc_connection.setAutoCommit(false);
 				System.out.println("Connected to: " + connectionInfo + dbName + SSLtag + "\n");
 				attempts = MAX_ATTEMPTS + 1;
-				if (!makeDirPath(tables[3])) {System.err.println("Could Not Create Submission Directory.");}
-				if (!makeDirPath(tables[4])) {System.err.println("Could Not Create Assignment Directory.");}
+				if (!makeDirPath(tables[3])) {System.err.println("Could Not Create Assignment Directory.");}
+				if (!makeDirPath(tables[4])) {System.err.println("Could Not Create Submission Directory.");}
 
 			} catch (SQLException e) {
 				attempts++;
