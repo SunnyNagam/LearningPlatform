@@ -126,6 +126,8 @@ public class UserView extends JFrame {
 			contentPane = panels[index];
 			outerPane.add (contentPane);
 			System.out.println("Switched.");
+			
+			this.paintAll(this.getGraphics());
 		}
 	}
 	public void initializeView(String name, int type) {
