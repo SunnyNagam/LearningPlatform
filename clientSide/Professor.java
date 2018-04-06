@@ -3,11 +3,13 @@ package clientSide;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import clientSide.gui.*;
+import format.Course;
 
 class Professor extends User{
 
@@ -58,7 +60,7 @@ class Professor extends User{
 				// create a course 
 				String cName = JOptionPane.showInputDialog("Enter the new course name: ");
 				c.client.addCourse(c.user.id, cName, false);
-				ResultSet set = c.client.getCourses(c.user.id);
+				ArrayList<Course> set = c.client.getCourses(c.user.id);
 				((MyCoursesPanel)c.gui.getPanels()[PanelList.MY_COURSES]).refreshData(set);
 			}
 			
@@ -67,7 +69,7 @@ class Professor extends User{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Heyooo");
-				ResultSet set = c.client.getCourses(c.user.id);
+				ArrayList<Course>  set = c.client.getCourses(c.user.id);
 				System.err.println("Got responce set from db.");
 				((MyCoursesPanel)c.gui.getPanels()[PanelList.MY_COURSES]).refreshData(set);
 			}

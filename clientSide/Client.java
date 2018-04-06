@@ -8,8 +8,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import format.Communicate;
+import format.Course;
 
 /**
  * @author keenangaudio
@@ -117,12 +119,12 @@ public class Client {
 		this.in = in;
 	}
 	
-	public ResultSet getCourses(int id) {
+	public ArrayList<Course> getCourses(int id) {
 		writeTag(Communicate.GET);
 		writeTag(Communicate.COURSE);
 		write(id);
 		try {
-			return (ResultSet) in.readObject();
+			return (ArrayList<Course>) in.readObject();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
