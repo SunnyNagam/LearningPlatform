@@ -27,7 +27,7 @@ public class LoginPanel extends JPanel {
 		passLab = new JLabel("Password:");
 		introLab = new JLabel("Login to D2L!");
 		submitButton = new JButton("Submit");
-		
+
 		setLayout(new BorderLayout());
 		
 		JPanel logPan = new JPanel();

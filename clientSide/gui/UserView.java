@@ -81,6 +81,7 @@ public class UserView extends JFrame {
 		outerPane.add(contentPane);
 		add(outerPane);
 		
+		getRootPane().setDefaultButton(loginPanel.submitButton);
 		
 	}
 
