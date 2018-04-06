@@ -33,7 +33,7 @@ class DBHelper implements DBHandler, format.Communicate {
 	
 
 	private static final String connectionInfo = "jdbc:mysql://localhost:3306/", SSLtag = "?useSSL=false",
-			login = "root", password = "rootpass"; // bacon if keenan, rootpass if sunny
+			login = "root", password = "bacon"; // bacon if keenan, rootpass if sunny
 
 	DBHelper() {
 		int attempts = 0;
@@ -446,7 +446,7 @@ class DBHelper implements DBHandler, format.Communicate {
 	}
 	@Override
 	public void toggleActive(int id) {
-		String sql = "SELECT * FROM " + tables[2] + " WHERE ID=?";
+		String sql = "SELECT * FROM " + tables[1] + " WHERE ID=?";
 		try {
 		ResultSet set;
 		statement = jdbc_connection.prepareStatement(sql);
@@ -456,10 +456,10 @@ class DBHelper implements DBHandler, format.Communicate {
 		set.next();
 		boolean b  = set.getBoolean("ACTIVE");
 		
-		sql = "UPDATE " + tables[1] + " SET (ACTIVE=?) WHERE ID=?;";
+		sql = "UPDATE " + tables[1] + " SET ( ACTIVE=? ) WHERE ID=?;";
 		statement = jdbc_connection.prepareStatement(sql);
-		statement.setInt(2, b?0:1);
-		statement.setInt(3, id);
+		statement.setInt(1, b?0:1);
+		statement.setInt(2, id);
 		} catch (Exception e) {e.printStackTrace();}
 		
 	}
