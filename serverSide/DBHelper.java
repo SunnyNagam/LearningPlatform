@@ -211,11 +211,20 @@ class DBHelper implements DBHandler, format.Communicate {
 		set = statement.executeQuery();
 		return set;
 	}
-	
+	/**
+	 * searches enrollment table
+	 */
 	@Override
 	public ResultSet search(int keyType, String key) throws IOException, SQLException, Exception {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM " + tables[2] + " WHERE " + 
+				keyType + "=" + "?";
+		//String sql = "SELECT * FROM " + parseTableType(tableType);
+		ResultSet set;
+		statement = jdbc_connection.prepareStatement(sql);
+		statement.setInt(1, Integer.parseInt(key) );
+		System.err.println(statement);
+		set = statement.executeQuery();
+		return set;
 	}
 	@Override
 	public ResultSet search(int tableType, String keyType, int key) throws IOException, SQLException, Exception {
@@ -307,7 +316,7 @@ class DBHelper implements DBHandler, format.Communicate {
 
 	private void createEnrollTable(String tableName) {
 		String sql = "CREATE TABLE " + tableName + "(" + "ID INT(8) NOT NULL, " + "STUDENT_ID INT(8) NOT NULL, "
-				+ "COURSE_ID INT(8) NOT NULL, " + "PRIMARY KEY ( id ))";
+				+ "COURSE_ID INT(8) NOT NULL, ENROLLED BIT(1), " + "PRIMARY KEY ( id ))";
 		try {
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.executeUpdate();
@@ -384,7 +393,40 @@ class DBHelper implements DBHandler, format.Communicate {
 		}
 		
 	}
-	
+	@Override
+	public void toggleEnroll(int studentID, int courseID) throws SQLException {
+		if (enrolled(studentID,courseID).first()) {
+//			String sql = "UPDATE " + tables[2] + "  ;";
+//			try {
+//				statement = jdbc_connection.prepareStatement(sql);
+//				statement.setInt(1, user.getId());
+//				statement.setString(2, user.getEmail());
+//				statement.setString(3, user.getFirstName());
+//				statement.setString(4, user.getLastName());
+//				statement.setString(5, pass);
+//				statement.setInt(6, user.getUserType());
+//				System.err.println(user.getUserType());
+//				statement.executeUpdate();
+//				jdbc_connection.commit();		// idk why this is needed but it just is and it took me a hour and a half to figure this out :(
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+		}
+		
+	}
+	private ResultSet enrolled(int studentID, int courseID) {
+		try {
+			String sql = "SELECT * FROM EnrollmentChart WHERE STUDENT_ID=? AND COURSE_ID=?";
+			
+			ResultSet set;
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(1, studentID);
+			statement.setInt(2, courseID);
+			//System.err.println(statement);
+			set = statement.executeQuery();
+			return set;
+		} catch(Exception e) { return null; }
+	}
 
 }
 //

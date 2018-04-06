@@ -123,4 +123,11 @@ interface DBHandler {
 	 * @param x
 	 */
 	void addCourse(Course x);
+	
+	/**
+	 * 
+	 * @param s
+	 * @param c
+	 */
+	void toggleEnroll(int studentID, int courseID) throws SQLException;
 }
