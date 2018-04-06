@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 
@@ -154,6 +155,7 @@ public class Client {
 
 	public void addCourse(int id, String cName, String p_id, boolean b) {
 		writeTag(Communicate.SYNC);
+		writeTag(Communicate.COURSE);
 		writeObject(new Course(id, cName, p_id, b));
 	}
 
@@ -230,7 +232,10 @@ public class Client {
 
 	public void upload(String title, String path, String due, boolean active, int course, byte[] file) {
 		writeTag(Communicate.SYNC);
-		writeObject(new Assignment(title,"default",active,course,-1));	// assign but path is 'default' and id is -1
+		writeTag(Communicate.ASSIGNMENT);
+		String temp = path.substring(path.lastIndexOf("."),path.length());
+		System.err.println(temp);
+		writeObject(new Assignment(title,temp,active,course,-1,due));	// assign but path is 'default' and id is -1
 		writeObject(file);
 	}
 

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import format.Assignment;
 import format.Course;
 import format.Submission;
 
@@ -123,6 +124,11 @@ interface DBHandler {
 	 * @param x
 	 */
 	void addCourse(Course x);
+	/**
+	 * 
+	 * @param x
+	 */
+	String addAssignment(Assignment x);
 	
 	/**
 	 * 

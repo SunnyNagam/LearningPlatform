@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import format.Assignment;
 import format.Communicate;
 import format.Course;
 import format.Submission;
@@ -33,7 +34,7 @@ class DBHelper implements DBHandler, format.Communicate {
 	
 
 	private static final String connectionInfo = "jdbc:mysql://localhost:3306/", SSLtag = "?useSSL=false",
-			login = "root", password = "bacon"; // bacon if keenan, rootpass if sunny
+			login = "root", password = "rootpass"; // bacon if keenan, rootpass if sunny
 
 	DBHelper() {
 		int attempts = 0;
@@ -406,6 +407,30 @@ class DBHelper implements DBHandler, format.Communicate {
 			e.printStackTrace();
 		}
 		
+	}
+	@Override
+	public String addAssignment(Assignment x) {
+		String sql = "INSERT INTO " + tables[3] + " VALUES(?, ?, ?, ?, ?, ?);";
+		String path = "../" + tables[3] + "/";
+		try {
+			int rows = getRows(tables[3])+1;
+			statement = jdbc_connection.prepareStatement(sql);
+			System.err.println(sql);
+			
+			statement.setInt(1, rows);
+			statement.setInt(2, x.courseID);
+			statement.setString(3, x.name);
+			path += rows + x.path;
+			statement.setString(4, path);
+			statement.setBoolean(5, x.active);
+			statement.setString(6, x.due);
+			System.err.println(statement);
+			statement.executeUpdate();
+			jdbc_connection.commit();		// idk why this is needed but it just is and it took me a hour and a half to figure this out :(
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return path;
 	}
 	@Override
 	public void toggleEnroll(int studentID, int courseID) throws SQLException {

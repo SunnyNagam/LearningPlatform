@@ -5,18 +5,20 @@ import java.util.ArrayList;
 
 public class Assignment implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private boolean active;
-	private String name;
-	private String path;
+	public boolean active;
+	public String name;
+	public String due;
+	public String path;
 	public int courseID, id;
 	private DropBox dropbox;
 	
 	public double getGradeFor(String name) {
 		return dropbox.getGrade(name);
 	}
-	public Assignment(String name, String path, boolean active, int courseID, int id) {
+	public Assignment(String name, String path, boolean active, int courseID, int id, String due) {
 		this.name = name;
 		this.path = path;
+		this.due = due;
 		this.courseID = courseID;
 		this.id = id;
 		this.active = active;
