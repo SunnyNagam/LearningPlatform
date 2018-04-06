@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -133,14 +134,14 @@ class Professor extends User{
 				((StudentsPanel)c.gui.getPanels()[PanelList.STUDENTS]).refreshData(set, c);
 			}
 		});
-		
-		// add functionaliity to button in prof assignment panel
+		uploadAssign(c);
+		// add functionaliity to button in profassign
 				((ProfAssignmentPanel)c.gui.getPanels()[PanelList.ASSIGNMENTS]).addListen(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						System.err.println("Upload assign action started");
 						//TODO UPLOAD
-						
+						((ProfAssignmentPanel)c.gui.getPanels()[PanelList.ASSIGNMENTS]).uploadPanel.setVisible(true);
 						ArrayList<Assignment> set = c.client.getAssignments(c.selectedCourse);
 						((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).refreshData(set);
 					}
@@ -168,6 +169,34 @@ class Professor extends User{
 							((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).refreshData(set);
 						}
 					});
+	}
+
+	private void uploadAssign(Controller c) {
+		InsertView f = ((ProfAssignmentPanel)c.gui.getPanels()[PanelList.ASSIGNMENTS]).uploadPanel;
+		
+		f.insertB.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// get text fields
+				// send it to client to send to db
+				// check if file is legit
+				// print err message?
+				// add to db
+				f.setVisible(false);
+				f.clearInput();
+			}
+			
+		});
+		
+		f.returnB.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				f.setVisible(false);
+			}
+			
+		});
 	}
 	
 }
