@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class DropBox implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private LocalDate dueTime;
 	private ArrayList<Submission> submission;
 	public ArrayList<Submission> getSubmissons() {
 		return submission;

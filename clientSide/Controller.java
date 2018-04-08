@@ -100,6 +100,8 @@ public class Controller {
 			boolean def = args.length > 1;
 			String name = (def)? args[0] : "localhost";
 			String port = (def)? args[1] : String.format("%d",Communicate.MIN_PORT);
+			//String name = (def)? args[0] : "keenanpc.ddns.net";
+			//String port = (def)? args[1] : String.format("%d",4200);
 			
 			int portCheck = 0;
 			if ((portCheck = Integer.parseInt(port)) < Communicate.MIN_PORT || portCheck > Communicate.MAX_PORT )

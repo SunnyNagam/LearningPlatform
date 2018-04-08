@@ -19,17 +19,18 @@ import javax.swing.JScrollPane;
 import clientSide.Student;
 import clientSide.User;
 import format.Assignment;
+import format.DropBox;
 
 /**
  * @author keenangaudio, sunnynagam
  *
  */
 public class ProfAssignmentPanel extends JPanel {
-	private JButton addB, toggleB;
+	private JButton addB, toggleB, openB;
 	public DefaultListModel<Assignment> assignments;
 	public JList<Assignment> assignmnetsList;
 	public InsertView uploadPanel;
-	
+	public DropboxPanel dbView;
 	//private JPanel display;
 	
 	public ProfAssignmentPanel() {
@@ -47,22 +48,28 @@ public class ProfAssignmentPanel extends JPanel {
 		tmp.add(x);
 		
 		add(tmp);
-		add (addButton());
+		add (addButtons());
 		
 		uploadPanel = new InsertView("Upload New Assignment");
 		uploadPanel.setVisible(false);
 	}
-	private JPanel addButton() {
+	private JPanel addButtons() {
 		JPanel x = new JPanel();
 		x.setLayout(new BoxLayout(x, BoxLayout.X_AXIS));
+		
 		x.add(Box.createHorizontalGlue());
 		x.add(addB = new JButton("Upload"));
+		
 		x.add(Box.createHorizontalGlue());
 		x.add(toggleB = new JButton("Toggle Active"));
+		
+		x.add(Box.createHorizontalGlue());
+		x.add(openB = new JButton("Open DropBox"));
 		return x;
 	}
-	public void addListen(ActionListener a, ActionListener b) {
+	public void addListen(ActionListener a, ActionListener c, ActionListener b) {
 		addB.addActionListener(a);
+		openB.addActionListener(c);
 		toggleB.addActionListener(b);
 	}
 	public void update() {

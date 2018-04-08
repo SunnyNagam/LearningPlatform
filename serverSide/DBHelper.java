@@ -19,7 +19,7 @@ import format.Course;
 import format.Submission;
 
 /**
- * @author keenangaudio
+ * @author keenangaudio, sunnynagam
  *
  */
 class DBHelper implements DBHandler, format.Communicate {
@@ -34,7 +34,7 @@ class DBHelper implements DBHandler, format.Communicate {
 	
 
 	private static final String connectionInfo = "jdbc:mysql://localhost:3306/", SSLtag = "?useSSL=false",
-			login = "root", password = "bacon"; // bacon if keenan, rootpass if sunny
+			login = "root", password = "rootpass"; // bacon if keenan, rootpass if sunny
 
 	DBHelper() {
 		int attempts = 0;

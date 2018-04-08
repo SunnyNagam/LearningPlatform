@@ -13,7 +13,7 @@ import format.Course;
 import format.Submission;
 
 /**
- * @author keenangaudio
+ * @author keenangaudio, sunnynagam
  *
  */
 interface DBHandler {
@@ -138,9 +138,9 @@ interface DBHandler {
 	void toggleEnroll(int studentID, int courseID) throws SQLException;
 	
 	/**
-	 * 
-	 * @param studentID
-	 * @param courseID
+	 * Returns resultset containing row in enrollment chart containing studentID and courseID if it exists
+	 * @param studentID student to search for
+	 * @param courseID course to study for
 	 * @return
 	 */
 	ResultSet enrolled(int studentID, int courseID);

@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import format.Assignment;
 import format.Communicate;
 import format.Course;
+import format.DropBox;
 
 /**
  * @author keenangaudio
@@ -223,6 +224,18 @@ public class Client {
 		String str = readString();
 		str = (str==null)?"NULL":str;
 		return str;
+	}
+	
+	public DropBox getDropbox(int id) {
+		writeTag(Communicate.GET);
+		writeTag(Communicate.SUBMISSION);
+		
+		try {
+			return null;//(DropBox) in.readObject();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public void toggleAssignment(int ID) {

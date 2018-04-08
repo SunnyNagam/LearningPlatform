@@ -145,16 +145,35 @@ class Professor extends User {
 			}
 		});
 		uploadAssign(c);
-		// add functionaliity to button in profassign
-		((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).addListen(new ActionListener() {
+		
+		dropboxAssign(c);
+		
+		
+		ProfAssignmentPanel pa = ((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]);
+		// add functionaliity to button in profassign (UPLOAD)
+		pa.addListen(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.err.println("Upload assign action started");
 				// TODO UPLOAD
-				((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).uploadPanel.setVisible(true);
+				pa.uploadPanel.setVisible(true);
 			}
 		},
+				
+		// add functionaliity to button in profassign (DROPBOX)
+		new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.err.println("View Dropbox action started");
+				
+				pa.dbView = new DropboxPanel("Dropbox");
+				pa.dbView.setDbox(c.client.getDropbox(pa.assignmnetsList.getSelectedValue().id));
+				pa.dbView.init();
+				pa.dbView.setVisible(true);
+			}
+		},		
 
+		// toggle assignment button
 				new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -211,6 +230,11 @@ class Professor extends User {
 		});
 	}
 
+	private void dropboxAssign(Controller c) {
+		DropboxPanel f = ((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).dbView;
+
+	}
+
 	private void uploadAssign(Controller c) {
 		InsertView f = ((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).uploadPanel;
 
@@ -235,13 +259,13 @@ class Professor extends User {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				System.err.println("uploading assignment now:) from "+f.pathtxt.getText());
+				System.err.println("uploading assignment now:) from " + f.pathtxt.getText());
 				c.client.upload(f.titletxt.getText(), f.pathtxt.getText(), f.duetxt.getText(), f.activeBox.isSelected(),
 						c.selectedCourse, content);
 				System.err.println("done uploading!");
 				f.setVisible(false);
 				f.clearInput();
-				
+
 				ArrayList<Assignment> set = c.client.getAssignments(c.selectedCourse);
 				((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).refreshData(set);
 			}

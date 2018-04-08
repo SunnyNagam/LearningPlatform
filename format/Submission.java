@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 public class Submission implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private int id;
 	private String submitter;
 	private Path submissionPath;
 	private double grade;
@@ -22,6 +23,11 @@ public class Submission implements Serializable {
 	}
 	public void setSubmitter(String submitter) {
 		this.submitter = submitter;
+	}
+	
+	@Override 
+	public String toString() {
+		return String.format("%11s %10s %5d %8d", submitter, submissionDate, grade, id);
 	}
 	
 }
