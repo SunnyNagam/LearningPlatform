@@ -28,12 +28,21 @@ public class GradesPanel extends JPanel {
 	public DefaultListModel<Submission> myGrades;
 	public JList<Submission> gradeList;
 	
+	public JLabel title;
+	
 	public GradesPanel() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		myGrades = new DefaultListModel<Submission>();
 		
 		gradeList = new JList<Submission> (myGrades);
 		gradeList.setFont(new Font("menlo",Font.PLAIN,12));
+		
+		
+		JPanel tmp = new JPanel();
+		tmp.setLayout(new BoxLayout(tmp, BoxLayout.Y_AXIS));
+		title = new JLabel("");
+		tmp.add(title);
+		add (tmp);
 	}
 	public void initialize(ActionListener a) {
 		add( setup() );
