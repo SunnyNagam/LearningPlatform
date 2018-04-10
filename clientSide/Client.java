@@ -229,9 +229,10 @@ public class Client {
 	public DropBox getDropbox(int id) {
 		writeTag(Communicate.GET);
 		writeTag(Communicate.SUBMISSION);
+		write(id);
 		
 		try {
-			return null;//(DropBox) in.readObject();
+			return (DropBox) in.readObject();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

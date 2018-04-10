@@ -47,7 +47,7 @@ public class DropboxPanel extends JPanel{
 		
 		JPanel tmp = new JPanel();
 		tmp.setLayout(new BoxLayout(tmp, BoxLayout.Y_AXIS));
-		tmp.add(new JLabel("Active // Name"));
+		tmp.add(new JLabel("Submitter // Date // Grade // Id"));
 		JScrollPane x = new JScrollPane(submissionsList);
 		//x.setPreferredSize(new Dimension(300,200));
 		tmp.add(x);
