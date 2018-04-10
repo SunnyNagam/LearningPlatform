@@ -16,9 +16,9 @@ public class DropBox implements Serializable {
 		return submission;
 	}
 	
-	public double getGrade(String name) {
+	public double getGrade(int name) {
 		for(int x=0; x<submission.size(); x++) {
-			if(submission.get(x).getSubmitter().equals(name)) {
+			if(submission.get(x).getSubmitter() == (name)) {
 				return submission.get(x).getGrade();
 			}
 		}
