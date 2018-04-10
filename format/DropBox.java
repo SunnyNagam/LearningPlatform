@@ -12,6 +12,10 @@ public class DropBox implements Serializable {
 		submission = subs;
 	}
 	
+	public DropBox () {
+		 
+	}
+	
 	public ArrayList<Submission> getSubmissons() {
 		return submission;
 	}

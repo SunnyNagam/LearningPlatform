@@ -12,9 +12,6 @@ public class Assignment implements Serializable {
 	public int courseID, id;
 	private DropBox dropbox;
 	
-	public double getGradeFor(String name) {
-		return dropbox.getGrade(name);
-	}
 	public Assignment(String name, String path, boolean active, int courseID, int id, String due) {
 		this.name = name;
 		this.path = path;
