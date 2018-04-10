@@ -180,9 +180,10 @@ public class UserView extends JFrame {
 	}
 	
 	private void createMenuButtons(int type) {
+		//getRootPane().setDefaultButton(loginPanel.submitButton);
 		instanciateButton(PanelList.MY_COURSES, type);
-	    menu[PanelList.MY_COURSES].setSelected(true);
-	    
+		menu[PanelList.MY_COURSES].setSelected(true);
+	   
 	    instanciateButton(PanelList.EMAIL_INBOX, type);
 	    instanciateButton(PanelList.STUDENTS, type);
 	    instanciateButton(PanelList.ASSIGNMENTS, type);
@@ -212,11 +213,23 @@ public class UserView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int p = parse(e.getActionCommand());
-				if (p != Communicate.INVALID) switchWindow( p );
+				if (p != Communicate.INVALID) {
+					switchWindow( p );
+					unselectAll();
+					menu[p].setSelected(true);
+				}
 			}
 		};
 	}
 	
+	protected void unselectAll() {
+		for(JButton b : menu) {
+    		if(b == null) continue; // not all panels are used?
+    		b.setSelected(false);
+		}
+		
+	}
+
 	private int parse (String s) {
 		for(int i = 0; i < PanelList.ARRAY_SIZE; i++)
 			if (s.equals(PanelList.AT[i])) return i;
