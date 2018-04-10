@@ -146,6 +146,12 @@ interface DBHandler {
 	ResultSet enrolled(int studentID, int courseID);
 
 	/**
+	 * returns all submissions for a given assignment
+	 * @param assignID
+	 * @return
+	 */
+	ResultSet submissions(int assignID);
+	/**
 	 * 
 	 * @param id
 	 */

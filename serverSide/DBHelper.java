@@ -474,6 +474,33 @@ class DBHelper implements DBHandler, format.Communicate {
 			return set;
 		} catch(Exception e) { return null; }
 	}
+	@Override
+	public ResultSet submissions(int assignID) {
+		if (assignID == -1) return null;
+		try {
+			String sql = "SELECT * FROM " + tables[4] + " WHERE ASSIGN_ID=?";
+			
+			ResultSet set;
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(1, assignID);
+			//System.err.println(statement);
+			set = statement.executeQuery();
+			return set;
+		} catch(Exception e) { return null; }
+	}
+	public String getPath(int submissionID) {
+		try {
+			String sql = "SELECT * FROM " + tables[4] + " WHERE ID=?";
+			
+			ResultSet set;
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(1, submissionID);
+			//System.err.println(statement);
+			set = statement.executeQuery();
+			set.first();
+			return set.getString("PATH");
+		} catch(Exception e) { return null; }
+	}
 	private int getRows(String table_name) {
 		String sql = "SELECT COUNT(*) FROM " + table_name + ";";
 		int set = 0;
@@ -537,7 +564,7 @@ class DBHelper implements DBHandler, format.Communicate {
 		System.err.println(statement);
 		} catch (Exception e) {e.printStackTrace();}
 	}
-
+	
 }
 //
 // int attempts = 0;
