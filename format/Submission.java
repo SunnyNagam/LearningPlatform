@@ -25,7 +25,7 @@ public class Submission implements Serializable {
 		this.submissionPath = path;
 		this.title = title;
 		this.grade = grade;
-		this.submissionDate = LocalDate.parse(date,DateTimeFormatter.ofPattern("yyyy-mm-dd"));
+		this.submissionDate = LocalDate.parse(date,DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		
 	}
 	public double getGrade() {
