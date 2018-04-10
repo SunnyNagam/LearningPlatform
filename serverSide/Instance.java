@@ -506,7 +506,7 @@ class Instance implements Runnable {
 			e.printStackTrace();
 		}
 		DropBox db = new DropBox(arr);
-		return null;
+		return db;
 	}
 	private ArrayList<Course> parseRRCourse(ResultSet r) {
 		ArrayList<Course> arr = new ArrayList<Course>();
