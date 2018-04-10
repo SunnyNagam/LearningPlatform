@@ -306,7 +306,7 @@ class DBHelper implements DBHandler, format.Communicate {
 	private void createSubTable(String tableName) {
 		String sql = "CREATE TABLE " + tableName + "(" + "ID INT(8) NOT NULL, " + "ASSIGN_ID INT(8) NOT NULL, "
 				+ "STUDENT_ID INT(8) NOT NULL, " + "COURSE_ID INT(8) NOT NULL, " + "PATH VARCHAR(100) NOT NULL, "
-				+ "TITLE VARCHAR(50), " + "SUBMISSION_GRADE INT(3), " + "PRIMARY KEY ( id ))";
+				+ "TITLE VARCHAR(50), " + "SUBMISSION_GRADE INT(3), " + "DUE_DATE VARCHAR(10), " + "PRIMARY KEY ( id ))";
 		try {
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.executeUpdate();
