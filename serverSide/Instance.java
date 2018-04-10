@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import format.Assignment;
 import format.Communicate;
 import format.Course;
+import format.DropBox;
+import format.Submission;
 
 /**
  * @author keenangaudio
@@ -262,6 +264,30 @@ class Instance implements Runnable {
 		case Communicate.MESSAGE:
 			messageResponse();
 			break;
+		case Communicate.SUBMISSION:
+			getSubmissions();
+			break;
+		}
+	}
+
+	private void getSubmissions() {
+		try {
+			int assignID = in.readInt();
+
+			System.err.println("getting submissions from db");
+			ResultSet r = helper.submissions(assignID);
+			System.err.println("writing submissions from db");
+			
+			out.writeObject(parseRRSubmission(r));
+			out.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				out.writeObject(null);
+				out.flush();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 
@@ -469,6 +495,19 @@ class Instance implements Runnable {
 		return (check == Communicate.DISCONNECT);
 	}
 
+	private DropBox parseRRSubmission(ResultSet r) {
+		ArrayList<Submission> arr = new ArrayList<Submission>();
+		try {
+			while (r.next()) {
+				arr.add(Submission.castRR(r));
+			}
+			System.err.println("Elements in set: " + arr.size());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		DropBox db = new DropBox(arr);
+		return null;
+	}
 	private ArrayList<Course> parseRRCourse(ResultSet r) {
 		ArrayList<Course> arr = new ArrayList<Course>();
 		try {
