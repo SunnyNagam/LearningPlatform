@@ -4,6 +4,7 @@
 package serverSide;
 
 import java.io.BufferedOutputStream;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,6 +15,8 @@ import java.io.OutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.sound.midi.SysexMessage;
 
 import format.Assignment;
 import format.Communicate;
@@ -69,6 +72,8 @@ class Instance implements Runnable {
 				System.err.println("Got command: " + tag);
 				parseTag(tag);
 			}
+		} catch (EOFException e) {
+			System.err.println("Client Disconnected.");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
