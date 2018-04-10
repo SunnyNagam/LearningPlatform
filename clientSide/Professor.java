@@ -44,6 +44,7 @@ class Professor extends User {
 		tmp[COURSE] = createCoursePanel();
 		tmp[ASSIGNMENTS] = createAssignmentsPanel();
 		tmp[STUDENTS] = createStudentsPanel();
+		tmp[DROPBOX]	 = createDropBox();
 		// the rest aren't needed yet
 		return tmp;
 	}
@@ -54,6 +55,12 @@ class Professor extends User {
 		return tmp;
 	}
 
+	
+	private JPanel createDropBox() {
+		JPanel tmp = new DropboxPanel();
+
+		return tmp;
+	}
 	private JPanel createAssignmentsPanel() {
 		JPanel tmp = new ProfAssignmentPanel();
 
@@ -166,7 +173,8 @@ class Professor extends User {
 			public void actionPerformed(ActionEvent e) {
 				System.err.println("View Dropbox action started");
 				
-				pa.dbView = new DropboxPanel("Dropbox");
+				//pa.dbView = new DropboxPanel();
+				c.gui.switchWindow(PanelList.DROPBOX);
 				pa.dbView.setDbox(c.client.getDropbox(pa.assignmnetsList.getSelectedValue().id));
 				pa.dbView.init();
 				pa.dbView.setVisible(true);

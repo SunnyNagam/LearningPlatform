@@ -225,7 +225,7 @@ public class UserView extends JFrame {
 	protected void unselectAll() {
 		for(JButton b : menu) {
     		if(b == null) continue; // not all panels are used?
-    		b.setSelected(false);
+    			b.setSelected(false);
 		}
 		
 	}

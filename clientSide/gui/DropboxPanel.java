@@ -25,20 +25,18 @@ import format.Submission;
  * @author sunnynagam
  *
  */
-public class DropboxPanel extends JFrame{
+public class DropboxPanel extends JPanel{
 
 	private DropBox dbox;
 	
 	public DefaultListModel<Submission> submissions;
 	public JList<Submission> submissionsList;
     
-	public DropboxPanel(String s){
-		super(s);
+	public DropboxPanel(){
 		JPanel buttonPanel = new JPanel ();
 		JPanel dispPanel = new JPanel ();
 		//JPanel titlePanel = new JPanel ();
 		this.setSize(800, 500);
-		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 		setLayout(new BorderLayout());
 		

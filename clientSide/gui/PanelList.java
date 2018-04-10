@@ -3,7 +3,7 @@ package clientSide.gui;
 public interface PanelList {
 	public static final String[] AT	= {"LOGIN", "My Courses", 
 			"Course", "Assignments", "Students;Grades", 
-			"ChatRoom", "My Inbox", "Send New Email" /*add more here*/ };
+			"ChatRoom", "My Inbox", "Send New Email", "DropBox" /*add more here*/ };
 	
 	public static final int LOGIN		= 0;
 	public static final int MY_COURSES	= 1;
@@ -14,5 +14,6 @@ public interface PanelList {
 	public static final int CHATROOM		= 5;
 	public static final int EMAIL_INBOX	= 6;
 	public static final int EMAIL_MAKER	= 7;
-	public static final int ARRAY_SIZE 	= 8;	// update this when adding panels to this list
+	public static final int DROPBOX 		= 8;
+	public static final int ARRAY_SIZE 	= 9;	// update this when adding panels to this list
 }
