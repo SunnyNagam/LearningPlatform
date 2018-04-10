@@ -85,6 +85,9 @@ public class InsertView extends JFrame{
 		
 		//this.pack();
 	}
+	public InsertView(String s,boolean prof){
+		this(s);
+	}
 
 	/**
 	 * Clears values of all text boxes
