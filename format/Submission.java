@@ -58,7 +58,7 @@ public class Submission implements Serializable {
 	}
 	@Override 
 	public String toString() {
-		return String.format("%11s %10s %5d %8d", submitter, submissionDate, grade, id);
+		return String.format("%11s %10s %5f %8d", submitter, submissionDate, grade, id);
 	}
 //	String sql = "CREATE TABLE " + tableName + "(" + "ID INT(8) NOT NULL, " + "ASSIGN_ID INT(8) NOT NULL, "
 //			+ "STUDENT_ID INT(8) NOT NULL, " + "COURSE_ID INT(8) NOT NULL, " + "PATH VARCHAR(100) NOT NULL, "
