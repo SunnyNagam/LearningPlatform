@@ -51,7 +51,6 @@ public class Controller {
 				if(type == Communicate.INVALID) gui.displayErrorMessage("Invalid Credentials");
 				else {
 					clientType = type;
-					
 					setupClient(type, userName);
 				}
 			}
@@ -89,6 +88,7 @@ public class Controller {
 		ArrayList<Course>  set = client.getCourses(user.id);
 		System.err.println("Got responce set from db. "+set.size());
 		((MyCoursesPanel) gui.getPanels()[PanelList.MY_COURSES]).refreshData(set);
+		gui.setTitle(PanelList.AT[PanelList.MY_COURSES]);
 		gui.initializeView(name, type);
 	}
 	/**

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -37,11 +38,13 @@ public class UserView extends JFrame {
 	public JLabel selectedCourse;
 	private LoginPanel loginPanel;
 	private JPanel[] panels;
+	private int type;
+	
 	public JPanel[] getPanels() {
 		return panels;
 	}
 
-	private JRadioButton[] menu;
+	private JButton[] menu;
 	private ActionListener menuListener;
 	public int[] keyEvents = {KeyEvent.VK_0,KeyEvent.VK_1,KeyEvent.VK_2,KeyEvent.VK_3,
 			KeyEvent.VK_4,KeyEvent.VK_5,KeyEvent.VK_6,KeyEvent.VK_7,KeyEvent.VK_9};
@@ -79,6 +82,8 @@ public class UserView extends JFrame {
 		loginPanel = new LoginPanel();
 		contentPane.add(loginPanel, BorderLayout.CENTER);
 		outerPane.add(contentPane);
+		this.setTitle(PanelList.AT[PanelList.LOGIN]);
+
 		add(outerPane);
 		
 		getRootPane().setDefaultButton(loginPanel.submitButton);
@@ -125,13 +130,19 @@ public class UserView extends JFrame {
 			} catch (NullPointerException e) {}
 			contentPane = panels[index];
 			if (contentPane != null) outerPane.add (contentPane);
+			
+			if (index == PanelList.STUDENTS)
+				this.setTitle(PanelList.AT[index].split(";")[(type == Communicate.PROFESSOR)?0:1]);
+			else
+				this.setTitle(PanelList.AT[index]);
+			
 			System.out.println("Switched.");
 			
 			this.paintAll(this.getGraphics());
 		}
 	}
 	public void initializeView(String name, int type) {
-		menu = new JRadioButton[PanelList.ARRAY_SIZE];
+		menu = new JButton[PanelList.ARRAY_SIZE];
 		outerPane.add(setupMenu(name, type), BorderLayout.WEST);
 
 		BorderLayout layout = (BorderLayout) outerPane.getLayout();
@@ -152,13 +163,13 @@ public class UserView extends JFrame {
 		setupMListener();
 		createMenuButtons(type);
 		
-		for(JRadioButton b : this.menu) if (b != null) {
+		for(JButton b : this.menu) if (b != null) {
 			menuPanel.add( b );
 			menuPanel.add(Box.createVerticalGlue());
 		}
 		return menuPanel;
 	}
-	public JRadioButton[] getMenu() {
+	public JButton[] getMenu() {
 		return menu;
 	}
 
@@ -177,7 +188,7 @@ public class UserView extends JFrame {
 	    instanciateButton(PanelList.ASSIGNMENTS, type);
 	    
 	    ButtonGroup g = new ButtonGroup();
-	    for(JRadioButton b : menu) {
+	    for(JButton b : menu) {
 	    		if(b == null) continue; // not all panels are used?
 	    		g.add( b );
 	    		b.addActionListener(menuListener);
@@ -185,11 +196,12 @@ public class UserView extends JFrame {
 	}
 	
 	private void instanciateButton(int key, int type) {
+		this.type = type;
 		String label = PanelList.AT[key];
 		if (key == PanelList.STUDENTS)
 			label = PanelList.AT[key].split(";")[(type == Communicate.PROFESSOR)?0:1];
 			
-		menu[key] = new JRadioButton(label);
+		menu[key] = new JButton(label);
 		if (key <= 9) menu[key].setMnemonic(keyEvents[key]);
 		menu[key].setActionCommand(PanelList.AT[key]);		//unshortened label
 		menu[key].setSelected(false);
