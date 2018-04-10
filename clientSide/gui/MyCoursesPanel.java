@@ -40,9 +40,16 @@ public class MyCoursesPanel extends JPanel {
 		courseList.updateUI();
 	}
 	
-	public void StudTools() {
+	public void StudTools(ActionListener a, ActionListener b) {
 		add( setup() );
-		//maybe add grades here
+		System.err.println("Creating studTools.");
+		createNew = new JButton( "Enter Chatroom" );
+		createNew.addActionListener(a);
+		add( createNew, BorderLayout.SOUTH );
+		
+		toggleB = new JButton( "View Grades" );
+		toggleB.addActionListener(b);
+		add( toggleB, BorderLayout.SOUTH );
 	}
 	public void profTools(ActionListener a, ActionListener b) {
 		add( setup() );

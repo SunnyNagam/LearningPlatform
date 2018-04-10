@@ -278,4 +278,8 @@ public class Client {
 		return null;
 	}
 
+	public ArrayList<String[]> getGrades(int selectedAss, int student) {
+		return null;
+	}
+	
 }
