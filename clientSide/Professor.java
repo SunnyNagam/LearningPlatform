@@ -173,9 +173,13 @@ class Professor extends User {
 			public void actionPerformed(ActionEvent e) {
 				System.err.println("View Dropbox action started");
 				
-				//pa.dbView = new DropboxPanel();
+				pa.dbView = new DropboxPanel();
 				c.gui.switchWindow(PanelList.DROPBOX);
-				pa.dbView.setDbox(c.client.getDropbox(pa.assignmnetsList.getSelectedValue().id));
+				pa.
+				dbView.setDbox(
+						c.client.getDropbox(
+								pa.assignmnetsList.getSelectedValue()
+								.id));
 				pa.dbView.init();
 				pa.dbView.setVisible(true);
 			}

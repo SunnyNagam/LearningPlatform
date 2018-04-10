@@ -282,7 +282,7 @@ class Instance implements Runnable {
 			System.err.println("getting submissions from db");
 			ResultSet r = helper.submissions(assignID);
 			System.err.println("writing submissions from db");
-			
+			//System.out.println(parseRRSubmission(r).getSubmissons().iterator());
 			out.writeObject(parseRRSubmission(r));
 			out.flush();
 		} catch (Exception e) {
