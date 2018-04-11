@@ -96,24 +96,24 @@ public class UserView extends JFrame {
 	}
 
 
-	private static void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			private void showMenu(MouseEvent e) {
-				popup.show(e.getComponent(), e.getX(), e.getY());
-			}
-		});
-	}
-	
+//	private static void addPopup(Component component, final JPopupMenu popup) {
+//		component.addMouseListener(new MouseAdapter() {
+//			public void mousePressed(MouseEvent e) {
+//				if (e.isPopupTrigger()) {
+//					showMenu(e);
+//				}
+//			}
+//			public void mouseReleased(MouseEvent e) {
+//				if (e.isPopupTrigger()) {
+//					showMenu(e);
+//				}
+//			}
+//			private void showMenu(MouseEvent e) {
+//				popup.show(e.getComponent(), e.getX(), e.getY());
+//			}
+//		});
+//	}
+//	
 	/**
 	 * Displays error in prompt box
 	 * 
@@ -125,9 +125,9 @@ public class UserView extends JFrame {
 
 	public void switchWindow(int index) {
 		if (index >= 0 && index < PanelList.ARRAY_SIZE) {
-			try {								
+			//try {								
 				outerPane.remove(contentPane);
-			} catch (NullPointerException e) {}
+			///} catch (NullPointerException e) {}
 			contentPane = panels[index];
 			if (contentPane != null) outerPane.add (contentPane);
 			
@@ -136,7 +136,7 @@ public class UserView extends JFrame {
 			else
 				this.setTitle(PanelList.AT[index]);
 			
-			System.out.println("Switched.");
+			System.out.println("Switched to " + PanelList.AT[index]);
 			
 			this.paintAll(this.getGraphics());
 		}

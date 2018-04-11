@@ -174,14 +174,11 @@ class Professor extends User {
 				System.err.println("View Dropbox action started");
 				
 				pa.dbView = new DropboxPanel();
-				c.gui.switchWindow(PanelList.DROPBOX);
-				pa.
-				dbView.setDbox(
-						c.client.getDropbox(
-								pa.assignmnetsList.getSelectedValue()
-								.id));
+				
+				pa.dbView.setDbox(c.client.getDropbox(pa.assignmnetsList.getSelectedValue().id));
 				pa.dbView.init();
-				pa.dbView.setVisible(true);
+				c.gui.switchWindow(PanelList.DROPBOX);
+				//pa.dbView.setVisible(true);
 			}
 		},		
 
@@ -246,6 +243,7 @@ class Professor extends User {
 		DropboxPanel f = ((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).dbView;
 
 	}
+	
 
 	private void uploadAssign(Controller c) {
 		InsertView f = ((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).uploadPanel;
