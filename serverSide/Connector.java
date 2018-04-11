@@ -35,7 +35,8 @@ public class Connector {
 			try {
 				Socket cSocket = sSocket.accept();
 				System.out.println("Client connection received.");
-				pool.execute(new Instance(cSocket.getInputStream(), cSocket.getOutputStream()));
+				Instance c = new Instance(cSocket.getInputStream(), cSocket.getOutputStream());
+				pool.execute(c);
 				
 				System.out.println("Connector: Client sent to external thread.");
 			} catch (IOException e) {
