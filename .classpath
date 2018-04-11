@@ -11,5 +11,8 @@
 	<classpathentry kind="lib" path="External Jars/javax.mail.jar"/>
 	<classpathentry kind="lib" path="External Jars/mail-1.4.1.jar"/>
 	<classpathentry kind="lib" path="External Jars/mysql-connector-java-5.1.46-bin.jar"/>
+	<classpathentry kind="lib" path="External Jars/DJNativeSwing-SWT.jar"/>
+	<classpathentry kind="lib" path="External Jars/DJNativeSwing-SWTDemo.jar"/>
+	<classpathentry kind="lib" path="External Jars/DJNativeSwing.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

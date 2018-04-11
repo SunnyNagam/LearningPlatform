@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import clientSide.gui.*;
 import format.Assignment;
 import format.Course;
+import format.DropBox;
 
 public class Student extends User {
 
@@ -155,11 +156,18 @@ public class Student extends User {
 			public void actionPerformed(ActionEvent e) {
 				System.err.println("View Dropbox action started");
 				
-				//pa.dbView = new DropboxPanel();
+				pa.dbView = new DropboxPanel();
+
 				c.gui.switchWindow(PanelList.DROPBOX);
-				pa.dbView.setDbox(c.client.getDropbox(pa.assignmnetsList.getSelectedValue().id));
-				pa.dbView.init();
-				pa.dbView.setVisible(true);
+				if(pa.assignmnetsList.isSelectionEmpty()) {
+					c.gui.switchWindow(PanelList.ASSIGNMENTS);
+					return;
+				}
+				//MY JUNK
+				DropBox db = c.client.getDropbox(pa.assignmnetsList.getSelectedValue().id);
+				//pa.dbView.setDbox(db);
+				//pa.dbView.init();
+				pa.dbView.refreshData(db, c);
 			}
 		});
 
