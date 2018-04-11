@@ -204,8 +204,7 @@ class DBHelper implements DBHandler, format.Communicate {
 	 *  TODO key might not always be a string!
 	 */
 	public ResultSet search(int tableType, String keyType, String key) throws IOException, SQLException, Exception {
-		System.err.println("Searching in table: "+parseTableType(tableType) + " where "
-				+ keyType +" = "+key);
+		//System.err.println("Searching in table: "+parseTableType(tableType) + " where " + keyType +" = "+key);
 		String sql = "SELECT * FROM " + parseTableType(tableType) + " WHERE " + 
 				keyType + "=" + "?";
 		ResultSet set;
@@ -225,33 +224,32 @@ class DBHelper implements DBHandler, format.Communicate {
 		ResultSet set;
 		statement = jdbc_connection.prepareStatement(sql);
 		statement.setInt(1, Integer.parseInt(key) );
-		System.err.println(statement);
+		//System.err.println(statement);
 		set = statement.executeQuery();
 		return set;
 	}
 	@Override
 	public ResultSet search(int tableType, String keyType, int key) throws IOException, SQLException, Exception {
-		System.err.println("Searching in table: "+parseTableType(tableType) + " where "
-				+ keyType +" = "+key);
+		//System.err.println("Searching in table: "+parseTableType(tableType) + " where " + keyType +" = "+key);
 		String sql = "SELECT * FROM " + parseTableType(tableType) + " WHERE " + 
 				keyType + "=" + "?";
 		//String sql = "SELECT * FROM " + parseTableType(tableType);
 		ResultSet set;
 		statement = jdbc_connection.prepareStatement(sql);
 		statement.setInt(1, key);
-		System.err.println(statement);
+		//System.err.println(statement);
 		set = statement.executeQuery();
 		return set;
 	}
 	@Override
 	public ResultSet search(String tableType, String keyType, int key) throws IOException, SQLException, Exception {
-		System.err.println("Searching in table: "+ tableType + " where " + keyType +" = "+key);
+		//System.err.println("Searching in table: "+ tableType + " where " + keyType +" = "+key);
 		String sql = "SELECT * FROM " + tableType + " WHERE " + keyType + "=" + "?";
 		//String sql = "SELECT * FROM " + parseTableType(tableType);
 		ResultSet set;
 		statement = jdbc_connection.prepareStatement(sql);
 		statement.setInt(1, key);
-		System.err.println(statement);
+		//System.err.println(statement);
 		set = statement.executeQuery();
 		return set;
 	}
@@ -377,7 +375,7 @@ class DBHelper implements DBHandler, format.Communicate {
 			statement.setString(4, user.getLastName());
 			statement.setString(5, pass);
 			statement.setInt(6, user.getUserType());
-			System.err.println(user.getUserType());
+			//System.err.println(user.getUserType());
 			statement.executeUpdate();
 			jdbc_connection.commit();		// idk why this is needed but it just is and it took me a hour and a half to figure this out :(
 		} catch (SQLException e) {
@@ -416,7 +414,7 @@ class DBHelper implements DBHandler, format.Communicate {
 		try {
 			int rows = getRows(tables[3])+1;
 			statement = jdbc_connection.prepareStatement(sql);
-			System.err.println(sql);
+			//System.err.println(sql);
 			
 			statement.setInt(1, rows);
 			statement.setInt(2, x.courseID);
@@ -425,7 +423,7 @@ class DBHelper implements DBHandler, format.Communicate {
 			statement.setString(4, path);
 			statement.setBoolean(5, x.active);
 			statement.setString(6, x.due);
-			System.err.println(statement);
+			//System.err.println(statement);
 			statement.executeUpdate();
 			jdbc_connection.commit();		// idk why this is needed but it just is and it took me a hour and a half to figure this out :(
 		} catch (SQLException e) {
@@ -441,7 +439,7 @@ class DBHelper implements DBHandler, format.Communicate {
 		try {
 			int rows = getRows(tables[4])+1;
 			statement = jdbc_connection.prepareStatement(sql);
-			System.err.println(sql);
+			//System.err.println(sql);
 			
 			statement.setInt(1, rows);
 			statement.setInt(2, x.assign_id);
@@ -452,7 +450,7 @@ class DBHelper implements DBHandler, format.Communicate {
 			statement.setString(6, x.title);
 			statement.setInt(7, x.grade);
 			statement.setString(8, x.submissionDate.toString());
-			System.err.println(statement);
+			//System.err.println(statement);
 			statement.executeUpdate();
 			jdbc_connection.commit();		// idk why this is needed but it just is and it took me a hour and a half to figure this out :(
 		} catch (SQLException e) {
@@ -566,7 +564,7 @@ class DBHelper implements DBHandler, format.Communicate {
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.setInt(1, assignID);
 			statement.setInt(2, student);
-			System.err.println(statement);
+			//System.err.println(statement);
 			set = statement.executeQuery();
 			return set;
 		} catch(Exception e) { e.printStackTrace(); return null;}
@@ -633,10 +631,10 @@ class DBHelper implements DBHandler, format.Communicate {
 		statement.setInt(1, id);
 		//System.err.println(statement);
 		set = statement.executeQuery();
-		System.err.println(statement);
+		//System.err.println(statement);
 		set.next();
 		boolean b  = set.getBoolean("ACTIVE");
-		System.err.println("original boolean = " + b);
+		//System.err.println("original boolean = " + b);
 		
 		sql = "UPDATE " + tables[table] + " SET ACTIVE=? WHERE ID=?;";
 		statement = jdbc_connection.prepareStatement(sql);
@@ -644,7 +642,7 @@ class DBHelper implements DBHandler, format.Communicate {
 		statement.setInt(2, id);
 		statement.executeUpdate();
 		jdbc_connection.commit();
-		System.err.println(statement);
+		//System.err.println(statement);
 		} catch (Exception e) {e.printStackTrace();}
 	}
 	@Override
@@ -655,21 +653,21 @@ class DBHelper implements DBHandler, format.Communicate {
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.setInt(1, value);
 			statement.setInt(2, id);
-			System.err.println(statement);
+			//System.err.println(statement);
 			statement.execute();
 			jdbc_connection.commit();
 		} catch(Exception e) { e.printStackTrace(); }
 	}
 	@Override
 	public ResultSet searchf(int table, String string, int... args) throws Exception {
-		System.err.println("Searching in table: "+parseTableType(table) + " where "+ string +" = " + args);
+		//System.err.println("Searching in table: "+parseTableType(table) + " where "+ string +" = " + args);
 		String sql = "SELECT * FROM " + parseTableType(table) + " WHERE " + string + ";";
 		ResultSet set;
 		statement = jdbc_connection.prepareStatement(sql);
 		for (int i = 0; i < args.length; i++) {
 			statement.setInt(i+1, args[i]);
 		}
-		System.err.println(statement);
+		//System.err.println(statement);
 		set = statement.executeQuery();
 		return set;
 	}

@@ -47,11 +47,11 @@ class Instance implements Runnable {
 			out.writeInt(Communicate.CONNECTED);
 			out.flush();
 
-			System.out.println("Got wrote mate");
+			//System.out.println("Got wrote mate");
 
 			// wait for response
 			in = new ObjectInputStream(in_);
-			System.out.println("Got input stream, waiting for input int");
+			//System.out.println("Got input stream, waiting for input int");
 			// check if response is what we're expecting
 			if (in.readInt() != Communicate.CONNECTED)
 				throw new IOException("Unexpected response from Client.");
@@ -73,7 +73,7 @@ class Instance implements Runnable {
 		try {
 			while (true) {
 				int tag = in.readInt();
-				System.err.println("Got command: " + tag);
+				//System.err.println("Got command: " + tag);
 				try {
 					helper.start();
 					parseTag(tag);
@@ -126,9 +126,9 @@ class Instance implements Runnable {
 	private void searchId() {
 		try {
 			int key = in.readInt();
-			System.err.println("getting students from db");
+			//System.err.println("getting students from db");
 			ResultSet r = helper.search(Communicate.STUDENT, "ID", key);
-			System.err.println("writing students from db");
+			//System.err.println("writing students from db");
 
 			out.writeObject(parseRRUser(r));
 			out.flush();
@@ -146,9 +146,9 @@ class Instance implements Runnable {
 	private void searchNm() {
 		try {
 			String key = in.readUTF();
-			System.err.println("getting students from db");
+			//System.err.println("getting students from db");
 			ResultSet r = helper.search(Communicate.STUDENT, "LAST_NAME", key);
-			System.err.println("writing students from db");
+			//System.err.println("writing students from db");
 
 			out.writeObject(parseRRUser(r));
 			out.flush();
@@ -188,7 +188,7 @@ class Instance implements Runnable {
 			ResultSet set = helper.search(0, "ID", String.format("%d", username));
 			if (!set.next()) {
 				out.writeInt(Communicate.INVALID);
-				System.out.println("Null set returned.");
+				//System.out.println("Null set returned.");
 			} else {
 				set.beforeFirst();
 				set.next();
@@ -211,9 +211,9 @@ class Instance implements Runnable {
 	private void enroll() {
 		try {
 			int studentID = in.readInt();
-			System.err.println("got student: " + studentID);
+			//System.err.println("got student: " + studentID);
 			int courseID = in.readInt();
-			System.err.println("got course: " + courseID);
+			//System.err.println("got course: " + courseID);
 			helper.toggleEnroll(studentID, courseID);
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();
@@ -223,15 +223,15 @@ class Instance implements Runnable {
 	private void enrolled() {
 		try {
 			int studentID = in.readInt();
-			System.err.println("got student: " + studentID);
+			//System.err.println("got student: " + studentID);
 			int courseID = in.readInt();
-			System.err.println("got course: " + courseID);
+			//System.err.println("got course: " + courseID);
 			ResultSet r = helper.enrolled(studentID, courseID);
 			boolean b = (r != null) && r.first();
-			System.err.println("enrolled: " + b);
+			//System.err.println("enrolled: " + b);
 			out.writeBoolean(b);
 			out.flush();
-			System.err.println("wrote^");
+			//System.err.println("wrote^");
 
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();
@@ -245,7 +245,7 @@ class Instance implements Runnable {
 			int type = in.readInt();
 			if (checkDisconnect(in))
 				disconnect();
-			System.err.println("getting type " + type);
+			//System.err.println("getting type " + type);
 			get(type);
 
 			// int status = (true) ? Communicate.DB_SUCCESS : Communicate.DB_ERROR;
@@ -287,7 +287,7 @@ class Instance implements Runnable {
 		try {
 			int assignID = in.readInt();
 
-			System.err.println("getting submissions from db");
+			//System.err.println("getting submissions from db");
 			ResultSet r = null;
 			if(clientType == Communicate.STUDENT) {
 				int sID = in.readInt();
@@ -295,7 +295,7 @@ class Instance implements Runnable {
 			}
 			else
 				r = helper.submissions(assignID);
-			System.err.println("writing submissions from db");
+			//System.err.println("writing submissions from db");
 			//System.out.println(parseRRSubmission(r).getSubmissons().iterator());
 			out.writeObject(parseRRSubmission(r));
 			out.flush();
@@ -316,13 +316,13 @@ class Instance implements Runnable {
 			if (key == Communicate.NAME)
 				getCourseName();
 
-			System.err.println("getting courses from db");
+			//System.err.println("getting courses from db");
 			ResultSet r;
 			if(clientType == Communicate.STUDENT)
 				r = helper.getEnrolledCourses(key);
 			else
 				r = helper.search(Communicate.COURSE, "PROF_ID", key);
-			System.err.println("writing courses from db");
+			//System.err.println("writing courses from db");
 
 			out.writeObject(parseRRCourse(r));
 			out.flush();
@@ -354,9 +354,9 @@ class Instance implements Runnable {
 
 	private void getStudent() {
 		try {
-			System.err.println("getting students from db");
+			//System.err.println("getting students from db");
 			ResultSet r = helper.search(Communicate.STUDENT, "TYPE", 8);
-			System.err.println("writing students from db");
+			//System.err.println("writing students from db");
 
 			out.writeObject(parseRRUser(r));
 			out.flush();
@@ -374,9 +374,9 @@ class Instance implements Runnable {
 	private void getAssignment() {
 		try {
 			int key = in.readInt();
-			System.err.println("getting assognments from db");
+			//System.err.println("getting assognments from db");
 			ResultSet r = helper.search(Communicate.ASSIGNMENT, "COURSE_ID", key);
-			System.err.println("writing assignments from db");
+			//System.err.println("writing assignments from db");
 
 			out.writeObject(parseRRAssignment(r));
 			out.flush();
@@ -428,7 +428,7 @@ class Instance implements Runnable {
 
 	private void sendAssignment() {
 		try {
-			System.err.println("Getting file Assign man.");
+			//System.err.println("Getting file Assign man.");
 			int assID = in.readInt();
 			ResultSet r = helper.search(Communicate.ASSIGNMENT, "ID", assID);
 			if(r.next()) {
@@ -437,7 +437,7 @@ class Instance implements Runnable {
 				out.writeUTF(path);
 				
 				File selectedFile = new File("../Assignments/" + path);
-				System.err.println("Looking for file: " + path);
+				//System.err.println("Looking for file: " + path);
 				if (!selectedFile.exists()) {
 					System.err.println("Invalid file path!");
 					out.write(null);
@@ -450,14 +450,14 @@ class Instance implements Runnable {
 					FileInputStream fis = new FileInputStream(selectedFile);
 					BufferedInputStream bos = new BufferedInputStream(fis);
 					bos.read(content, 0, (int) length);
-					System.err.println("Read the file into temp.");
+					//System.err.println("Read the file into temp.");
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				System.err.println("Printed content.");
-				System.err.println(Arrays.toString(content));
+				//System.err.println("Printed content.");
+				//System.err.println(Arrays.toString(content));
 				out.writeObject(content);
 				out.flush();
 			}
@@ -472,7 +472,7 @@ class Instance implements Runnable {
 
 	private void sendSubmission() {
 		try {
-			System.err.println("Getting file man.");
+			//System.err.println("Getting file man.");
 			int subID = in.readInt();
 			ResultSet r = helper.search(Communicate.SUBMISSION, "ID", subID);
 			if(r.next()) {
@@ -480,7 +480,7 @@ class Instance implements Runnable {
 				out.writeUTF(path);
 				
 				File selectedFile = new File("../Submissions/" + path);
-				System.err.println("Looking for file: " + path);
+				//System.err.println("Looking for file: " + path);
 				if (!selectedFile.exists()) {
 					System.err.println("Invalid file path!");
 					out.write(null);
@@ -493,14 +493,14 @@ class Instance implements Runnable {
 					FileInputStream fis = new FileInputStream(selectedFile);
 					BufferedInputStream bos = new BufferedInputStream(fis);
 					bos.read(content, 0, (int) length);
-					System.err.println("Read the file into temp.");
+					//System.err.println("Read the file into temp.");
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				System.err.println("Printed content.");
-				System.err.println(Arrays.toString(content));
+				//System.err.println("Printed content.");
+				//System.err.println(Arrays.toString(content));
 				out.writeObject(content);
 				out.flush();
 			}
@@ -676,7 +676,7 @@ class Instance implements Runnable {
 			while (r.next()) {
 				arr.add(Submission.castRR(r));
 			}
-			System.err.println("Elements in set: " + arr.size());
+			//System.err.println("Elements in set: " + arr.size());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -689,7 +689,7 @@ class Instance implements Runnable {
 			while (r.next()) {
 				arr.add(Course.castRR(r));
 			}
-			System.err.println("Elements in set: " + arr.size());
+			//System.err.println("Elements in set: " + arr.size());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -704,7 +704,7 @@ class Instance implements Runnable {
 				arr.add(new String[] { String.valueOf(r.getInt("TYPE")), r.getString("FIRST_NAME"),
 						r.getString("LAST_NAME"), r.getString("EMAIL"), String.valueOf(r.getInt("ID")) });
 			}
-			System.err.println("Elements in set: " + arr.size());
+			//System.err.println("Elements in set: " + arr.size());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -719,7 +719,7 @@ class Instance implements Runnable {
 				arr.add(new Assignment(r.getString("TITLE"), r.getString("PATH"), r.getBoolean("ACTIVE"),
 						r.getInt("COURSE_ID"), r.getInt("ID"), r.getString("DUE_DATE")));
 			}
-			System.err.println("Elements in set: " + arr.size());
+			//System.err.println("Elements in set: " + arr.size());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

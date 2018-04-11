@@ -94,9 +94,9 @@ public class Controller {
 		//gui.switchWindow(PanelList.MY_COURSES);
 	}
 	private void initializeView(String name, int type) {
-		System.err.println("Courses menu action started");
+		//System.err.println("Courses menu action started");
 		ArrayList<Course>  set = client.getCourses(user.id);
-		System.err.println("Got responce set from db. "+set.size());
+		//System.err.println("Got responce set from db. "+set.size());
 		((MyCoursesPanel) gui.getPanels()[PanelList.MY_COURSES]).refreshData(set);
 		gui.setTitle(PanelList.AT[PanelList.MY_COURSES]);
 		gui.initializeView(name, type);
