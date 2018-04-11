@@ -20,6 +20,7 @@ import format.Assignment;
 import format.Communicate;
 import format.Course;
 import format.DropBox;
+import format.Submission;
 
 /**
  * @author keenangaudio
@@ -266,6 +267,15 @@ public class Client {
 		String temp = path.substring(path.lastIndexOf("."),path.length());
 		System.err.println(temp);
 		writeObject(new Assignment(title,temp,active,course,-1,due));	// assign but path is 'default' and id is -1
+		writeObject(file);
+	}
+	
+	public void uploadSub(String title, String path, String due, int assign, int student, int course, byte[] file) {
+		writeTag(Communicate.SYNC);
+		writeTag(Communicate.SUBMISSION);
+		String temp = path.substring(path.lastIndexOf("."),path.length());
+		System.err.println(temp);
+		writeObject(new Submission(-1,assign,student,course,path,title,0,due));	// assign but path is 'default' and id is -1
 		writeObject(file);
 	}
 

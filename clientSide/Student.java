@@ -22,8 +22,9 @@ import format.DropBox;
 public class Student extends User {
 
 	public Student() {
-		
+
 	}
+
 	public Student(int type, String first, String last, String email, int id) {
 		this.userType = type;
 		this.firstName = first;
@@ -31,25 +32,26 @@ public class Student extends User {
 		this.email = email;
 		this.id = id;
 	}
+
 	@Override
 	JPanel[] instantiatePanels() {
-		JPanel[] tmp = new JPanel[PanelList.ARRAY_SIZE]; 
-		tmp[MY_COURSES]  = createMyCourses();
-		tmp[COURSE] 	 = createCoursePanel();
+		JPanel[] tmp = new JPanel[PanelList.ARRAY_SIZE];
+		tmp[MY_COURSES] = createMyCourses();
+		tmp[COURSE] = createCoursePanel();
 		tmp[ASSIGNMENTS] = createAssignmentsPanel();
-		tmp[GRADES] 	 = createGradesPanel();
-		tmp[DROPBOX]	 = createDropBox();
+		tmp[GRADES] = createGradesPanel();
+		tmp[DROPBOX] = createDropBox();
 		tmp[EMAIL_MAKER] = createEmailMaker();
-		//the rest aren't needed yet
+		// the rest aren't needed yet
 		return tmp;
 	}
-	
+
 	private JPanel createEmailMaker() {
 		JPanel tmp = new ComposeEmailPanel();
 
 		return tmp;
 	}
-	
+
 	private JPanel createDropBox() {
 		JPanel tmp = new DropboxPanel();
 
@@ -58,25 +60,28 @@ public class Student extends User {
 
 	private JPanel createGradesPanel() {
 		JPanel tmp = new GradesPanel();
-		
+
 		return tmp;
 	}
+
 	private JPanel createAssignmentsPanel() {
 		JPanel tmp = new StudentAssignmentPanel();
-		
+
 		return tmp;
 	}
+
 	private JPanel createCoursePanel() {
 		JPanel tmp = new StudentCoursePanel();
-		
+
 		return tmp;
 	}
+
 	private JPanel createMyCourses() {
 		JPanel tmp = new MyCoursesPanel();
-		//do not include the 'create course' button
+		// do not include the 'create course' button
 		return tmp;
 	}
-	
+
 	@Override
 	void assignButtons(Controller c) {
 		System.err.println("assigning buttons");
@@ -176,33 +181,7 @@ public class Student extends User {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.err.println("SUBMIT TO Dropbox action started");
-				/*
-				File selectedFile = new File(f.pathtxt.getText());
-				System.err.println("Looking for file: " + f.pathtxt.getText());
-				if (!selectedFile.exists()) {
-					c.gui.displayErrorMessage("Invalid file path!");
-					return;
-				}
-				long length = selectedFile.length();
-				byte[] content = new byte[(int) length];
-				try {
-					FileInputStream fis = new FileInputStream(selectedFile);
-					BufferedInputStream bos = new BufferedInputStream(fis);
-					bos.read(content, 0, (int) length);
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				System.err.println("uploading assignment now:) from " + f.pathtxt.getText());
-				c.client.upload(f.titletxt.getText(), f.pathtxt.getText(), f.duetxt.getText(), f.activeBox.isSelected(),
-						c.selectedCourse, content);
-				System.err.println("done uploading!");
-				f.setVisible(false);
-				f.clearInput();
-
-				ArrayList<Assignment> set = c.client.getAssignments(c.selectedCourse);
-				((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).refreshData(set);*/
+				((StudentAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).uploadPanel.setVisible(true);
 				
 			}
 		}		);
@@ -216,6 +195,46 @@ public class Student extends User {
 				ArrayList<Assignment> set = c.client.getAssignments(c.selectedCourse);
 				((StudentAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).refreshData(set);
 			}
+		});
+		
+		InsertView f = ((StudentAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).uploadPanel;
+		
+		f.insertB.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			File selectedFile = new File(f.pathtxt.getText());
+			System.err.println("Looking for file: " + f.pathtxt.getText());
+			if (!selectedFile.exists()) {
+				c.gui.displayErrorMessage("Invalid file path!");
+				return;
+			}
+			long length = selectedFile.length();
+			byte[] content = new byte[(int) length];
+			try {
+				FileInputStream fis = new FileInputStream(selectedFile);
+				BufferedInputStream bos = new BufferedInputStream(fis);
+				bos.read(content, 0, (int) length);
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			System.err.println("uploading sub now:) from " + f.pathtxt.getText());
+
+			/// change dis
+			c.client.uploadSub(f.titletxt.getText(), f.pathtxt.getText(), f.duetxt.getText(), 
+					((StudentAssignmentPanel)c.gui.getPanels()[PanelList.ASSIGNMENTS]).assignmnetsList.getSelectedValue().id, 
+					id, 
+					((StudentAssignmentPanel)c.gui.getPanels()[PanelList.ASSIGNMENTS]).assignmnetsList.getSelectedValue().courseID, 
+					content);
+
+			System.err.println("done uploading!");
+			f.setVisible(false);
+			f.clearInput();
+
+			ArrayList<Assignment> set = c.client.getAssignments(c.selectedCourse);
+			((StudentAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).refreshData(set);	
+		}
 		});
 		
 		/*/searchPanel stuff
@@ -238,7 +257,4 @@ public class Student extends User {
 		});*/
 	}
 
-
-	
-	
 }

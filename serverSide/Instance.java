@@ -530,7 +530,28 @@ class Instance implements Runnable {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if (type == Communicate.COURSE) {
+		} else if (type == Communicate.SUBMISSION) {
+			Submission s;
+			try {
+				s = (Submission) in.readObject();
+				String path = helper.addSubmission(s);
+				byte[] content = (byte[]) in.readObject();
+				
+				File newFile = new File(path);
+				try {
+					if (!newFile.exists())
+						newFile.createNewFile();
+					FileOutputStream writer = new FileOutputStream(newFile);
+					BufferedOutputStream bos = new BufferedOutputStream(writer);
+					bos.write(content);
+					bos.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if (type == Communicate.COURSE) {
 			Course x;
 			try {
 				x = (Course) in.readObject();

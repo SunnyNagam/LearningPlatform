@@ -10,14 +10,14 @@ import java.time.format.DateTimeFormatter;
 public class Submission implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public int id;
-	private int assign_id;
-	private int submitter;
-	private int course;
-	private String submissionPath;
-	private double grade;
-	private String title;
-	private LocalDate submissionDate;
-	private Submission(int id, int assignID, int studID, int courseID, String path, String title, int grade, String date) {
+	public int assign_id;
+	public int submitter;
+	public int course;
+	public String submissionPath;
+	public int grade;
+	public String title;
+	public LocalDate submissionDate;
+	public Submission(int id, int assignID, int studID, int courseID, String path, String title, int grade, String date) {
 		this.id = id;
 		this.assign_id = assignID;
 		this.submitter = studID;
@@ -31,7 +31,7 @@ public class Submission implements Serializable {
 	public double getGrade() {
 		return grade;
 	}
-	public void setGrade(double grade) {
+	public void setGrade(int grade) {
 		this.grade = grade;
 	}
 	
@@ -58,7 +58,7 @@ public class Submission implements Serializable {
 	}
 	@Override 
 	public String toString() {
-		return String.format("%08d %10s %3.1f %8d", submitter, submissionDate, grade, id);
+		return String.format("%08d %10s %3d %8d", submitter, submissionDate, grade, id);
 	}
 //	String sql = "CREATE TABLE " + tableName + "(" + "ID INT(8) NOT NULL, " + "ASSIGN_ID INT(8) NOT NULL, "
 //			+ "STUDENT_ID INT(8) NOT NULL, " + "COURSE_ID INT(8) NOT NULL, " + "PATH VARCHAR(100) NOT NULL, "

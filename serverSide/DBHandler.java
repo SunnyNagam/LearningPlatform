@@ -231,4 +231,10 @@ interface DBHandler {
 	 * @return
 	 */
 	ResultSet submissions(int assignID, int student);
+	/**
+	 * 
+	 * @param x
+	 * @return
+	 */
+	String addSubmission(Submission x);
 }

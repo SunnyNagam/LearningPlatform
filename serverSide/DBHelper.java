@@ -433,6 +433,33 @@ class DBHelper implements DBHandler, format.Communicate {
 		}
 		return path;
 	}
+	
+	@Override
+	public String addSubmission(Submission x) {
+		String sql = "INSERT INTO " + tables[4] + " VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
+		String path = "../" + tables[4] + "/";
+		try {
+			int rows = getRows(tables[4])+1;
+			statement = jdbc_connection.prepareStatement(sql);
+			System.err.println(sql);
+			
+			statement.setInt(1, rows);
+			statement.setInt(2, x.assign_id);
+			statement.setInt(3, x.submitter);
+			statement.setInt(4, x.course);
+			path += rows + x.submissionPath;
+			statement.setString(5, path);
+			statement.setString(6, x.title);
+			statement.setInt(7, x.grade);
+			statement.setString(8, x.submissionDate.toString());
+			System.err.println(statement);
+			statement.executeUpdate();
+			jdbc_connection.commit();		// idk why this is needed but it just is and it took me a hour and a half to figure this out :(
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return path;
+	}
 	@Override
 	public void toggleEnroll(int studentID, int courseID) throws SQLException {
 		if (courseID == -1) return;
