@@ -65,7 +65,7 @@ public class DropboxPanel extends JPanel{
 		dispPanel.add(new JLabel("Submitter // Date // Grade // Id"));
 		dispPanel.add(scroll);
 		
-		add(new JLabel("Assignment: "));
+		//add(new JLabel("Assignment: "));
 		//add(tmp);
 		add(dispPanel);
 		//add(buttonPanel);
