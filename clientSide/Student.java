@@ -112,7 +112,7 @@ public class Student extends User {
 			}
 		});
 
-		// getting selected course
+		// getting selected course from course panel
 		((MyCoursesPanel) c.gui.getPanels()[PanelList.MY_COURSES]).courseList.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if(((MyCoursesPanel)c.gui.getPanels()[PanelList.MY_COURSES]).courseList.isSelectionEmpty()){
@@ -147,14 +147,7 @@ public class Student extends User {
 		StudentAssignmentPanel pa = ((StudentAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]);
 
 		// add functionaliity to button in profassign (UPLOAD)
-		pa.addListen(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.err.println("Upload assign action started");
-				// TODO UPLOAD
-				pa.uploadPanel.setVisible(true);
-			}
-		},
+		pa.addListen(
 				
 		// add functionaliity to button in profassign (DROPBOX)
 		new ActionListener() {
@@ -168,34 +161,7 @@ public class Student extends User {
 				pa.dbView.init();
 				pa.dbView.setVisible(true);
 			}
-		},		
-
-		// toggle assignment button
-				new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						System.err.println("Toggle assign action started");
-						Assignment temp = ((ProfAssignmentPanel) c.gui
-								.getPanels()[PanelList.ASSIGNMENTS]).assignmnetsList.getSelectedValue();
-						if (temp == null)
-							return;
-						c.client.toggleAssignment(temp.id);
-						ArrayList<Assignment> set = c.client.getAssignments(c.selectedCourse);
-						((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).refreshData(set);
-					}
-				});
-
-		/*/ students menu botton
-		c.gui.getMenu()[PanelList.GRADES].addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				((GradesPanel) c.gui.getPanels()[PanelList.GRADES]).title.setText("Grades: " + c.selectedName);
-				System.err.println("Grades menu action started");
-				ArrayList<String[]> set = c.client.getStudents(c.user.id);
-				System.err.println("Got responce set from db. " + set.size());
-				((GradesPanel) c.gui.getPanels()[PanelList.GRADES]).refreshData(set, c);
-			}
-		});*/
+		});
 
 		// assignments menu botton
 		c.gui.getMenu()[PanelList.ASSIGNMENTS].addActionListener(new ActionListener() {
@@ -204,7 +170,7 @@ public class Student extends User {
 				System.err.println("Assignment menu action started");
 
 				ArrayList<Assignment> set = c.client.getAssignments(c.selectedCourse);
-				((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).refreshData(set);
+				((StudentAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).refreshData(set);
 			}
 		});
 		
