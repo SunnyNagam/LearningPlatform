@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JLabel;
 import javax.swing.JFrame;
@@ -21,6 +22,8 @@ import javax.swing.JPanel;
 import clientSide.gui.*;
 import format.Assignment;
 import format.Course;
+import format.DropBox;
+import format.Submission;
 
 class Professor extends User {
 	private String first = "User ID // First Name // Last Name // Enrolled in ";
@@ -162,12 +165,12 @@ class Professor extends User {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.err.println("Upload assign action started");
-				// TODO UPLOAD
+				
 				pa.uploadPanel.setVisible(true);
 			}
 		},
 				
-		// add functionaliity to button in profassign (DROPBOX)
+		// add functionaliity to button in profAssign (DROPBOX)
 		new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -180,9 +183,11 @@ class Professor extends User {
 					c.gui.switchWindow(PanelList.ASSIGNMENTS);
 					return;
 				}
-				pa.
-				dbView.setDbox(c.client.getDropbox(pa.assignmnetsList.getSelectedValue().id));
-				pa.dbView.init();
+				//MY JUNK
+				DropBox db = c.client.getDropbox(pa.assignmnetsList.getSelectedValue().id);
+				//pa.dbView.setDbox(db);
+				//pa.dbView.init();
+				pa.dbView.refreshData(db, c);
 			}
 		},		
 
@@ -193,8 +198,7 @@ class Professor extends User {
 						System.err.println("Toggle assign action started");
 						Assignment temp = ((ProfAssignmentPanel) c.gui
 								.getPanels()[PanelList.ASSIGNMENTS]).assignmnetsList.getSelectedValue();
-						if (temp == null)
-							return;
+						if (temp == null) return;
 						c.client.toggleAssignment(temp.id);
 						ArrayList<Assignment> set = c.client.getAssignments(c.selectedCourse);
 						((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).refreshData(set);
