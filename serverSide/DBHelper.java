@@ -613,7 +613,7 @@ class DBHelper implements DBHandler, format.Communicate {
 			statement.setInt(2, id);
 			System.err.println(statement);
 			statement.execute();
-			//jdbc_connection.commit();
+			jdbc_connection.commit();
 		} catch(Exception e) { e.printStackTrace(); }
 	}
 	@Override
