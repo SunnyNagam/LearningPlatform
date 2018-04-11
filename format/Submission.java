@@ -23,6 +23,8 @@ public class Submission implements Serializable {
 		this.submitter = studID;
 		this.course = courseID;
 		this.submissionPath = path;
+//		String[] p = path.split("/");
+//		if (p.length > 0) this.submissionPath = p[p.length - 1];
 		this.title = title;
 		this.grade = grade;
 		this.submissionDate = LocalDate.parse(date,DateTimeFormatter.ofPattern("yyyy-MM-dd"));

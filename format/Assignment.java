@@ -15,6 +15,9 @@ public class Assignment implements Serializable {
 	public Assignment(String name, String path, boolean active, int courseID, int id, String due) {
 		this.name = name;
 		this.path = path;
+//		String[] p = path.split("/");
+//		if (p.length > 0) this.path = p[p.length - 1];
+		
 		this.due = due;
 		this.courseID = courseID;
 		this.id = id;

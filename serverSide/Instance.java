@@ -434,7 +434,7 @@ class Instance implements Runnable {
 			if(r.next()) {
 				String path = r.getString("PATH");
 				
-				File selectedFile = new File("../" + path);
+				File selectedFile = new File("../Assignments/" + path);
 				System.err.println("Looking for file: " + path);
 				if (!selectedFile.exists()) {
 					System.err.println("Invalid file path!");
@@ -476,7 +476,7 @@ class Instance implements Runnable {
 			if(r.next()) {
 				String path = r.getString("PATH");
 				
-				File selectedFile = new File("../"+path);
+				File selectedFile = new File("../Submissions/" + path);
 				System.err.println("Looking for file: " + path);
 				if (!selectedFile.exists()) {
 					System.err.println("Invalid file path!");
