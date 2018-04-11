@@ -43,15 +43,22 @@ class Professor extends User {
 	@Override
 	JPanel[] instantiatePanels() {
 		JPanel[] tmp = new JPanel[PanelList.ARRAY_SIZE];
-		tmp[MY_COURSES] = createMyCourses();
-		tmp[COURSE] = createCoursePanel();
+		tmp[MY_COURSES]  = createMyCourses();
+		tmp[COURSE] 	 = createCoursePanel();
 		tmp[ASSIGNMENTS] = createAssignmentsPanel();
-		tmp[STUDENTS] = createStudentsPanel();
+		tmp[STUDENTS] 	 = createStudentsPanel();
 		tmp[DROPBOX]	 = createDropBox();
+		tmp[EMAIL_MAKER] = createEmailMaker();
 		// the rest aren't needed yet
 		return tmp;
 	}
 
+	private JPanel createEmailMaker() {
+		JPanel tmp = new ComposeEmailPanel();
+
+		return tmp;
+	}
+	
 	private JPanel createStudentsPanel() {
 		JPanel tmp = new StudentsPanel();
 
