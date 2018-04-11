@@ -177,7 +177,7 @@ class Professor extends User {
 				System.err.println("View Dropbox action started");
 				
 				pa.dbView = new DropboxPanel();
-
+				JPanel temp = new JPanel();
 				c.gui.switchWindow(PanelList.DROPBOX);
 				if(pa.assignmnetsList.isSelectionEmpty()) {
 					c.gui.switchWindow(PanelList.ASSIGNMENTS);
@@ -187,7 +187,12 @@ class Professor extends User {
 				DropBox db = c.client.getDropbox(pa.assignmnetsList.getSelectedValue().id);
 				//pa.dbView.setDbox(db);
 				//pa.dbView.init();
-				pa.dbView.refreshData(db, c);
+				((DropboxPanel)c.gui.getPanels()[PanelList.DROPBOX]).refreshData(db, c);
+				
+				//temp.add(pa.dbView);
+				//c.gui.getPanels()[PanelList.DROPBOX].removeAll();
+				//c.gui.getPanels()[PanelList.DROPBOX].add(temp);
+				//c.gui.add(temp);
 			}
 		},		
 

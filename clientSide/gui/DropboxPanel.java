@@ -40,10 +40,7 @@ public class DropboxPanel extends JPanel{
 	
 	public DropboxPanel(){
 		JPanel buttonPanel = new JPanel ();
-		JPanel dispPanel = new JPanel ();
-		
-		//JPanel titlePanel = new JPanel ();
-		this.setSize(800, 500);
+		//this.setSize(800, 500);
 
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
@@ -52,13 +49,14 @@ public class DropboxPanel extends JPanel{
 		submissionsList = new JList<Submission> (submissions);
 		submissionsList.setFont(new Font("menlo",Font.PLAIN,12));
 		//submissionsList.setBackground( new Color(142,214,021) );
-		submissionsList.setVisibleRowCount(10);
-		submissionsList.setFixedCellHeight(15);
+		//submissionsList.setVisibleRowCount(10);
+		//submissionsList.setFixedCellHeight(15);
 		//submissionsList.setOpaque(true);
 		
 		JPanel tmp = new JPanel();
+		JPanel dispPanel = new JPanel ();
 		dispPanel.setLayout(new BoxLayout(dispPanel, BoxLayout.Y_AXIS));
-		//tmp.add(new JLabel("Submitter // Date // Grade // Id"));
+		tmp.add(new JLabel("Submitter // Date // Grade // Id"));
 		JScrollPane scroll = new JScrollPane(submissionsList);
 		//x.setPreferredSize(new Dimension(300,200));
 		
@@ -68,7 +66,7 @@ public class DropboxPanel extends JPanel{
 		//add(new JLabel("Assignment: "));
 		//add(tmp);
 		add(dispPanel);
-		//add(buttonPanel);
+		add(buttonPanel);
 		
 	}
 
