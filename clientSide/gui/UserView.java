@@ -119,8 +119,8 @@ public class UserView extends JFrame {
 	 * 
 	 * @param errorMessage
 	 */
-	public void displayErrorMessage(String errorMessage) {
-		JOptionPane.showMessageDialog(this, errorMessage);
+	public static void displayErrorMessage(String errorMessage) {
+		JOptionPane.showMessageDialog(null, errorMessage);
 	}
 
 	public void switchWindow(int index) {

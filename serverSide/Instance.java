@@ -414,8 +414,8 @@ class Instance implements Runnable {
 		if(getType == Communicate.SUBMISSION) {
 			sendSubmission();
 		}
-		else {
-			
+		else if(getType == Communicate.ASSIGNMENT) {
+			sendAssignment();
 		}
 			
 //		if (clientType == Communicate.STUDENT) {
@@ -424,6 +424,48 @@ class Instance implements Runnable {
 //			profFile();
 //		}
 
+	}
+
+	private void sendAssignment() {
+		try {
+			System.err.println("Getting file Assign man.");
+			int assID = in.readInt();
+			ResultSet r = helper.search(Communicate.ASSIGNMENT, "ID", assID);
+			if(r.next()) {
+				String path = r.getString("PATH");
+				
+				File selectedFile = new File("../" + path);
+				System.err.println("Looking for file: " + path);
+				if (!selectedFile.exists()) {
+					System.err.println("Invalid file path!");
+					out.write(null);
+					out.flush();
+					return;
+				}
+				long length = selectedFile.length();
+				byte[] content = new byte[(int) length];
+				try {
+					FileInputStream fis = new FileInputStream(selectedFile);
+					BufferedInputStream bos = new BufferedInputStream(fis);
+					bos.read(content, 0, (int) length);
+					System.err.println("Read the file into temp.");
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				System.err.println("Printed content.");
+				System.err.println(Arrays.toString(content));
+				out.writeObject(content);
+				out.flush();
+			}
+			else {
+				System.err.println("Assignment file not found!");
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void sendSubmission() {

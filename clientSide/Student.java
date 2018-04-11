@@ -184,7 +184,20 @@ public class Student extends User {
 				((StudentAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).uploadPanel.setVisible(true);
 				
 			}
-		}		);
+		},	
+		// Download SUBMISSION
+				new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						
+						System.err.println("Download Assignment file action started");
+						
+						
+						
+						c.client.downloadAssignment(pa.assignmnetsList.getSelectedValue().id);
+						
+					}
+				}		);
 
 		// assignments menu botton
 		c.gui.getMenu()[PanelList.ASSIGNMENTS].addActionListener(new ActionListener() {

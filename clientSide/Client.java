@@ -16,6 +16,7 @@ import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 
+import clientSide.gui.UserView;
 import format.Assignment;
 import format.Communicate;
 import format.Course;
@@ -329,7 +330,7 @@ public class Client {
 		try {
 		String path = "../SubmissionDownload/"+id;
 		byte[] content = (byte[]) in.readObject();
-		
+		if (content==null) UserView.displayErrorMessage("Assignment file doesn't exist. Try emailing your Professor.");
 		File newFile = new File(path);
 		try {
 			if (!newFile.exists())
@@ -339,6 +340,39 @@ public class Client {
 			bos.write(content);
 			System.err.println("FIle downloaded");
 			bos.close();
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		} catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean downloadAssignment(int id) {
+		write(Communicate.GET);
+		write(Communicate.FILE);
+		write(Communicate.ASSIGNMENT);
+		write(id);
+		
+		// I give u this ^ u give me a byte array file 
+		
+		try {
+		String path = "../AssignmentDownload/" + id;
+		byte[] content = (byte[]) in.readObject();
+		if (content==null) UserView.displayErrorMessage("Assignment file doesn't exist. Try emailing your Professor.");
+		File newFile = new File(path);
+		try {
+			if (!newFile.exists())
+				newFile.createNewFile();
+			FileOutputStream writer = new FileOutputStream(newFile);
+			BufferedOutputStream bos = new BufferedOutputStream(writer);
+			bos.write(content);
+			System.err.println("File downloaded.");
+			bos.close();
+			
 			return true;
 		} catch (IOException e) {
 			e.printStackTrace();

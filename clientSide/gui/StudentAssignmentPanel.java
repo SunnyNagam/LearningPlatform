@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.AbstractButton;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -23,7 +24,7 @@ import format.Assignment;
  *
  */
 public class StudentAssignmentPanel extends JPanel {
-	private JButton openB, submitB;
+	private JButton openB, submitB, downloadB;
 	public DefaultListModel<Assignment> assignments;
 	public JList<Assignment> assignmnetsList;
 	public InsertView uploadPanel;
@@ -58,11 +59,15 @@ public class StudentAssignmentPanel extends JPanel {
 		x.add(openB = new JButton("Open DropBox"));
 		
 		x.add(Box.createHorizontalGlue());
+		x.add(downloadB = new JButton("Download Assignment File"));
+		
+		x.add(Box.createHorizontalGlue());
 		x.add(submitB = new JButton("Submit to dropbox"));
 		return x;
 	}
-	public void addListen(ActionListener a, ActionListener b) {
+	public void addListen(ActionListener a, ActionListener b, ActionListener c) {
 		openB.addActionListener(a);
+		downloadB.addActionListener(c);
 		submitB.addActionListener(b);
 	}
 	public void update() {
@@ -76,7 +81,7 @@ public class StudentAssignmentPanel extends JPanel {
 			for(int x=0; x< set.size(); x++) {
 				Assignment assign = set.get(x);
 				if (assign.active) assignments.addElement(assign);
-				System.err.println("Adding: "+assignments.get(x));
+				System.err.println("Adding: "+ assign);
 			}
 		}
 		catch (Exception e) {
