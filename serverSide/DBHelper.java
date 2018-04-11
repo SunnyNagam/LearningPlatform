@@ -162,7 +162,6 @@ class DBHelper implements DBHandler, format.Communicate {
 	 */
 	@Override
 	public void addRow(String[] data) throws IOException, SQLException, Exception {
-		// TODO Auto-generated method stub
 
 	}
 	
@@ -612,7 +611,7 @@ class DBHelper implements DBHandler, format.Communicate {
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.setInt(1, value);
 			statement.setInt(2, id);
-			//System.err.println(statement);
+			System.err.println(statement);
 			statement.execute();
 			//jdbc_connection.commit();
 		} catch(Exception e) { e.printStackTrace(); }
@@ -629,6 +628,23 @@ class DBHelper implements DBHandler, format.Communicate {
 		System.err.println(statement);
 		set = statement.executeQuery();
 		return set;
+	}
+	@Override
+	public void addGrade(int maxGrade, int assignID, int studID, int courseID) {
+		String sql = "INSERT INTO " + tables[5] + " VALUES (?, ?, ?, ?, ?);";
+		try {
+			int rows = getRows(tables[5]);
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(1, rows);
+			statement.setInt(2, assignID);
+			statement.setInt(3, studID);
+			statement.setInt(4, courseID);
+			statement.setInt(5, maxGrade);
+			statement.executeUpdate();
+			jdbc_connection.commit();		// idk why this is needed but it just is and it took me a hour and a half to figure this out :(
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

@@ -490,24 +490,24 @@ class Instance implements Runnable {
 			e1.printStackTrace();
 		}
 		// add new grade
-		helper.update(Communicate.SUBMISSION,"GRADE", grade, subID);
+		helper.update(Communicate.SUBMISSION,"SUBMISSION_GRADE", grade, subID);
 		// get assign id student id and course id
 		ResultSet r;
 		try {
-			r = helper.search(Communicate.SUBMISSION, "ID", subID);
+			(r = helper.search(Communicate.SUBMISSION, "ID", subID)).first();
 			assignID = r.getInt("ASSIGN_ID");
 			studID = r.getInt("STUDENT_ID");
 		// update best grade for assignment 
-			r = helper.searchf(Communicate.SUBMISSION, "ASSIGN_ID=?, STUDENT_ID=?", assignID, studID);
-			while ( r.next() ) {
-				if ((g = r.getInt("GRADE")) > maxGrade) {
-					assignID = r.getInt("ASSIGN_ID");
-					studID = r.getInt("STUDENT_ID");
-					maxGrade = g;
-				}
+			r = helper.searchf(Communicate.SUBMISSION, "ASSIGN_ID=? AND STUDENT_ID=?", assignID, studID);
+			while ( r.next() ) 
+				if ((g = r.getInt("SUBMISSION_GRADE")) > maxGrade) maxGrade = g;
+
+			if ( (r = helper.searchf(Communicate.GRADES, 
+					"ASSIGN_ID=? AND STUDENT_ID=? AND COURSE_ID=?", assignID, studID, courseID)).first() )
+				helper.update(Communicate.GRADES, "ASSIGNMENT_GRADE", maxGrade, r.getInt("ID"));
+			else {
+				helper.addGrade(maxGrade, assignID, studID, courseID);
 			}
-			helper.update(Communicate.ASSIGNMENT, "GRADE", maxGrade, assignID);
-		
 		} catch (Exception e) { e.printStackTrace(); return;}
 	}
 	private void disconnect() throws IOException {

@@ -200,4 +200,13 @@ interface DBHandler {
 	 * @throws Exception
 	 */
 	ResultSet searchf(int table, String string, int ... args) throws Exception;
+
+	/**
+	 * 
+	 * @param maxGrade
+	 * @param assignID
+	 * @param studID
+	 * @param courseID
+	 */
+	void addGrade(int maxGrade, int assignID, int studID, int courseID);
 }
