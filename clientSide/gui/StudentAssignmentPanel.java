@@ -71,7 +71,7 @@ public class StudentAssignmentPanel extends JPanel {
 			assignments.removeAllElements();
 			for(int x=0; x< set.size(); x++) {
 				Assignment assign = set.get(x);
-				assignments.addElement(assign);
+				if (assign.active) assignments.addElement(assign);
 				System.err.println("Adding: "+assignments.get(x));
 			}
 		}

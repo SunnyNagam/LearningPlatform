@@ -125,9 +125,9 @@ public class UserView extends JFrame {
 
 	public void switchWindow(int index) {
 		if (index >= 0 && index < PanelList.ARRAY_SIZE) {
-			//try {								
+			try {								
 				outerPane.remove(contentPane);
-			///} catch (NullPointerException e) {}
+			} catch (NullPointerException e) {}
 			contentPane = panels[index];
 			if (contentPane != null) outerPane.add (contentPane);
 			

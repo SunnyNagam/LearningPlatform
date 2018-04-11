@@ -75,11 +75,11 @@ public class Student extends User {
 		System.err.println("assigning buttons");
 
 		// Create new course button
-		((MyCoursesPanel) c.gui.getPanels()[PanelList.MY_COURSES]).profTools(new ActionListener() {
+		((MyCoursesPanel) c.gui.getPanels()[PanelList.MY_COURSES]).studTools(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.err.println("prof tool butt assigned");
+				System.err.println("stud tool butt assigned");
 				// create a course
 				String cName = JOptionPane.showInputDialog("Enter the new course name: ");
 				c.client.addCourse(-1, cName, String.valueOf(getId()), false);

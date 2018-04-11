@@ -27,7 +27,7 @@ class DBHelper implements DBHandler, format.Communicate {
 	private Connection jdbc_connection;
 	private PreparedStatement statement;
 	private int enrollCount = 0;
-
+	
 	private static final String dbName = "LearningPlatformDB", dataFile = ".txt";
 	private static final String[] tables = { "Users", "Courses", "EnrollmentChart", "Assignments", "Submissions",
 			"Grades" };
@@ -67,6 +67,7 @@ class DBHelper implements DBHandler, format.Communicate {
 		}
 		enrollCount = getRows(tables[2]);
 	}
+	
 	private boolean makeDirPath(String folder) {
 		boolean fDir = false;
 		int fileTries = 0;
@@ -645,6 +646,23 @@ class DBHelper implements DBHandler, format.Communicate {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	@Override
+	public void refresh() {
+		try {
+			jdbc_connection.commit();
+		} catch (SQLException e) { e.printStackTrace(); }
+		
+	}
+	@Override
+	public void start() throws SQLException {
+		jdbc_connection.beginRequest();
+		
+	}
+	@Override
+	public void end() throws SQLException {
+		jdbc_connection.endRequest();
+		
 	}
 	
 }

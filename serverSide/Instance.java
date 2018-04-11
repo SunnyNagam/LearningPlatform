@@ -70,7 +70,12 @@ class Instance implements Runnable {
 			while (true) {
 				int tag = in.readInt();
 				System.err.println("Got command: " + tag);
-				parseTag(tag);
+				try {
+					helper.start();
+					parseTag(tag);
+					helper.end();
+					helper.refresh();
+				} catch (SQLException e) { e.printStackTrace(); }
 			}
 		} catch (EOFException e) {
 			System.err.println("Client Disconnected.");
@@ -175,7 +180,6 @@ class Instance implements Runnable {
 			// read password
 			String password = in.readUTF();
 			// pass to modelhandler - get type or write Communicate.DB_ERROR
-			// TODO for now just to test:
 
 			ResultSet set = helper.search(0, "ID", String.format("%d", username));
 			if (!set.next()) {

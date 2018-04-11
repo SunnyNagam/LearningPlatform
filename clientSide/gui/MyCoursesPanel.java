@@ -25,6 +25,7 @@ public class MyCoursesPanel extends JPanel {
 	private JButton createNew, toggleB;
 	public DefaultListModel<Course> myCourses;
 	public JList<Course> courseList;
+	private boolean admin;
 	
 	//private JPanel display;
 	
@@ -40,7 +41,8 @@ public class MyCoursesPanel extends JPanel {
 		courseList.updateUI();
 	}
 	
-	public void StudTools(ActionListener a, ActionListener b) {
+	public void studTools(ActionListener a, ActionListener b) {
+		admin = false;
 		add( setup() );
 		System.err.println("Creating studTools.");
 		createNew = new JButton( "Enter Chatroom" );
@@ -52,6 +54,7 @@ public class MyCoursesPanel extends JPanel {
 		add( toggleB, BorderLayout.SOUTH );
 	}
 	public void profTools(ActionListener a, ActionListener b) {
+		admin = true;
 		add( setup() );
 		System.err.println("Creating profTools.");
 		createNew = new JButton( "Create new Course" );
@@ -61,6 +64,7 @@ public class MyCoursesPanel extends JPanel {
 		toggleB = new JButton( "Toggle Active" );
 		toggleB.addActionListener(b);
 		add( toggleB, BorderLayout.SOUTH );
+		(new Exception()).printStackTrace();
 	}
 	
 	public void refreshData(ArrayList<Course> set) {
@@ -68,8 +72,8 @@ public class MyCoursesPanel extends JPanel {
 		try {
 			myCourses.removeAllElements();
 			for(int x = 0; x < set.size(); x++) {
-				myCourses.addElement(set.get(x));
-				System.err.println("Adding: "+myCourses.get(x));
+				if(admin || set.get(x).isActive() ) myCourses.addElement(set.get(x));
+				System.err.println("Adding: " + set.get(x));
 			}
 		}
 		catch (Exception e) {
@@ -85,6 +89,7 @@ public class MyCoursesPanel extends JPanel {
 		tmp.add(x);
 		return tmp;
 	}
+
 	
 
 }
