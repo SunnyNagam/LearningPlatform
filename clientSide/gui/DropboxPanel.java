@@ -38,7 +38,7 @@ public class DropboxPanel extends JPanel{
 		//JPanel titlePanel = new JPanel ();
 		this.setSize(800, 500);
 
-		setLayout(new BorderLayout());
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		submissions = new DefaultListModel<Submission>();
 		
@@ -54,11 +54,10 @@ public class DropboxPanel extends JPanel{
 		
 		add(tmp);
 		
-		//add("North", new JLabel("Upload new document!"));
-		add("Center", dispPanel);
-		add("South", buttonPanel);
+		//add("North", new JLabel("Assignment: "));
+		add(dispPanel);
+		add(buttonPanel);
 		
-		//this.pack();
 	}
 
 	public DropBox getDbox() {
@@ -68,6 +67,7 @@ public class DropboxPanel extends JPanel{
 	public void setDbox(DropBox dbox) {
 		this.dbox = dbox;
 	}
+	
 	/**
 	 * Initalizes submissons list
 	 */
@@ -75,6 +75,7 @@ public class DropboxPanel extends JPanel{
 		System.err.println("Adding submissions to gui.");
 		try {
 			submissions.removeAllElements();
+			
 			for(int x=0; x< dbox.getSubmissons().size(); x++) {
 				Submission s = dbox.getSubmissons().get(x);
 				submissions.addElement(s);

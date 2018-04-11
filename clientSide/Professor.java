@@ -175,13 +175,16 @@ class Professor extends User {
 				
 				pa.dbView = new DropboxPanel();
 				c.gui.switchWindow(PanelList.DROPBOX);
+				if(pa.assignmnetsList.isSelectionEmpty()) {
+					c.gui.switchWindow(PanelList.ASSIGNMENTS);
+					return;
+				}
 				pa.
 				dbView.setDbox(
 						c.client.getDropbox(
 								pa.assignmnetsList.getSelectedValue()
 								.id));
 				pa.dbView.init();
-				pa.dbView.setVisible(true);
 			}
 		},		
 
