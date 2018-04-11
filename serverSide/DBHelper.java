@@ -474,6 +474,46 @@ class DBHelper implements DBHandler, format.Communicate {
 			return set;
 		} catch(Exception e) { return null; }
 	}
+	
+	@Override
+	public ResultSet getEnrolledCourses(int studentID) {
+		try {
+			String sql = "SELECT * FROM " + tables[2] + " WHERE STUDENT_ID=?";
+			String countsql = "SELECT COUNT(*) FROM " + tables[2] + " WHERE STUDENT_ID=?";
+			
+			ResultSet set;
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(1, studentID);
+			set = statement.executeQuery();
+			
+			ResultSet c;
+			statement = jdbc_connection.prepareStatement(countsql);
+			statement.setInt(1, studentID);
+			c = statement.executeQuery();
+			
+			c.next();
+			int size = c.getInt(1), count = 0;
+			
+			sql = "SELECT * FROM " + tables[1] + " WHERE ID IN (";
+			while(set.next()) {
+				sql += set.getInt("COURSE_ID");
+				if(count < size-1)
+					sql += ",";
+				count++;
+			}
+			
+			sql+= ")";
+			
+			statement = jdbc_connection.prepareStatement(sql);
+			//System.err.println(statement);
+			set = statement.executeQuery();
+			
+			return set;
+		} catch(Exception e) { 
+			e.printStackTrace();
+			return null;
+		}
+	}
 	@Override
 	public ResultSet submissions(int assignID) {
 		if (assignID == -1) return null;

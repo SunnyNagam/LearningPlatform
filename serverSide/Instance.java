@@ -303,7 +303,11 @@ class Instance implements Runnable {
 				getCourseName();
 
 			System.err.println("getting courses from db");
-			ResultSet r = helper.search(Communicate.COURSE, "PROF_ID", key);
+			ResultSet r;
+			if(clientType == Communicate.STUDENT)
+				r = helper.getEnrolledCourses(key);
+			else
+				r = helper.search(Communicate.COURSE, "PROF_ID", key);
 			System.err.println("writing courses from db");
 
 			out.writeObject(parseRRCourse(r));

@@ -173,4 +173,12 @@ interface DBHandler {
 	 */
 	void toggleAssActive(int key)
 			throws IOException, SQLException, Exception;
+
+	/**
+	 * 
+	 * @param studentID
+	 * @param courseID
+	 * @return
+	 */
+	ResultSet getEnrolledCourses(int studentID);
 }
