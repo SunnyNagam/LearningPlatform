@@ -181,4 +181,23 @@ interface DBHandler {
 	 * @return
 	 */
 	ResultSet getEnrolledCourses(int studentID);
+
+	/**
+	 * 
+	 * @param table
+	 * @param col
+	 * @param value
+	 * @param id
+	 */
+	void update(int table, String col, int value, int id);
+
+	/**
+	 * 
+	 * @param table
+	 * @param string eg. "id=?, name=?"
+	 * @param args eg. 54, 33
+	 * @return
+	 * @throws Exception
+	 */
+	ResultSet searchf(int table, String string, int ... args) throws Exception;
 }

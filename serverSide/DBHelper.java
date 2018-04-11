@@ -526,7 +526,7 @@ class DBHelper implements DBHandler, format.Communicate {
 			//System.err.println(statement);
 			set = statement.executeQuery();
 			return set;
-		} catch(Exception e) { return null; }
+		} catch(Exception e) { e.printStackTrace(); return null;}
 	}
 	public String getPath(int submissionID) {
 		try {
@@ -539,7 +539,7 @@ class DBHelper implements DBHandler, format.Communicate {
 			set = statement.executeQuery();
 			set.first();
 			return set.getString("PATH");
-		} catch(Exception e) { return null; }
+		} catch(Exception e) { e.printStackTrace(); return null; }
 	}
 	private int getRows(String table_name) {
 		String sql = "SELECT COUNT(*) FROM " + table_name + ";";
@@ -603,6 +603,32 @@ class DBHelper implements DBHandler, format.Communicate {
 		jdbc_connection.commit();
 		System.err.println(statement);
 		} catch (Exception e) {e.printStackTrace();}
+	}
+	@Override
+	public void update(int table, String col, int value, int id) {
+		try {
+			String sql = "UPDATE " + parseTableType(table) + " SET " + col + "=? WHERE ID=?";
+
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(1, value);
+			statement.setInt(2, id);
+			//System.err.println(statement);
+			statement.execute();
+			//jdbc_connection.commit();
+		} catch(Exception e) { e.printStackTrace(); }
+	}
+	@Override
+	public ResultSet searchf(int table, String string, int... args) throws Exception {
+		System.err.println("Searching in table: "+parseTableType(table) + " where "+ string +" = " + args);
+		String sql = "SELECT * FROM " + parseTableType(table) + " WHERE " + string + ";";
+		ResultSet set;
+		statement = jdbc_connection.prepareStatement(sql);
+		for (int i = 0; i < args.length; i++) {
+			statement.setInt(i+1, args[i]);
+		}
+		System.err.println(statement);
+		set = statement.executeQuery();
+		return set;
 	}
 	
 }

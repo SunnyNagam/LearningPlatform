@@ -473,12 +473,43 @@ class Instance implements Runnable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} else {
-
+		} else if (type == Communicate.GRADES) {
+			getGrade();
 		}
-
 	}
-
+//	String sql = "CREATE TABLE " + tableName + "(" + "ID INT(8) NOT NULL, " + "ASSIGN_ID INT(8) NOT NULL, "
+//			+ "STUDENT_ID INT(8) NOT NULL, " + "COURSE_ID INT(8) NOT NULL, " + "ASSIGNMENT_GRADE INT(3), "
+//			+ "PRIMARY KEY ( id ))";
+	private void getGrade() {
+		int subID = -1, courseID = -1, grade = 0, assignID = -1, studID = -1, maxGrade = 0, g;
+		try {
+			subID = in.readInt();
+			courseID = in.readInt();
+			grade = maxGrade = in.readInt();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		// add new grade
+		helper.update(Communicate.SUBMISSION,"GRADE", grade, subID);
+		// get assign id student id and course id
+		ResultSet r;
+		try {
+			r = helper.search(Communicate.SUBMISSION, "ID", subID);
+			assignID = r.getInt("ASSIGN_ID");
+			studID = r.getInt("STUDENT_ID");
+		// update best grade for assignment 
+			r = helper.searchf(Communicate.SUBMISSION, "ASSIGN_ID=?, STUDENT_ID=?", assignID, studID);
+			while ( r.next() ) {
+				if ((g = r.getInt("GRADE")) > maxGrade) {
+					assignID = r.getInt("ASSIGN_ID");
+					studID = r.getInt("STUDENT_ID");
+					maxGrade = g;
+				}
+			}
+			helper.update(Communicate.ASSIGNMENT, "GRADE", maxGrade, assignID);
+		
+		} catch (Exception e) { e.printStackTrace(); return;}
+	}
 	private void disconnect() throws IOException {
 		// write disconnect back
 
