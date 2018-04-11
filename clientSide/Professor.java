@@ -181,12 +181,8 @@ class Professor extends User {
 					return;
 				}
 				pa.
-				dbView.setDbox(
-						c.client.getDropbox(
-								pa.assignmnetsList.getSelectedValue()
-								.id));
+				dbView.setDbox(c.client.getDropbox(pa.assignmnetsList.getSelectedValue().id));
 				pa.dbView.init();
-
 			}
 		},		
 
