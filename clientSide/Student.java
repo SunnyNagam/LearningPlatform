@@ -76,31 +76,23 @@ public class Student extends User {
 
 		// Create new course button
 		((MyCoursesPanel) c.gui.getPanels()[PanelList.MY_COURSES]).studTools(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.err.println("stud tool butt assigned");
+				//TODO goto chat room maybe
+			}
+		},
+		//toggle button
+			new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.err.println("toggle butt setup");
 				// create a course
-				String cName = JOptionPane.showInputDialog("Enter the new course name: ");
-				c.client.addCourse(-1, cName, String.valueOf(getId()), false);
+				c.client.toggleCourse(c.selectedCourse);
 				ArrayList<Course> set = c.client.getCourses(c.user.id);
 				((MyCoursesPanel) c.gui.getPanels()[PanelList.MY_COURSES]).refreshData(set);
 			}
-
-		},
-
-				new ActionListener() {
-
-					@Override
-					public void actionPerformed(ActionEvent arg0) {
-						System.err.println("toggle butt setup");
-						// create a course
-						c.client.toggleCourse(c.selectedCourse);
-						ArrayList<Course> set = c.client.getCourses(c.user.id);
-						((MyCoursesPanel) c.gui.getPanels()[PanelList.MY_COURSES]).refreshData(set);
-					}
-
-				});
+		});
 
 		// Course menu botton
 		c.gui.getMenu()[PanelList.MY_COURSES].addActionListener(new ActionListener() {
