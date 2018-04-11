@@ -41,8 +41,8 @@ public class Controller {
 	private void login () {
 		gui.setVisible(true);
 		LoginPanel pan = gui.getLoginPanel();
-		if (!makeDirPath("AssignmentDownload")) {System.err.println("Could Not Create Assignment Directory.");}
-		if (!makeDirPath("SubmissionDownload")) {System.err.println("Could Not Create Submission Directory.");}
+		if (!makeDirPath("Assignments")) {System.err.println("Could Not Create Assignment Directory.");}
+		if (!makeDirPath("Submissions")) {System.err.println("Could Not Create Submission Directory.");}
 		pan.getSub().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
