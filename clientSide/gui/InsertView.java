@@ -1,9 +1,12 @@
 package clientSide.gui;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -49,11 +52,15 @@ public class InsertView extends JFrame{
 	 * Major prompt
 	 */
 	private JLabel activeL = new JLabel("Active");
+	
+	private JButton chooseFile;
     
 	public InsertView(String s){
 		super(s);
 		JPanel buttonPanel = new JPanel ();
 		JPanel dispPanel = new JPanel ();
+		chooseFile = new JButton("Choose File");
+		chooseFile.addActionListener(choose());
 		//JPanel titlePanel = new JPanel ();
 		this.setSize(500, 150);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -63,9 +70,11 @@ public class InsertView extends JFrame{
 		
 		dispPanel.add(pathL);
 		dispPanel.add(pathtxt);
+		dispPanel.add(chooseFile);
 		
 		dispPanel.add(dueL);
 		dispPanel.add(duetxt);
+		
 		
 		dispPanel.add(activeL);
 		dispPanel.add(activeBox);
@@ -84,6 +93,17 @@ public class InsertView extends JFrame{
 		add("South", buttonPanel);
 		
 		//this.pack();
+	}
+	private ActionListener choose() {
+		// TODO Auto-generated method stub
+		return new ActionListener () {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser fileBrowser = new JFileChooser(); 
+				if(fileBrowser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+					pathtxt.setText( fileBrowser.getSelectedFile().getAbsolutePath() );
+			}
+		};
 	}
 	public InsertView(String s,boolean prof){
 		this(s);
