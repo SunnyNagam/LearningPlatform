@@ -20,13 +20,7 @@ public class EmailKit {
 	private final String HOST = "smtp.gmail.com"; 
 	private final int PORT = 587;
 	
-	private String body = String.join(
-    	    System.getProperty("line.separator"),
-    	    "<h1>Amazon SES SMTP Email Test</h1>",
-    	    "<p>This email was sent with Amazon SES using the ", 
-    	    "<a href='https://github.com/javaee/javamail'>Javamail Package</a>",
-    	    " for <a href='https://www.java.com'>Java</a>."
-    	);
+	private String body;
 	public static EmailKit defineEmail(String from, String fromName, String[] to, String password){
 		try {
 			return  new EmailKit(from,fromName,to,password);
@@ -80,19 +74,17 @@ public class EmailKit {
         
         t.close();
         
-        System.out.println("SUCCESS");
+        //System.out.println("SUCCESS");
 	}
-	
+	public boolean sendFormatted(String header, String ... lines) {
+		String arg = "";
+		for (String a : lines) arg += a + "<br>";
+		return send( String.join( System.getProperty("line.separator"), "<h1>", header, "</h1>", "<p>", arg , "</p>" ));
+	}
 	//testy test
 	public static void main (String[] args) {
 		String[] to = {"keenangaudio@me.com"};
-		EmailKit.defineEmail("profemail409@gmail.com", "Keenan", to, "rootpass").send(String.join(
-    	    System.getProperty("line.separator"),
-    	    "<h1>Amazon SES SMTP Email Test</h1>",
-    	    "<p>This email was sent with Amazon SES using the ", 
-    	    "<a href='https://github.com/javaee/javamail'>Javamail Package</a>",
-    	    " for <a href='https://www.java.com'>Java</a>."
-    	));
+		EmailKit.defineEmail("profemail409@gmail.com", "Keenan", to, "rootpass").sendFormatted("NICE TITLE","hi", "suh", "hola","next line","wowzers");
 	}
 	
 
