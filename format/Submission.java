@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Submission implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private int id;
+	public int id;
 	private int assign_id;
 	private int submitter;
 	private int course;

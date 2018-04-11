@@ -189,7 +189,44 @@ class Professor extends User {
 				//pa.dbView.init();
 				((DropboxPanel)c.gui.getPanels()[PanelList.DROPBOX]).refreshData(db, c);
 				
-				((DropboxPanel)c.gui.getPanels()[PanelList.DROPBOX]).addListen(gr, dw);
+				
+				// ADDING GRADES
+				((DropboxPanel)c.gui.getPanels()[PanelList.DROPBOX]).addListen(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						if(((DropboxPanel)c.gui.getPanels()[PanelList.DROPBOX]).submissionsList.isSelectionEmpty()) {
+							return;
+						}
+						
+						String gradeT = JOptionPane.showInputDialog("Enter a percentage grade for this assignment: ");
+						int grade = 0;
+						try {
+							grade = Integer.parseInt(gradeT);
+						} catch(Exception e) {
+							c.gui.displayErrorMessage("Invalid grade, please enter a number (0-100)." );
+							return;
+						}
+						if(grade<0 || grade>100) {
+							c.gui.displayErrorMessage("Invalid grade, please enter a number (0-100)." );
+							return;
+						}
+						
+						c.client.submitGrade(((DropboxPanel)c.gui.getPanels()[PanelList.DROPBOX]).submissionsList.getSelectedValue().id, c.selectedCourse, grade);
+					}
+					
+				},
+					
+				// ADDING DOWNLOAD
+				new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+				});
 			}
 		},		
 

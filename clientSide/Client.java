@@ -282,5 +282,14 @@ public class Client {
 	public ArrayList<String[]> getGrades(int selectedAss, int student) {
 		return null;
 	}
+
+	public void submitGrade(int id, int selectedCourse, int grade) {
+		writeTag(Communicate.SYNC);
+		writeTag(Communicate.GRADES);
+		
+		write(id);
+		write(selectedCourse);
+		write(grade);
+	}
 	
 }
