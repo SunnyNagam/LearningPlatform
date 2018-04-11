@@ -328,8 +328,8 @@ public class Client {
 		// I give u this ^ u give me a byte array file
 		
 		try {
-		//String path = "../SubmissionDownload/"+id;
-		String path = in.readUTF();
+		String path = "../SubmissionDownload/";
+		path += in.readUTF();
 		byte[] content = (byte[]) in.readObject();
 		if (content==null) UserView.displayErrorMessage("Assignment file doesn't exist. Try emailing your Professor.");
 		File newFile = new File(path);
@@ -361,7 +361,8 @@ public class Client {
 		// I give u this ^ u give me a byte array file 
 		
 		try {
-		String path = in.readUTF();
+		String path = "../AssignmentDownload/";
+		path += in.readUTF();
 		
 		byte[] content = (byte[]) in.readObject();
 		if (content==null) UserView.displayErrorMessage("Assignment file doesn't exist. Try emailing your Professor.");
