@@ -184,7 +184,7 @@ public class UserView extends JFrame {
 		instanciateButton(PanelList.MY_COURSES, type);
 		menu[PanelList.MY_COURSES].setSelected(true);
 	   
-	    instanciateButton(PanelList.EMAIL_INBOX, type);
+	    instanciateButton(PanelList.EMAIL_MAKER, type);
 	    instanciateButton(PanelList.STUDENTS, type);
 	    instanciateButton(PanelList.ASSIGNMENTS, type);
 	    
