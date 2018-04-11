@@ -34,7 +34,7 @@ public class EmailKit {
 		return null;
 	}
 	//sends an email with 
-	public boolean body(String bod) {
+	public boolean send(String bod) {
 		this.body = bod;
 		boolean ret = true;
 		try {
@@ -86,7 +86,7 @@ public class EmailKit {
 	//testy test
 	public static void main (String[] args) {
 		String[] to = {"keenangaudio@me.com"};
-		EmailKit.defineEmail("profemail409@gmail.com", "Keenan", to, "rootpass").body(String.join(
+		EmailKit.defineEmail("profemail409@gmail.com", "Keenan", to, "rootpass").send(String.join(
     	    System.getProperty("line.separator"),
     	    "<h1>Amazon SES SMTP Email Test</h1>",
     	    "<p>This email was sent with Amazon SES using the ", 
