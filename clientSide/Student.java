@@ -115,6 +115,9 @@ public class Student extends User {
 		// getting selected course
 		((MyCoursesPanel) c.gui.getPanels()[PanelList.MY_COURSES]).courseList.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				if(((MyCoursesPanel)c.gui.getPanels()[PanelList.MY_COURSES]).courseList.isSelectionEmpty()){
+					return;
+				}
 				Course n = ((Course) ((MyCoursesPanel) c.gui.getPanels()[PanelList.MY_COURSES]).courseList
 						.getSelectedValue());
 				c.selectedCourse = n.getCourseID();
@@ -125,8 +128,8 @@ public class Student extends User {
 			}
 		});
 
-		// add functionaliity to ENROLL button in students panel
-		((StudentsPanel) c.gui.getPanels()[PanelList.STUDENTS]).addListen(new ActionListener() {
+		/*/ add functionaliity to ENROLL button in students panel
+		((GradesPanel) c.gui.getPanels()[PanelList.GRADES]).addListen(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.err.println("Students enroll action started");
@@ -140,8 +143,8 @@ public class Student extends User {
 				System.err.println("Got responce set from db. " + set.size());
 				((StudentsPanel) c.gui.getPanels()[PanelList.STUDENTS]).refreshData(set, c);
 			}
-		});
-		ProfAssignmentPanel pa = ((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]);
+		});*/
+		StudentAssignmentPanel pa = ((StudentAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]);
 
 		// add functionaliity to button in profassign (UPLOAD)
 		pa.addListen(new ActionListener() {
@@ -182,7 +185,7 @@ public class Student extends User {
 					}
 				});
 
-		// students menu botton
+		/*/ students menu botton
 		c.gui.getMenu()[PanelList.GRADES].addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -190,9 +193,9 @@ public class Student extends User {
 				System.err.println("Grades menu action started");
 				ArrayList<String[]> set = c.client.getStudents(c.user.id);
 				System.err.println("Got responce set from db. " + set.size());
-				((StudentsPanel) c.gui.getPanels()[PanelList.GRADES]).refreshData(set, c);
+				((GradesPanel) c.gui.getPanels()[PanelList.GRADES]).refreshData(set, c);
 			}
-		});
+		});*/
 
 		// assignments menu botton
 		c.gui.getMenu()[PanelList.ASSIGNMENTS].addActionListener(new ActionListener() {
@@ -204,7 +207,8 @@ public class Student extends User {
 				((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).refreshData(set);
 			}
 		});
-		//searchPanel stuff
+		
+		/*/searchPanel stuff
 		SearchPanel s = ((StudentsPanel) c.gui.getPanels()[PanelList.STUDENTS]).searchPanel;
 		s.searchButton.addActionListener(new ActionListener() {
 			@Override
@@ -221,7 +225,7 @@ public class Student extends User {
 				} catch (Exception ex) { c.gui.displayErrorMessage( ex.getMessage() ); }
 				
 			}	
-		});
+		});*/
 	}
 
 
