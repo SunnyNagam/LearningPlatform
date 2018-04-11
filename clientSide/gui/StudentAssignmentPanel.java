@@ -23,7 +23,7 @@ import format.Assignment;
  *
  */
 public class StudentAssignmentPanel extends JPanel {
-	private JButton openB;
+	private JButton openB, submitB;
 	public DefaultListModel<Assignment> assignments;
 	public JList<Assignment> assignmnetsList;
 	public InsertView uploadPanel;
@@ -56,10 +56,14 @@ public class StudentAssignmentPanel extends JPanel {
 		
 		x.add(Box.createHorizontalGlue());
 		x.add(openB = new JButton("Open DropBox"));
+		
+		x.add(Box.createHorizontalGlue());
+		x.add(submitB = new JButton("Submit to dropbox"));
 		return x;
 	}
-	public void addListen(ActionListener a) {
+	public void addListen(ActionListener a, ActionListener b) {
 		openB.addActionListener(a);
+		submitB.addActionListener(b);
 	}
 	public void update() {
 		assignmnetsList.updateUI();

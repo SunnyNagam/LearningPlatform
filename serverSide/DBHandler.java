@@ -209,9 +209,26 @@ interface DBHandler {
 	 * @param courseID
 	 */
 	void addGrade(int maxGrade, int assignID, int studID, int courseID);
-
+	/**
+	 * 
+	 * @throws SQLException
+	 */
 	void refresh() throws SQLException;
+	/**
+	 * 
+	 * @throws SQLException
+	 */
 	void start() throws SQLException;
-
+	/**
+	 * 
+	 * @throws SQLException
+	 */
 	void end() throws SQLException;
+	/**
+	 * 
+	 * @param assignID
+	 * @param student
+	 * @return
+	 */
+	ResultSet submissions(int assignID, int student);
 }

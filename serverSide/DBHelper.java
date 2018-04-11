@@ -528,6 +528,22 @@ class DBHelper implements DBHandler, format.Communicate {
 			return set;
 		} catch(Exception e) { e.printStackTrace(); return null;}
 	}
+	
+	@Override
+	public ResultSet submissions(int assignID, int student) {
+		if (assignID == -1) return null;
+		try {
+			String sql = "SELECT * FROM " + tables[4] + " WHERE ASSIGN_ID=? AND STUDENT_ID=?";
+			
+			ResultSet set;
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(1, assignID);
+			statement.setInt(2, student);
+			System.err.println(statement);
+			set = statement.executeQuery();
+			return set;
+		} catch(Exception e) { e.printStackTrace(); return null;}
+	}
 	public String getPath(int submissionID) {
 		try {
 			String sql = "SELECT * FROM " + tables[4] + " WHERE ID=?";

@@ -3,9 +3,12 @@
  */
 package serverSide;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.EOFException;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,6 +18,7 @@ import java.io.OutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.sound.midi.SysexMessage;
 
@@ -284,7 +288,13 @@ class Instance implements Runnable {
 			int assignID = in.readInt();
 
 			System.err.println("getting submissions from db");
-			ResultSet r = helper.submissions(assignID);
+			ResultSet r = null;
+			if(clientType == Communicate.STUDENT) {
+				int sID = in.readInt();
+				r = helper.submissions(assignID, sID);
+			}
+			else
+				r = helper.submissions(assignID);
 			System.err.println("writing submissions from db");
 			//System.out.println(parseRRSubmission(r).getSubmissons().iterator());
 			out.writeObject(parseRRSubmission(r));
@@ -395,12 +405,67 @@ class Instance implements Runnable {
 	}
 
 	private void fileResponse() {
-		if (clientType == Communicate.STUDENT) {
-			studentFile();
-		} else { // client type == prof
-			profFile();
+		int getType = -1;
+		try {
+			getType = in.readInt();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		if(getType == Communicate.SUBMISSION) {
+			sendSubmission();
+		}
+		else {
+			
+		}
+			
+//		if (clientType == Communicate.STUDENT) {
+//			studentFile();
+//		} else { // client type == prof
+//			profFile();
+//		}
 
+	}
+
+	private void sendSubmission() {
+		try {
+			System.err.println("Getting file man.");
+			int subID = in.readInt();
+			ResultSet r = helper.search(Communicate.SUBMISSION, "ID", subID);
+			if(r.next()) {
+				String path = r.getString("PATH");
+				
+				File selectedFile = new File("../"+path);
+				System.err.println("Looking for file: " + path);
+				if (!selectedFile.exists()) {
+					System.err.println("Invalid file path!");
+					out.write(null);
+					out.flush();
+					return;
+				}
+				long length = selectedFile.length();
+				byte[] content = new byte[(int) length];
+				try {
+					FileInputStream fis = new FileInputStream(selectedFile);
+					BufferedInputStream bos = new BufferedInputStream(fis);
+					bos.read(content, 0, (int) length);
+					System.err.println("Read the file into temp.");
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				System.err.println("Printed content.");
+				System.err.println(Arrays.toString(content));
+				out.writeObject(content);
+				out.flush();
+			}
+			else {
+				System.err.println("Submission not found!");
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void studentFile() {

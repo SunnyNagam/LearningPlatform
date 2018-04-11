@@ -222,8 +222,13 @@ class Professor extends User {
 
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						// TODO Auto-generated method stub
+						boolean b = c.client.getSubDown(((DropboxPanel)c.gui.getPanels()[PanelList.DROPBOX]).submissionsList.getSelectedValue().id);
 						
+						if(b) {
+							c.gui.displayErrorMessage("Submission Downloaded to /SubmissionDownload!");
+						}else {
+							c.gui.displayErrorMessage("Error, file could not be downloaded.");
+						}
 					}
 					
 				});

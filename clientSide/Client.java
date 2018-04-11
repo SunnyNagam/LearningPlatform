@@ -3,7 +3,9 @@
  */
 package clientSide;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -238,6 +240,20 @@ public class Client {
 			return null;
 		}
 	}
+	
+	public DropBox getDropbox(int id, int student) {
+		writeTag(Communicate.GET);
+		writeTag(Communicate.SUBMISSION);
+		write(id);
+		write(student);
+		
+		try {
+			return (DropBox) in.readObject();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	public void toggleAssignment(int ID) {
 		writeTag(Communicate.ASSIGNMENT);
@@ -290,6 +306,38 @@ public class Client {
 		write(id);
 		write(selectedCourse);
 		write(grade);
+	}
+
+	public boolean getSubDown(int id) {
+		write(Communicate.GET);
+		write(Communicate.FILE);
+		write(Communicate.SUBMISSION);
+		write(id);
+		
+		// I give u this ^ u give me a byte array file
+		
+		try {
+		String path = "../SubmissionDownload/"+id;
+		byte[] content = (byte[]) in.readObject();
+		
+		File newFile = new File(path);
+		try {
+			if (!newFile.exists())
+				newFile.createNewFile();
+			FileOutputStream writer = new FileOutputStream(newFile);
+			BufferedOutputStream bos = new BufferedOutputStream(writer);
+			bos.write(content);
+			System.err.println("FIle downloaded");
+			bos.close();
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		} catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 }

@@ -156,12 +156,49 @@ public class Student extends User {
 					return;
 				}
 				//MY JUNK
-				DropBox db = c.client.getDropbox(pa.assignmnetsList.getSelectedValue().id);
+				DropBox db = c.client.getDropbox(pa.assignmnetsList.getSelectedValue().id, id);
 				//pa.dbView.setDbox(db);
 				//pa.dbView.init();
-				pa.dbView.refreshData(db, c);
+				((DropboxPanel)c.gui.getPanels()[PanelList.DROPBOX]).refreshData(db, c);
+				
 			}
-		});
+		},
+		
+		// SUBMIT SUBMISSION
+		new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.err.println("SUBMIT TO Dropbox action started");
+				/*
+				File selectedFile = new File(f.pathtxt.getText());
+				System.err.println("Looking for file: " + f.pathtxt.getText());
+				if (!selectedFile.exists()) {
+					c.gui.displayErrorMessage("Invalid file path!");
+					return;
+				}
+				long length = selectedFile.length();
+				byte[] content = new byte[(int) length];
+				try {
+					FileInputStream fis = new FileInputStream(selectedFile);
+					BufferedInputStream bos = new BufferedInputStream(fis);
+					bos.read(content, 0, (int) length);
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				System.err.println("uploading assignment now:) from " + f.pathtxt.getText());
+				c.client.upload(f.titletxt.getText(), f.pathtxt.getText(), f.duetxt.getText(), f.activeBox.isSelected(),
+						c.selectedCourse, content);
+				System.err.println("done uploading!");
+				f.setVisible(false);
+				f.clearInput();
+
+				ArrayList<Assignment> set = c.client.getAssignments(c.selectedCourse);
+				((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).refreshData(set);*/
+				
+			}
+		}		);
 
 		// assignments menu botton
 		c.gui.getMenu()[PanelList.ASSIGNMENTS].addActionListener(new ActionListener() {
