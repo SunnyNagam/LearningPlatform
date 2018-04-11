@@ -194,7 +194,7 @@ interface DBHandler {
 	/**
 	 * 
 	 * @param table
-	 * @param string eg. "id=?, name=?"
+	 * @param string eg. "id=? AND name=?"
 	 * @param args eg. 54, 33
 	 * @return
 	 * @throws Exception
