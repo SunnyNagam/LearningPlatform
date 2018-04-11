@@ -433,6 +433,7 @@ class Instance implements Runnable {
 			ResultSet r = helper.search(Communicate.ASSIGNMENT, "ID", assID);
 			if(r.next()) {
 				String path = r.getString("PATH");
+				out.writeUTF(path);
 				
 				File selectedFile = new File("../Assignments/" + path);
 				System.err.println("Looking for file: " + path);
@@ -475,6 +476,7 @@ class Instance implements Runnable {
 			ResultSet r = helper.search(Communicate.SUBMISSION, "ID", subID);
 			if(r.next()) {
 				String path = r.getString("PATH");
+				out.writeUTF(path);
 				
 				File selectedFile = new File("../Submissions/" + path);
 				System.err.println("Looking for file: " + path);

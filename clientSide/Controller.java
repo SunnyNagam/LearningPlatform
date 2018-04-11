@@ -5,6 +5,7 @@ package clientSide;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -29,6 +30,7 @@ public class Controller {
 	UserView gui;
 	int clientType;
 	protected String selectedName;
+	private final int MAX_ATTEMPTS = 5;
 	
 	Controller(Client c) {
 		this.client = c;
@@ -39,7 +41,8 @@ public class Controller {
 	private void login () {
 		gui.setVisible(true);
 		LoginPanel pan = gui.getLoginPanel();
-		
+		if (!makeDirPath("AssignmentDownload")) {System.err.println("Could Not Create Assignment Directory.");}
+		if (!makeDirPath("SubmissionDownload")) {System.err.println("Could Not Create Submission Directory.");}
 		pan.getSub().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -55,6 +58,13 @@ public class Controller {
 				}
 			}
 		});
+	}
+	private boolean makeDirPath(String folder) {
+		boolean fDir = false;
+		int fileTries = 0;
+		while (!fDir && fileTries++ < MAX_ATTEMPTS + 1)
+			fDir = (new File("../" + folder)).mkdirs();
+		return fDir;
 	}
 	
 	protected void setupClient(int type, String name) {
