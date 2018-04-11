@@ -16,7 +16,7 @@ public class EmailKit {
 	private String from; 
 	private String password;
 	private String fromName; 
-	private String to; 
+	private InternetAddress[] to; 
 	private final String HOST = "smtp.gmail.com"; 
 	private final int PORT = 587;
 	
@@ -27,23 +27,35 @@ public class EmailKit {
     	    "<a href='https://github.com/javaee/javamail'>Javamail Package</a>",
     	    " for <a href='https://www.java.com'>Java</a>."
     	);
-	public static boolean sendEmail(String from, String fromName, String[] to, String password){
+	public static EmailKit defineEmail(String from, String fromName, String[] to, String password){
+		try {
+			return  new EmailKit(from,fromName,to,password);
+		} catch(Exception e) { System.err.println( e.getMessage() ); }
+		return null;
+	}
+	//sends an email with 
+	public boolean body(String bod) {
+		this.body = bod;
 		boolean ret = true;
 		try {
-			
-		} catch(Exception e) {
-			System.err.println( e.getMessage() );
+			setup();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
 			ret = false;
 		}
 		return ret;
 	}
 	private EmailKit(String from, String fromName, String[] to, String password) throws Exception{
+		this.from = from;
+		this.fromName = fromName;
+		this.password = password;
+		
 		InternetAddress[] addys = new InternetAddress[to.length];
 		for(int i = 0; i < to.length; i++) addys[i] = new InternetAddress( to[i] );
 		
-		setup(addys);
+		this.to = addys;
 	}
-	private void setup(InternetAddress[] to) throws Exception {
+	private void setup() throws Exception {
 		Properties props = System.getProperties();
 		props.put("mail.transport.protocol", "smtp");
 		props.put("mail.smtp.port", PORT); 
@@ -67,8 +79,21 @@ public class EmailKit {
         t.sendMessage(msg, msg.getAllRecipients());
         
         t.close();
+        
+        System.out.println("SUCCESS");
 	}
 	
+	//testy test
+	public static void main (String[] args) {
+		String[] to = {"keenangaudio@me.com"};
+		EmailKit.defineEmail("profemail409@gmail.com", "Keenan", to, "rootpass").body(String.join(
+    	    System.getProperty("line.separator"),
+    	    "<h1>Amazon SES SMTP Email Test</h1>",
+    	    "<p>This email was sent with Amazon SES using the ", 
+    	    "<a href='https://github.com/javaee/javamail'>Javamail Package</a>",
+    	    " for <a href='https://www.java.com'>Java</a>."
+    	));
+	}
 	
 
 }
