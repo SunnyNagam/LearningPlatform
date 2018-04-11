@@ -48,7 +48,6 @@ public class StudentsPanel extends JPanel {
 		title = new JLabel("");
 		tmp.add(title);
 		JScrollPane x = new JScrollPane(studentsList);
-		//x.setPreferredSize(new Dimension(300,200));
 		tmp.add(x);
 		searchPanel = new SearchPanel();
 		add (tmp);
