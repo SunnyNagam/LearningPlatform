@@ -3,9 +3,11 @@ package clientSide.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -37,26 +39,18 @@ public class DropboxPanel extends JPanel{
 	
 	public DefaultListModel<Submission> submissions;
 	public JList<Submission> submissionsList;
+	private JButton gradeB, downB;
 	
 	public DropboxPanel(){
-		JPanel buttonPanel = new JPanel ();
-		//this.setSize(800, 500);
-
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		submissions = new DefaultListModel<Submission>();
 		
 		submissionsList = new JList<Submission> (submissions);
 		submissionsList.setFont(new Font("menlo",Font.PLAIN,12));
-		//submissionsList.setBackground( new Color(142,214,021) );
-		//submissionsList.setVisibleRowCount(10);
-		//submissionsList.setFixedCellHeight(15);
-		//submissionsList.setOpaque(true);
 		
-		JPanel tmp = new JPanel();
 		JPanel dispPanel = new JPanel ();
 		dispPanel.setLayout(new BoxLayout(dispPanel, BoxLayout.Y_AXIS));
-		tmp.add(new JLabel("Submitter // Date // Grade // Id"));
 		JScrollPane scroll = new JScrollPane(submissionsList);
 		//x.setPreferredSize(new Dimension(300,200));
 		
@@ -65,11 +59,25 @@ public class DropboxPanel extends JPanel{
 		
 		//add(new JLabel("Assignment: "));
 		//add(tmp);
+		JPanel buttonPanel = getButtons();
 		add(dispPanel);
 		add(buttonPanel);
 		
 	}
-
+	
+	private JPanel getButtons() {
+		JPanel x = new JPanel();
+		x.setLayout(new BoxLayout(x, BoxLayout.X_AXIS));
+		x.add(Box.createHorizontalGlue());
+		x.add(gradeB = new JButton("Grade"));
+		x.add(Box.createHorizontalGlue());
+		x.add(downB = new JButton("Download"));
+		return x;
+	}
+	public void addListen(ActionListener gr, ActionListener dw ) {
+		gradeB.addActionListener(gr);
+		downB.addActionListener(dw);
+	}
 	public DropBox getDbox() {
 		return dbox;
 	}

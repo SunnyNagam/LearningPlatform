@@ -189,10 +189,7 @@ class Professor extends User {
 				//pa.dbView.init();
 				((DropboxPanel)c.gui.getPanels()[PanelList.DROPBOX]).refreshData(db, c);
 				
-				//temp.add(pa.dbView);
-				//c.gui.getPanels()[PanelList.DROPBOX].removeAll();
-				//c.gui.getPanels()[PanelList.DROPBOX].add(temp);
-				//c.gui.add(temp);
+				((DropboxPanel)c.gui.getPanels()[PanelList.DROPBOX]).addListen(gr, dw);
 			}
 		},		
 
