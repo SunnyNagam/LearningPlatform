@@ -132,7 +132,7 @@ public class UserView extends JFrame {
 			contentPane = panels[index];
 			if (contentPane != null) outerPane.add (contentPane);
 			
-			if (index == PanelList.STUDENTS)
+			if (index == PanelList.GRADES)
 				this.setTitle(PanelList.AT[index].split(";")[(type == Communicate.PROFESSOR)?0:1]);
 			else
 				this.setTitle(PanelList.AT[index]);

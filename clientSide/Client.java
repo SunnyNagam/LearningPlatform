@@ -306,7 +306,24 @@ public class Client {
 		return null;
 	}
 
-	public ArrayList<String[]> getGrades(int selectedAss, int student) {
+	/**
+	 * Returns list of strings containing assignment and correspoding grade
+	 * for all active assignments for a specified student	
+	 * @param student, id of student 
+	 * @return ArrayList of strings containing the grades infromation
+	 */
+	public ArrayList<String> getGrades(int student) {
+		writeTag(Communicate.GET);
+		writeTag(Communicate.GRADES);
+		write(student);
+		
+		try {
+			return (ArrayList<String>) in.readObject();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 

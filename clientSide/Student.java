@@ -121,6 +121,17 @@ public class Student extends User {
 				((MyCoursesPanel) c.gui.getPanels()[PanelList.MY_COURSES]).refreshData(set);
 			}
 		});
+		
+		// GRADES PANEL
+				c.gui.getMenu()[PanelList.GRADES].addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						System.err.println("GRADES menu action started");
+						ArrayList<String> set = c.client.getGrades(c.user.id);
+						System.err.println("Got responce set from db. " + set.size());
+						((GradesPanel) c.gui.getPanels()[PanelList.GRADES]).refreshData(set);
+					}
+				});
 
 		// getting selected course from course panel
 		((MyCoursesPanel) c.gui.getPanels()[PanelList.MY_COURSES]).courseList.addMouseListener(new MouseAdapter() {

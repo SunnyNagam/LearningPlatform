@@ -25,23 +25,28 @@ import format.Course;
  */
 public class GradesPanel extends JPanel {
 	private JButton newSubmission;
-	public DefaultListModel<Submission> myGrades;
-	public JList<Submission> gradeList;
+	public DefaultListModel<String> myGrades;
+	public JList<String> gradeList;
 	
 	public JLabel title;
 	
 	public GradesPanel() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		myGrades = new DefaultListModel<Submission>();
+		myGrades = new DefaultListModel<String>();
 		
-		gradeList = new JList<Submission> (myGrades);
+		gradeList = new JList<String> (myGrades);
 		gradeList.setFont(new Font("menlo",Font.PLAIN,12));
 		
 		
 		JPanel tmp = new JPanel();
 		tmp.setLayout(new BoxLayout(tmp, BoxLayout.Y_AXIS));
-		title = new JLabel("");
+		
+		JScrollPane x = new JScrollPane(gradeList);
+		//x.setPreferredSize(new Dimension(300,200));
+		title = new JLabel("Assignment // Grades");
+		
 		tmp.add(title);
+		tmp.add(x);
 		add (tmp);
 	}
 	public void initialize(ActionListener a) {
@@ -59,7 +64,7 @@ public class GradesPanel extends JPanel {
 		tmp.add(x);
 		return tmp;
 	}
-	public void refreshData(ArrayList<Submission> set) {
+	public void refreshData(ArrayList<String> set) {
 		System.err.println("Refreshing grade data in gui");
 		try {
 			myGrades.removeAllElements();

@@ -277,18 +277,6 @@ class DBHelper implements DBHandler, format.Communicate {
 		return null; // just in case (lol puns)
 	}
 
-	private String parseColTag(int tag) {
-		switch (tag) {
-		case Communicate.EMAIL:
-
-		case Communicate.COURSE:
-
-		case Communicate.NAME:
-
-		}
-		return null;
-	}
-
 	private void createGradeTable(String tableName) {
 		String sql = "CREATE TABLE " + tableName + "(" + "ID INT(8) NOT NULL, " + "ASSIGN_ID INT(8) NOT NULL, "
 				+ "STUDENT_ID INT(8) NOT NULL, " + "COURSE_ID INT(8) NOT NULL, " + "ASSIGNMENT_GRADE INT(3), "
@@ -521,6 +509,7 @@ class DBHelper implements DBHandler, format.Communicate {
 			int size = c.getInt(1), count = 0;
 			
 			sql = "SELECT * FROM " + tables[1] + " WHERE ID IN (";
+			
 			while(set.next()) {
 				sql += set.getInt("COURSE_ID");
 				if(count < size-1)
@@ -582,6 +571,18 @@ class DBHelper implements DBHandler, format.Communicate {
 			set.first();
 			return set.getString("PATH");
 		} catch(Exception e) { e.printStackTrace(); return null; }
+	}
+	
+	@Override
+	public ResultSet getGrades(int student) {
+		try {
+			// getEnrolledCourses() might help with this?
+			
+			return null;			// but dont actually
+		} catch(Exception e) { 
+			e.printStackTrace(); 
+			return null;
+		}
 	}
 	private int getRows(String table_name) {
 		String sql = "SELECT COUNT(*) FROM " + table_name + ";";

@@ -237,4 +237,11 @@ interface DBHandler {
 	 * @return
 	 */
 	String addSubmission(Submission x);
+	
+	/**
+	 * 
+	 * @param stuID
+	 * @return
+	 */
+	ResultSet getGrades(int stuID);
 }

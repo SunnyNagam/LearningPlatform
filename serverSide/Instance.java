@@ -282,9 +282,34 @@ class Instance implements Runnable {
 		case Communicate.MESSAGE:
 			messageResponse();
 			break;
+		case Communicate.GRADES:
+			getGrades();
+			break;
 		case Communicate.SUBMISSION:
 			getSubmissions();
 			break;
+		}
+	}
+
+	private void getGrades() {
+		try {
+			int stuID = in.readInt();
+			
+			// find all the grades given to assignments written by this student
+			// and parse them into a string arrayList
+			
+			ResultSet r = helper.getGrades(stuID);
+			out.writeObject(parseRRSubmission(r));
+			out.flush();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				out.writeObject(null);
+				out.flush();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 
