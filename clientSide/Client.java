@@ -391,7 +391,9 @@ public class Client {
 		writeTag(Communicate.GET);
 		writeTag(Communicate.EMAIL);
 		write(id);
-		return readString();
+		String get = readString();
+		System.err.println("getting email" + get);
+		return get;
 	}
 	/**
 	 *  gets emails of prof followed by all enrolled students 

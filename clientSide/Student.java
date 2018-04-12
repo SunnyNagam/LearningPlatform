@@ -292,8 +292,8 @@ public class Student extends User {
 				System.err.println("Opened email, getting to:");
 				String to = c.client.getEmails(c.selectedCourse);
 				System.err.println("sending to: " + to);
-				em.text[0].setText( to.split(", ")[0] );		//to (first index is prof email)
-				em.text[1].setText( c.client.getEmail(id) );									//from
+				em.text[0].setText( to.split(", ")[0] );				//to (first index is prof email)
+				em.text[1].setText( c.client.getEmail(id) );			//from
 			}
 		});
 		

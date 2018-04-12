@@ -427,7 +427,7 @@ class Instance implements Runnable {
 			//System.err.println("checking courses for id: " + key);
 			// write prof email, 
 			(r = helper.search(Communicate.COURSE, "ID", key)).first();
-			int prof = r.getInt("ID");
+			int prof = r.getInt("PROF_ID");
 			//System.err.println("found prof: " + prof);
 			
 			(r = helper.search(Communicate.STUDENT, "ID", prof)).first();
