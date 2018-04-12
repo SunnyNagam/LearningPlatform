@@ -92,6 +92,9 @@ class Professor extends User {
 
 	@Override
 	void assignButtons(Controller c) {
+		//EMAIL STUFF
+		assignEmail(c);
+		
 		System.err.println("assigning buttons");
 
 		// Create new course button
@@ -317,7 +320,9 @@ class Professor extends User {
 					return;
 				}
 				
-				String to = c.client.getEmails(c.selectedCourse).substring(em.getTo().indexOf(", "),em.getTo().length());
+				String to = c.client.getEmails(c.selectedCourse);
+				System.err.println(to);
+				//to.substring( em.getTo().indexOf(", "),em.getTo().length() );
 				System.err.println("sending to: " + to);
 				em.text[0].setText( to );		//to (first index is prof email)
 				em.text[1].setText( c.client.getEmail(id) );									//from

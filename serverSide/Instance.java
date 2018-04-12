@@ -194,6 +194,8 @@ class Instance implements Runnable {
 				set.next();
 				if (password.equals(set.getString("PASSWORD"))) {
 					out.writeInt(clientType = set.getInt("TYPE"));
+					out.writeUTF(set.getString("FIRST_NAME"));
+					out.writeUTF(set.getString("LAST_NAME"));
 				} else {
 					out.writeInt(Communicate.INVALID);
 				}

@@ -83,7 +83,8 @@ public class Controller {
 			gui.displayErrorMessage("Fatal error.");
 			System.exit(-1);
 		}
-		
+		user.firstName = client.readString();
+		user.lastName = client.readString();
 		user.id = Integer.parseInt(name);
 		
 		gui.addPanels( user.instantiatePanels() );
