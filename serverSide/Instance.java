@@ -299,7 +299,7 @@ class Instance implements Runnable {
 			// and parse them into a string arrayList
 			
 			ResultSet r = helper.getGrades(stuID);
-			out.writeObject(parseRRSubmission(r));
+			out.writeObject(parseRRGrades(r));
 			out.flush();
 			
 		} catch (Exception e) {
@@ -758,6 +758,19 @@ class Instance implements Runnable {
 		try {
 			while (r.next()) {
 				arr.add(Course.castRR(r));
+			}
+			//System.err.println("Elements in set: " + arr.size());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return arr;
+	}
+	
+	private ArrayList<String> parseRRGrades(ResultSet r) {
+		ArrayList<String> arr = new ArrayList<String>();
+		try {
+			while (r.next()) {
+				arr.add(new String(r.getInt("ASSIGN_ID") + " " + r.getInt("ASSIGNMENT_GRADE")));
 			}
 			//System.err.println("Elements in set: " + arr.size());
 		} catch (SQLException e) {
