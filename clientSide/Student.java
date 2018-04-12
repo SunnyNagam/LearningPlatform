@@ -305,7 +305,7 @@ public class Student extends User {
 				ComposeEmailPanel em = ((ComposeEmailPanel)c.gui.getPanels()[PanelList.EMAIL_MAKER]);
 				String pass = c.getPassword();
 				//System.err.println("passing to email helper: " + em.getFrom() + " " + c.user.firstName + " " + c.user.lastName + " to: " +Arrays.toString(em.getTo().split(", ")));
-				if ( EmailKit.defineEmail(em.getFrom(), "Email from: " +c.user.firstName + " " + c.user.lastName , 
+				if ( EmailKit.defineEmail(em.getFrom(), c.user.firstName + " " + c.user.lastName , 
 						em.getTo().split(", "), pass).sendFormatted(em.getSubj(),em.getBod()) )
 					c.gui.displayErrorMessage("Email Sent!");
 				else 
