@@ -404,11 +404,16 @@ class Instance implements Runnable {
 		ResultSet r;
 		try {
 			// read ID
+			//System.err.println("getting email of user");
 			int key = in.readInt();
+			//System.err.println("read user id as"+key);
 			// write email of user
-			(r = helper.search(Communicate.STUDENT, "ID", key)).first();	//both student and prof reference user table
+			(r = helper.search(Communicate.STUDENT, "ID", key)).next();	//both student and prof reference user table
+			//System.err.println("found user: " + parseRRUser(r).get(0));
+			//System.err.println("writing: " + r.getString("EMAIL"));
 			out.writeUTF( r.getString("EMAIL") );
-		} catch (Exception e) {}
+			out.flush();
+		} catch (Exception e) {e.printStackTrace();}
 	}
 
 	private void courseEmailResponse() {
@@ -417,21 +422,28 @@ class Instance implements Runnable {
 		try {
 			// read courseID
 			int key = in.readInt();
-			System.err.println("checking courses");
+			//System.err.println("checking courses for id: " + key);
 			// write prof email, 
 			(r = helper.search(Communicate.COURSE, "ID", key)).first();
 			int prof = r.getInt("ID");
-			r = helper.search(Communicate.STUDENT, "ID", prof);
+			//System.err.println("found prof: " + prof);
+			
+			(r = helper.search(Communicate.STUDENT, "ID", prof)).first();
+			
 			ret = r.getString("EMAIL") + ", ";
+			//System.err.println("found email: " + ret);
 			
 			//followed by student emails
 			r = helper.search(Communicate.ENROLL, "COURSE_ID", key);
+			
 			while(r.next()) {
 				if( (t = helper.search(Communicate.STUDENT, "ID", r.getInt("STUDENT_ID"))).first() );
 					ret += t.getString("EMAIL") + ", ";
 			}
+			//System.err.println(ret);
 			out.writeUTF(ret);
-		} catch (Exception e) {}
+			out.flush();
+		} catch (Exception e) {e.printStackTrace();}
 	}
 
 

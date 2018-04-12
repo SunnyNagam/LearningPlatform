@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -300,12 +301,15 @@ public class Student extends User {
 		((ComposeEmailPanel)c.gui.getPanels()[PanelList.EMAIL_MAKER]).assignListener(new ActionListener () {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				//System.err.println("sending email.");
 				ComposeEmailPanel em = ((ComposeEmailPanel)c.gui.getPanels()[PanelList.EMAIL_MAKER]);
 				String pass = c.getPassword();
-			
-				EmailKit.defineEmail(em.getFrom(), c.user.firstName + " " + c.user.lastName , 
-						em.getTo().split(", "), pass).sendFormatted(em.getSubj(),em.getBod());
-				
+				//System.err.println("passing to email helper: " + em.getFrom() + " " + c.user.firstName + " " + c.user.lastName + " to: " +Arrays.toString(em.getTo().split(", ")));
+				if ( EmailKit.defineEmail(em.getFrom(), c.user.firstName + " " + c.user.lastName , 
+						em.getTo().split(", "), pass).sendFormatted(em.getSubj(),em.getBod()) )
+					c.gui.displayErrorMessage("Email Sent!");
+				else 
+					c.gui.displayErrorMessage("Error Sending Email...");
 			}
 		});
 		

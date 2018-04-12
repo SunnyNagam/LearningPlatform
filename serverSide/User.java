@@ -1,5 +1,7 @@
 package serverSide;
 
+import format.Communicate;
+
 class User {
 		int userType;
 		String firstName, lastName, email;
@@ -26,5 +28,9 @@ class User {
 		}
 		public int getId() {
 			return id;
+		}
+		@Override
+		public String toString() {
+			return String.format("%s %s %s %s %s", id, firstName, lastName, email, (userType==Communicate.PROFESSOR)?"PROF":"STUD");
 		}
 }

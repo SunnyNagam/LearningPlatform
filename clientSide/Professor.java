@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 
 import javax.swing.JLabel;
@@ -304,15 +305,18 @@ class Professor extends User {
 	}
 	private void assignEmail(Controller c) {
 		
-		//set default text
+		//set default text when opening emailer
 		c.gui.getMenu()[PanelList.EMAIL_MAKER].addActionListener(new ActionListener () {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.err.println("Email action prof started");
+				ComposeEmailPanel em = ((ComposeEmailPanel)c.gui.getPanels()[PanelList.EMAIL_MAKER]);
+				
 				if(c.selectedCourse == -1) {
+					em.text[0].setText( "No course selected, please select one" );
 					return;
 				}
-				ComposeEmailPanel em = ((ComposeEmailPanel)c.gui.getPanels()[PanelList.EMAIL_MAKER]);
+				
 				String to = c.client.getEmails(c.selectedCourse).substring(em.getTo().indexOf(", "),em.getTo().length());
 				System.err.println("sending to: " + to);
 				em.text[0].setText( to );		//to (first index is prof email)
@@ -324,11 +328,15 @@ class Professor extends User {
 		((ComposeEmailPanel)c.gui.getPanels()[PanelList.EMAIL_MAKER]).assignListener(new ActionListener () {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				//System.err.println("sending email.");
 				ComposeEmailPanel em = ((ComposeEmailPanel)c.gui.getPanels()[PanelList.EMAIL_MAKER]);
 				String pass = c.getPassword();
-			
-				EmailKit.defineEmail(em.getFrom(), em.getName(), 
-						em.getTo().split(", "), pass).sendFormatted(em.getSubj(),em.getBod());
+				System.err.println("passing to email helper: " + em.getFrom() + " " + c.user.firstName + " " + c.user.lastName + " to: " + Arrays.toString(em.getTo().split(", ")));
+				if ( EmailKit.defineEmail(em.getFrom(), c.user.firstName + " " + c.user.lastName , 
+						em.getTo().split(", "), pass).sendFormatted(em.getSubj(),em.getBod()) )
+					c.gui.displayErrorMessage("Email Sent!");
+				else 
+					c.gui.displayErrorMessage("Error Sending Email...");
 			}
 		});
 		

@@ -59,6 +59,7 @@ public class ComposeEmailPanel extends JPanel {
 		return text[1].getText();
 	}
 	public String getSubj() {
+		System.err.println(text[2].getText());
 		return text[2].getText();
 	}
 	public String getBod() {
