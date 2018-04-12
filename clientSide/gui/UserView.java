@@ -39,6 +39,7 @@ public class UserView extends JFrame {
 	private LoginPanel loginPanel;
 	private JPanel[] panels;
 	private int type;
+	public int currentWindow = PanelList.MY_COURSES;
 	
 	public JPanel[] getPanels() {
 		return panels;
@@ -137,7 +138,7 @@ public class UserView extends JFrame {
 				this.setTitle(PanelList.AT[index]);
 			
 			System.out.println("Switched to " + PanelList.AT[index]);
-			
+			currentWindow = index;
 			this.paintAll(this.getGraphics());
 		}
 	}

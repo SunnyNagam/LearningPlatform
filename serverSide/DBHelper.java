@@ -231,15 +231,15 @@ class DBHelper implements DBHandler, format.Communicate {
 	}
 	@Override
 	public ResultSet search(int tableType, String keyType, int key) throws IOException, SQLException, Exception {
-		System.err.println("Searching in table: "+parseTableType(tableType) + " where " + keyType +" = "+key);
-		String sql = "SELECT * FROM " + parseTableType(tableType) + " WHERE " + keyType + "=" + "?";
+		//System.err.println("Searching in table: "+parseTableType(tableType) + " where " + keyType +" = "+key);
+		String sql = "SELECT * FROM " + parseTableType(tableType) + " WHERE " + 
+				keyType + "=" + "?";
 		//String sql = "SELECT * FROM " + parseTableType(tableType);
 		ResultSet set;
 		statement = jdbc_connection.prepareStatement(sql);
 		statement.setInt(1, key);
 		//System.err.println(statement);
 		set = statement.executeQuery();
-		System.err.println("found");
 		return set;
 	}
 	@Override

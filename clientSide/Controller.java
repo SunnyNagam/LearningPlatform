@@ -23,7 +23,7 @@ import format.Course;
  * @author keenangaudio
  *
  */
-public class Controller {
+public class Controller extends Thread{
 	public Client client;
 	User user;
 	public int selectedCourse = -1;
@@ -56,9 +56,36 @@ public class Controller {
 				else {
 					clientType = type;
 					setupClient(type, userName);
+					/*
+					new Thread(new Runnable(){
+			             public void run(){
+			            	 while(true) {
+			                  try {
+			                	  	Thread.currentThread().sleep(2000);
+								gui.getMenu()[gui.currentWindow].doClick();
+								gui.update(gui.getGraphics());
+								//System.out.println("Refreshed "+gui.currentWindow);
+			                  } catch (InterruptedException e) {
+								//e.printStackTrace();
+			                  }//2 seconds
+			            	 }
+			             }
+			       }).start();/**/
 				}
 			}
 		});
+	}
+	
+	@Override
+	public void run() {/*
+		while(true) {
+			try {
+				this.sleep(2000);
+				gui.getMenu()[gui.currentWindow].doClick();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}*/
 	}
 	private boolean makeDirPath(String folder) {
 		boolean fDir = false;
