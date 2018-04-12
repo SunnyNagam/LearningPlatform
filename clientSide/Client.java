@@ -276,7 +276,7 @@ public class Client {
 		writeTag(Communicate.SUBMISSION);
 		String temp = path.substring(path.lastIndexOf("/")+1,path.length());
 		System.err.println(temp);
-		writeObject(new Submission(-1,assign,student,course,path,title,0,due));	// assign but path is 'default' and id is -1
+		writeObject(new Submission(-1,assign,student,course,temp,title,0,due));	// assign but path is 'default' and id is -1
 		writeObject(file);
 	}
 
