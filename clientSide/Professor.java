@@ -297,7 +297,34 @@ class Professor extends User {
 			}	
 		});
 	}
-
+	private void assignEmail(Controller c) {
+		
+		//set default text
+		c.gui.getMenu()[PanelList.EMAIL_MAKER].addActionListener(new ActionListener () {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				ComposeEmailPanel em = ((ComposeEmailPanel)c.gui.getPanels()[PanelList.EMAIL_MAKER]);
+				String to = c.client.getEmails(c.selectedCourse).substring(em.getTo().indexOf(", "),em.getTo().length());
+				System.err.println("sending to: " + to);
+				em.text[0].setText( to );		//to (first index is prof email)
+				em.text[1].setText( c.client.getEmail(id) );									//from
+			}
+		});
+		
+		//send button
+		((ComposeEmailPanel)c.gui.getPanels()[PanelList.EMAIL_MAKER]).assignListener(new ActionListener () {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				ComposeEmailPanel em = ((ComposeEmailPanel)c.gui.getPanels()[PanelList.EMAIL_MAKER]);
+				String pass = c.getPassword();
+			
+				EmailKit.defineEmail(em.getFrom(), em.getName(), 
+						em.getTo().split(", "), pass).sendFormatted(em.getSubj(),em.getBod());
+			}
+		});
+		
+	}
+	
 	private void dropboxAssign(Controller c) {
 		DropboxPanel f = ((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).dbView;
 

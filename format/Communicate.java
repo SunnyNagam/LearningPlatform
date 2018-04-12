@@ -36,7 +36,8 @@ public interface Communicate {
 	static final int STRING			= 0x14;
 	static final int FILE			= 0x15;
 	static final int EMAIL			= 0x16;
-	static final int NAME			= 0x17;
+	static final int EMAILS 		= 0x17;
+	static final int NAME			= 0x18;
 	
 	static final int COURSE			= 0x20;
 	static final int ASSIGNMENT		= 0x21;
@@ -48,6 +49,7 @@ public interface Communicate {
 	// program attributes
 	static final String PROGRAM_NAME = "Learning Platform";
 	static final int minCommand = 0x40, maxCommand = 0x50;
+	
 	
 	
 }

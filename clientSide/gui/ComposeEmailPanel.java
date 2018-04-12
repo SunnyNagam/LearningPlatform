@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 public class ComposeEmailPanel extends JPanel {
 	JButton send;
 	String[] labelText = {"To: ", "From: ", "Subject: "};
-	JTextField[] text;
+	public JTextField[] text;
 	JTextArea body;
 	
 	public ComposeEmailPanel() {

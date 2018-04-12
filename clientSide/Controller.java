@@ -27,6 +27,7 @@ public class Controller {
 	public Client client;
 	User user;
 	public int selectedCourse = -1;
+	private String password;
 	UserView gui;
 	int clientType;
 	protected String selectedName;
@@ -47,7 +48,7 @@ public class Controller {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String userName = pan.getUser();
-				String password = pan.getPass();
+					   password = pan.getPass();
 				
 				int type = client.attemptLogin(userName, password);
 				 
@@ -130,6 +131,9 @@ public class Controller {
 		} catch (NumberFormatException e) { System.out.println( e.getMessage() ); }
 		
 		
+	}
+	String getPassword() {
+		return password;
 	}
 
 }

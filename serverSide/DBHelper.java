@@ -112,6 +112,7 @@ class DBHelper implements DBHandler, format.Communicate {
 		case Communicate.COURSE :
 			return tables[1];
 		case Communicate.ENROLL :
+		case Communicate.ENROLLED :
 			return tables[2];
 		case Communicate.ASSIGNMENT :
 			return tables[3];

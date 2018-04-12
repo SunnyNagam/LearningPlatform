@@ -84,7 +84,7 @@ public class EmailKit {
 	//testy test
 	public static void main (String[] args) {
 		String[] to = {"keenangaudio@me.com"};
-		EmailKit.defineEmail("profemail409@gmail.com", "Keenan", to, "rootpass").sendFormatted("NICE TITLE","hi", "suh", "hola","next line","wowzers");
+		EmailKit.defineEmail("profemail409@gmail.com", "Keenan", to, "rootpass").sendFormatted("NICE TITLE","hi", "suh", "hi", "hola","next line","wowzers");
 	}
 	
 

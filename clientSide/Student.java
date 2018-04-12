@@ -48,7 +48,7 @@ public class Student extends User {
 
 	private JPanel createEmailMaker() {
 		JPanel tmp = new ComposeEmailPanel();
-
+		
 		return tmp;
 	}
 
@@ -85,7 +85,8 @@ public class Student extends User {
 	@Override
 	void assignButtons(Controller c) {
 		System.err.println("assigning buttons");
-
+		//EMAIL
+		assignEmail(c);
 		// Create new course button
 		((MyCoursesPanel) c.gui.getPanels()[PanelList.MY_COURSES]).studTools(new ActionListener() {
 			@Override
@@ -268,6 +269,37 @@ public class Student extends User {
 				
 			}	
 		});*/
+	}
+
+	private void assignEmail(Controller c) {
+		
+		//set default text
+		c.gui.getMenu()[PanelList.EMAIL_MAKER].addActionListener(new ActionListener () {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				ComposeEmailPanel em = ((ComposeEmailPanel)c.gui.getPanels()[PanelList.EMAIL_MAKER]);
+				System.err.println("Opened email, getting to:");
+				String to = c.client.getEmails(c.selectedCourse);
+				System.err.println("sending to: " + to);
+				em.text[0].setText( to.split(", ")[0] );		//to (first index is prof email)
+				em.text[1].setText( c.client.getEmail(id) );									//from
+			}
+		});
+		
+		//send button
+		((ComposeEmailPanel)c.gui.getPanels()[PanelList.EMAIL_MAKER]).assignListener(new ActionListener () {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				ComposeEmailPanel em = ((ComposeEmailPanel)c.gui.getPanels()[PanelList.EMAIL_MAKER]);
+				String pass = c.getPassword();
+			
+				EmailKit.defineEmail(em.getFrom(), c.user.firstName + " " + c.user.lastName , 
+						em.getTo().split(", "), pass).sendFormatted(em.getSubj(),em.getBod());
+				
+			}
+		});
+		
 	}
 
 }

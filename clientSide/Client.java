@@ -386,5 +386,26 @@ public class Client {
 			return false;
 		}
 	}
+
+	public String getEmail(int id) {
+		writeTag(Communicate.GET);
+		writeTag(Communicate.EMAIL);
+		write(id);
+		return readString();
+	}
+	/**
+	 *  gets emails of prof followed by all enrolled students 
+	 *  eg. 'profEmail@x.com, hap@gmail.com, hola@me.com, '
+	 * @param courseID
+	 * @return
+	 */
+	
+	public String getEmails(int courseID) {
+		writeTag(Communicate.GET);
+		writeTag(Communicate.EMAILS);
+		write(courseID);
+		System.err.println("wrote get - emails - courseID");
+		return readString();
+	}
 	
 }

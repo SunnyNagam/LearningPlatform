@@ -268,6 +268,9 @@ class Instance implements Runnable {
 		case Communicate.EMAIL:
 			emailResponse();
 			break;
+		case Communicate.EMAILS:
+			courseEmailResponse();
+			break;
 		case Communicate.FILE:
 			fileResponse();
 			break;
@@ -398,11 +401,39 @@ class Instance implements Runnable {
 	}
 
 	private void emailResponse() {
-		// read course
-
-		// write prof email
-
+		ResultSet r;
+		try {
+			// read ID
+			int key = in.readInt();
+			// write email of user
+			(r = helper.search(Communicate.STUDENT, "ID", key)).first();	//both student and prof reference user table
+			out.writeUTF( r.getString("EMAIL") );
+		} catch (Exception e) {}
 	}
+
+	private void courseEmailResponse() {
+		ResultSet r, t;
+		String ret = "";
+		try {
+			// read courseID
+			int key = in.readInt();
+			System.err.println("checking courses");
+			// write prof email, 
+			(r = helper.search(Communicate.COURSE, "ID", key)).first();
+			int prof = r.getInt("ID");
+			r = helper.search(Communicate.STUDENT, "ID", prof);
+			ret = r.getString("EMAIL") + ", ";
+			
+			//followed by student emails
+			r = helper.search(Communicate.ENROLL, "COURSE_ID", key);
+			while(r.next()) {
+				if( (t = helper.search(Communicate.STUDENT, "ID", r.getInt("STUDENT_ID"))).first() );
+					ret += t.getString("EMAIL") + ", ";
+			}
+			out.writeUTF(ret);
+		} catch (Exception e) {}
+	}
+
 
 	private void fileResponse() {
 		int getType = -1;
