@@ -101,6 +101,9 @@ public class Student extends User {
 			public void actionPerformed(ActionEvent arg0) {
 				System.err.println("toggle butt setup");
 				// create a course
+				if(c.selectedCourse == -1) {
+					return;
+				}
 				c.client.toggleCourse(c.selectedCourse);
 				ArrayList<Course> set = c.client.getCourses(c.user.id);
 				((MyCoursesPanel) c.gui.getPanels()[PanelList.MY_COURSES]).refreshData(set);
@@ -152,7 +155,7 @@ public class Student extends User {
 		});*/
 		StudentAssignmentPanel pa = ((StudentAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]);
 
-		// add functionaliity to button in profassign (UPLOAD)
+		// add functionaliity to button in studentassign (UPLOAD)
 		pa.addListen(
 				
 		// add functionaliity to button in profassign (DROPBOX)
@@ -194,7 +197,9 @@ public class Student extends User {
 						System.err.println("Download Assignment file action started");
 						
 						
-						
+						if(pa.assignmnetsList.isSelectionEmpty()) {
+							return;
+						}
 						c.client.downloadAssignment(pa.assignmnetsList.getSelectedValue().id);
 						
 					}
@@ -205,7 +210,9 @@ public class Student extends User {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.err.println("Assignment menu action started");
-
+				if(c.selectedCourse == -1) {
+					return;
+				}
 				ArrayList<Assignment> set = c.client.getAssignments(c.selectedCourse);
 				((StudentAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).refreshData(set);
 			}
@@ -277,7 +284,9 @@ public class Student extends User {
 		c.gui.getMenu()[PanelList.EMAIL_MAKER].addActionListener(new ActionListener () {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+				if(c.selectedCourse == -1) {
+					return;
+				}
 				ComposeEmailPanel em = ((ComposeEmailPanel)c.gui.getPanels()[PanelList.EMAIL_MAKER]);
 				System.err.println("Opened email, getting to:");
 				String to = c.client.getEmails(c.selectedCourse);
