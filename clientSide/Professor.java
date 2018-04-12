@@ -107,7 +107,7 @@ class Professor extends User {
 			}
 
 		},
-
+				// TOGGLE COURSE BUTTON
 				new ActionListener() {
 
 					@Override
@@ -132,7 +132,7 @@ class Professor extends User {
 			}
 		});
 
-		// getting selected course
+		// getting selected course, setting c.selected course
 		((MyCoursesPanel) c.gui.getPanels()[PanelList.MY_COURSES]).courseList.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				Course n = ((Course) ((MyCoursesPanel) c.gui.getPanels()[PanelList.MY_COURSES]).courseList
@@ -229,6 +229,9 @@ class Professor extends User {
 
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
+						if(((DropboxPanel)c.gui.getPanels()[PanelList.DROPBOX]).submissionsList.isSelectionEmpty()){
+							return;
+						}
 						boolean b = c.client.getSubDown(((DropboxPanel)c.gui.getPanels()[PanelList.DROPBOX]).submissionsList.getSelectedValue().id);
 						
 						if(b) {
@@ -273,7 +276,9 @@ class Professor extends User {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.err.println("Assignment menu action started");
-
+				if(c.selectedCourse == -1) {
+					return;
+				}
 				ArrayList<Assignment> set = c.client.getAssignments(c.selectedCourse);
 				((ProfAssignmentPanel) c.gui.getPanels()[PanelList.ASSIGNMENTS]).refreshData(set);
 			}
@@ -303,6 +308,10 @@ class Professor extends User {
 		c.gui.getMenu()[PanelList.EMAIL_MAKER].addActionListener(new ActionListener () {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				System.err.println("Email action prof started");
+				if(c.selectedCourse == -1) {
+					return;
+				}
 				ComposeEmailPanel em = ((ComposeEmailPanel)c.gui.getPanels()[PanelList.EMAIL_MAKER]);
 				String to = c.client.getEmails(c.selectedCourse).substring(em.getTo().indexOf(", "),em.getTo().length());
 				System.err.println("sending to: " + to);

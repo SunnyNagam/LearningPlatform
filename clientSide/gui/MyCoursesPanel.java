@@ -64,7 +64,7 @@ public class MyCoursesPanel extends JPanel {
 		toggleB = new JButton( "Toggle Active" );
 		toggleB.addActionListener(b);
 		add( toggleB, BorderLayout.SOUTH );
-		(new Exception()).printStackTrace();
+		//(new Exception()).printStackTrace();
 	}
 	
 	public void refreshData(ArrayList<Course> set) {
