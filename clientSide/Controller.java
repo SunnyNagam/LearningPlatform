@@ -19,10 +19,7 @@ import clientSide.gui.UserView;
 import format.Communicate;
 import format.Course;
 
-/**
- * @author keenangaudio
- *
- */
+
 public class Controller extends Thread{
 	public Client client;
 	User user;
@@ -39,6 +36,7 @@ public class Controller extends Thread{
 		
 		login();
 	}
+	
 	private void login () {
 		gui.setVisible(true);
 		LoginPanel pan = gui.getLoginPanel();
@@ -76,17 +74,7 @@ public class Controller extends Thread{
 		});
 	}
 	
-	@Override
-	public void run() {/*
-		while(true) {
-			try {
-				this.sleep(2000);
-				gui.getMenu()[gui.currentWindow].doClick();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}*/
-	}
+	
 	private boolean makeDirPath(String folder) {
 		boolean fDir = false;
 		int fileTries = 0;
@@ -95,6 +83,11 @@ public class Controller extends Thread{
 		return fDir;
 	}
 	
+	/**
+	 * Setsup client
+	 * @param type type of client to setup
+	 * @param name name of client to setup
+	 */
 	protected void setupClient(int type, String name) {
 		name = String.format( "%08d", Integer.parseInt(name) );
 		
@@ -130,9 +123,7 @@ public class Controller extends Thread{
 		gui.setTitle(PanelList.AT[PanelList.MY_COURSES]);
 		gui.initializeView(name, type);
 	}
-	/**
-	 * @param args
-	 */
+	
 	public static void main(String[] args) {
 		try {
 			//create port according to args, or use default value defined in communication
@@ -160,6 +151,10 @@ public class Controller extends Thread{
 		
 		
 	}
+	/**
+	 * returns password
+	 * @return
+	 */
 	String getPassword() {
 		return password;
 	}

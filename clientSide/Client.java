@@ -53,6 +53,12 @@ public class Client {
 		}
 	}
 
+	/**
+	 * Sends attempted login to server
+	 * @param userName to send
+	 * @param password to send
+	 * @return server login attempt responce
+	 */
 	public int attemptLogin(String userName, String password) {
 		writeTag(Communicate.LOGIN);
 		try {
@@ -67,6 +73,10 @@ public class Client {
 		return readInt();
 	}
 
+	/**
+	 * Writes an integer representing a command tag to the server
+	 * @param tag
+	 */
 	public void writeTag(int tag) {
 		try {
 			out.writeInt(tag);
@@ -76,6 +86,10 @@ public class Client {
 		}
 	}
 
+	/**
+	 * Writes an int to the server
+	 * @param toWrite int to write
+	 */
 	public void write(int toWrite) {
 		try {
 			out.writeInt(toWrite);
@@ -85,6 +99,10 @@ public class Client {
 		}
 	}
 
+	/**
+	 * Writes an string to the server
+	 * @param toWrite string to write
+	 */
 	public void write(String toWrite) {
 		try {
 			out.writeUTF(toWrite);
@@ -94,6 +112,10 @@ public class Client {
 		}
 	}
 
+	/**
+	 * Recives an int from the server
+	 * @return integer read from the server
+	 */
 	public int readInt() {
 		try {
 			return in.readInt();
@@ -102,6 +124,11 @@ public class Client {
 			return Communicate.INVALID;
 		}
 	}
+	
+	/**
+	 * Recives an string from the server
+	 * @return string to read from the server
+	 */
 	public String readString() {
 		try {
 			return in.readUTF();
@@ -111,6 +138,10 @@ public class Client {
 		}
 	}
 
+	/**
+	 * Recives an bool from the server
+	 * @return bool to read from the server
+	 */
 	public boolean readBoolean() {
 		try {
 			return in.readBoolean();
@@ -120,6 +151,9 @@ public class Client {
 		}
 	}
 
+	/**
+	 * What could this do?
+	 */
 	void communicate() {
 		try {
 			while (true) {
@@ -130,14 +164,28 @@ public class Client {
 		}
 	}
 
+	/**
+	 * gets the input stream
+	 * @return input stream to return
+	 */
 	public ObjectInputStream getIn() {
 		return in;
 	}
 
+	/**
+	 * Sets the input strem
+	 * @param in input stream to set to 
+	 */
 	public void setIn(ObjectInputStream in) {
 		this.in = in;
 	}
 
+	
+	/**
+	 * Retrieves courses for given user from server
+	 * @param id of user to get courses from 
+	 * @return arrayllist of courses 
+	 */
 	public ArrayList<Course> getCourses(int id) {
 		writeTag(Communicate.GET);
 		writeTag(Communicate.COURSE);
@@ -158,12 +206,23 @@ public class Client {
 		return null;
 	}
 
+	/**
+	 * adds a new course to the database in server
+	 * @param id id of course to ad
+	 * @param cName name of course
+	 * @param p_id prof id of course
+	 * @param b active status of course
+	 */
 	public void addCourse(int id, String cName, String p_id, boolean b) {
 		writeTag(Communicate.SYNC);
 		writeTag(Communicate.COURSE);
 		writeObject(new Course(id, cName, p_id, b));
 	}
 
+	/**
+	 * writes object to server
+	 * @param toWrite object to write
+	 */
 	private void writeObject(Object toWrite) {
 		try {
 			out.writeObject(toWrite);
@@ -173,6 +232,11 @@ public class Client {
 		}
 	}
 
+	/**
+	 * gets students from server
+	 * @param id of students to retrive 
+	 * @return arraylist of string array of students to return 
+	 */
 	public ArrayList<String[]> getStudents(int id) {
 		writeTag(Communicate.GET);
 		writeTag(Communicate.STUDENT);
@@ -186,11 +250,20 @@ public class Client {
 		return null;
 	}
 
+	/**
+	 * toggles course activity 
+	 * @param selectedCourse course to toggle active
+	 */
 	public void toggleCourse(int selectedCourse) {
 		writeTag(Communicate.TOGGLECOURSE);
 		write(selectedCourse);
 	}
 
+	/**
+	 * gets assignmetns from server
+	 * @param id of course of assignmetns to retrive from
+	 * @return arraylist of string array of assignmetns to return 
+	 */
 	public ArrayList<Assignment> getAssignments(int selectedCourse) {
 		writeTag(Communicate.GET);
 		writeTag(Communicate.ASSIGNMENT);
@@ -205,12 +278,23 @@ public class Client {
 		return null;
 	}
 
+	/**
+	 * toggles enrolment of a course
+	 * @param stu, student id to toggle enrolment 
+	 * @param courseID, course to toggle student enrollmetn from 
+	 */
 	public void toggleEnroll(Student stu, int courseID) {
 		writeTag(Communicate.ENROLL);
 		write(stu.id);
 		write(courseID);
 	}
 
+	/**
+	 * returns if a user is in a course
+	 * @param usr, user to check
+	 * @param selectedCourse, course to check 
+	 * @return true if user is in the course, false of user is not in the course
+	 */
 	public boolean inSelectedCourse(User usr,int selectedCourse) {
 		writeTag(Communicate.ENROLLED);
 		write(usr.id);
@@ -220,6 +304,11 @@ public class Client {
 		return t;
 	}
 
+	/**
+	 * gets the name of a course
+	 * @param selectedCourse id of course to find the name of 
+	 * @return name of the course
+	 */
 	public String getCourseName(int selectedCourse) {
 		writeTag(Communicate.GET);
 		writeTag(Communicate.COURSE);
@@ -230,6 +319,11 @@ public class Client {
 		return str;
 	}
 	
+	/**
+	 * Retrives a dropbox from the server for the prof
+	 * @param id of course to get dropbox from 
+	 * @return dropbox to return
+	 */
 	public DropBox getDropbox(int id) {
 		writeTag(Communicate.GET);
 		writeTag(Communicate.SUBMISSION);
@@ -243,6 +337,12 @@ public class Client {
 		}
 	}
 	
+	/**
+	 * Retrives a dropbox from the server for the prof
+	 * @param id of course to get dropbox from 
+	 * @param student student id of dropbox
+	 * @return dropbox to return
+	 */
 	public DropBox getDropbox(int id, int student) {
 		writeTag(Communicate.GET);
 		writeTag(Communicate.SUBMISSION);
@@ -257,11 +357,24 @@ public class Client {
 		}
 	}
 
+	/**
+	 * toggles assignment activity
+	 * @param ID of assignment to toggle
+	 */
 	public void toggleAssignment(int ID) {
 		writeTag(Communicate.ASSIGNMENT);
 		write(ID);
 	}
 
+	/**
+	 * uploads a assignment to the server database
+	 * @param title of assignment
+	 * @param path file path of assignment
+	 * @param due due date of assignmetn
+	 * @param active active status of the assignment
+	 * @param course course id of assignment
+	 * @param file to upload
+	 */
 	public void upload(String title, String path, String due, boolean active, int course, byte[] file) {
 		writeTag(Communicate.SYNC);
 		writeTag(Communicate.ASSIGNMENT);
@@ -271,6 +384,16 @@ public class Client {
 		writeObject(file);
 	}
 	
+	/**
+	 * uploads a submission to the server database
+	 * @param title title of submission 
+	 * @param path filepath of submission
+	 * @param due duedate of submission
+	 * @param assign assignment id of submissioln
+	 * @param student student id of submission
+	 * @param course couse id of submision 
+	 * @param file file to submit
+	 */
 	public void uploadSub(String title, String path, String due, int assign, int student, int course, byte[] file) {
 		writeTag(Communicate.SYNC);
 		writeTag(Communicate.SUBMISSION);
@@ -280,6 +403,11 @@ public class Client {
 		writeObject(file);
 	}
 
+	/**
+	 * searches for key to in server database
+	 * @param sKey  id to searc for
+	 * @return returning resultset values 
+	 */
 	public ArrayList<String[]> searchId(int sKey) {
 		writeTag(Communicate.SEARCH_NAME);
 		write(sKey);
@@ -293,6 +421,11 @@ public class Client {
 		return null;
 	}
 
+	/**
+	 * searches for key to in server database
+	 * @param sKey  name to searc for
+	 * @return returning resultset values 
+	 */
 	public ArrayList<String[]> searchNm(String sKey) {
 		writeTag(Communicate.SEARCH_STRING);
 		write(sKey);
@@ -327,6 +460,12 @@ public class Client {
 		return null;
 	}
 
+	/**
+	 * submits grade of submission
+	 * @param id is to grade
+	 * @param selectedCourse couse o submission
+	 * @param grade of submission to submit
+	 */
 	public void submitGrade(int id, int selectedCourse, int grade) {
 		writeTag(Communicate.SYNC);
 		writeTag(Communicate.GRADES);
@@ -336,13 +475,16 @@ public class Client {
 		write(grade);
 	}
 
+	/**
+	 * gets the submission specified and downloads it to client machine
+	 * @param id id of submission
+	 * @return sucess of download process
+	 */
 	public boolean getSubDown(int id) {
 		write(Communicate.GET);
 		write(Communicate.FILE);
 		write(Communicate.SUBMISSION);
 		write(id);
-		
-		// I give u this ^ u give me a byte array file
 		
 		try {
 		String path = in.readUTF();// "../SubmissionDownload/";
@@ -369,6 +511,11 @@ public class Client {
 		}
 	}
 
+	/**
+	 * gets the assignmetn specified and downloads it to client machine
+	 * @param id id of assignment
+	 * @return sucess of download process
+	 */
 	public boolean downloadAssignment(int id) {
 		write(Communicate.GET);
 		write(Communicate.FILE);
@@ -404,6 +551,11 @@ public class Client {
 		}
 	}
 
+	/**
+	 * gets email from server
+	 * @param id of user for which email to recive
+	 * @return email as string
+	 */
 	public String getEmail(int id) {
 		writeTag(Communicate.GET);
 		writeTag(Communicate.EMAIL);

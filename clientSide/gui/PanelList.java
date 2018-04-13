@@ -1,6 +1,9 @@
 package clientSide.gui;
 
 public interface PanelList {
+	/**
+	 * Helpful variables to acess gui infromation
+	 */
 	public static final String[] AT	= {"LOGIN", "My Courses", 
 			"Course", "Assignments", "Students;Grades", 
 			"ChatRoom", "My Inbox", "Send New Email", "DropBox" /*add more here*/ };

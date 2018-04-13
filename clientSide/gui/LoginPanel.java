@@ -20,6 +20,9 @@ public class LoginPanel extends JPanel {
 	JLabel uNameLab, passLab, introLab;
 	JButton submitButton;
 	
+	/**
+	 * Constructs the loginpanel
+	 */
 	public LoginPanel() {
 		userNameField = new JTextField(10);
 		passwordField = new JTextField(10);
@@ -48,12 +51,24 @@ public class LoginPanel extends JPanel {
 		
 		add(botPan, BorderLayout.PAGE_END);
 	}
+	/**
+	 * returns submission button
+	 * @return
+	 */
 	public JButton getSub() {
 		return submitButton;
 	}
+	/**
+	 * returns user name
+	 * @return
+	 */
 	public String getUser() {
 		return userNameField.getText();
 	}
+	/**
+	 * retruns password text
+	 * @return
+	 */
 	public String getPass() {
 		return passwordField.getText();
 	}

@@ -34,6 +34,9 @@ public class Student extends User {
 		this.id = id;
 	}
 
+	/**
+	 * instantiates panels and returns them
+	 */
 	@Override
 	JPanel[] instantiatePanels() {
 		JPanel[] tmp = new JPanel[PanelList.ARRAY_SIZE];
@@ -83,6 +86,9 @@ public class Student extends User {
 		return tmp;
 	}
 
+	/**
+	 * Assigns buttons on gui
+	 */
 	@Override
 	void assignButtons(Controller c) {
 		System.err.println("assigning buttons");

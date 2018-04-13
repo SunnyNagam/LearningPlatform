@@ -33,6 +33,9 @@ public class ProfAssignmentPanel extends JPanel {
 	public DropboxPanel dbView;
 	//private JPanel display;
 	
+	/**
+	 * Constructs prof assignmetn panel
+	 */
 	public ProfAssignmentPanel() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		assignments = new DefaultListModel<Assignment>();
@@ -53,6 +56,11 @@ public class ProfAssignmentPanel extends JPanel {
 		uploadPanel = new InsertView("Upload New Assignment");
 		uploadPanel.setVisible(false);
 	}
+	
+	/**
+	 * Adds buttons
+	 * @return
+	 */
 	private JPanel addButtons() {
 		JPanel x = new JPanel();
 		x.setLayout(new BoxLayout(x, BoxLayout.X_AXIS));
@@ -67,15 +75,29 @@ public class ProfAssignmentPanel extends JPanel {
 		x.add(openB = new JButton("Open DropBox"));
 		return x;
 	}
+	
+	/**
+	 * Adds listeners
+	 * @param a listener
+	 * @param c listener
+	 * @param b listener
+	 */
 	public void addListen(ActionListener a, ActionListener c, ActionListener b) {
 		addB.addActionListener(a);
 		openB.addActionListener(c);
 		toggleB.addActionListener(b);
 	}
+	/**
+	 * Updates ui
+	 */
 	public void update() {
 		assignmnetsList.updateUI();
 	}
 	
+	/**
+	 * Refreshes data in internal jlists
+	 * @param set data to use
+	 */
 	public void refreshData(ArrayList<Assignment> set) {
 		System.err.println("Refreshing assignment data in gui");
 		try {

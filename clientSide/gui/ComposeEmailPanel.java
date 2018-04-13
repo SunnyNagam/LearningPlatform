@@ -24,11 +24,16 @@ public class ComposeEmailPanel extends JPanel {
 	public JTextField[] text;
 	JTextArea body;
 	
+	/**
+	 * Makes this panel
+	 */
 	public ComposeEmailPanel() {
 		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		send = new JButton("Send");
 		organize();
 	}
+	
+	
 	private void organize() {
 		text = new JTextField[labelText.length];
 		Box top = Box.createVerticalBox();
@@ -49,19 +54,39 @@ public class ComposeEmailPanel extends JPanel {
 		b.add( send );
 		add( b );
 	}
+	/**
+	 * assigns the listener
+	 * @param l
+	 */
 	public void assignListener (ActionListener l) {
 		send.addActionListener(l);
 	}
+	/**
+	 * gets sendee
+	 * @return
+	 */
 	public String getTo() {
 		return text[0].getText();
 	}
+	/**
+	 * gets sender 
+	 * @return
+	 */
 	public String getFrom() {
 		return text[1].getText();
 	}
+	/**
+	 * gets subject
+	 * @return
+	 */
 	public String getSubj() {
 		System.err.println(text[2].getText());
 		return text[2].getText();
 	}
+	/**
+	 * gets body of email
+	 * @return
+	 */
 	public String getBod() {
 		return body.getText();
 	}

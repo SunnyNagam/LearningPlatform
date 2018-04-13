@@ -55,6 +55,10 @@ public class InsertView extends JFrame{
 	
 	private JButton chooseFile;
     
+	/**
+	 * Inializes insertview
+	 * @param s name of jframe
+	 */
 	public InsertView(String s){
 		super(s);
 		JPanel buttonPanel = new JPanel ();
@@ -105,6 +109,12 @@ public class InsertView extends JFrame{
 			}
 		};
 	}
+	
+	/**
+	 * It's 5 am 
+	 * @param s
+	 * @param prof
+	 */
 	public InsertView(String s,boolean prof){
 		this(s);
 	}

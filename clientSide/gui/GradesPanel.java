@@ -28,8 +28,14 @@ public class GradesPanel extends JPanel {
 	public DefaultListModel<String> myGrades;
 	public JList<String> gradeList;
 	
+	/**
+	 * The JTitle
+	 */
 	public JLabel title;
 	
+	/**
+	 * Constructs this panel
+	 */
 	public GradesPanel() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		myGrades = new DefaultListModel<String>();
@@ -49,6 +55,10 @@ public class GradesPanel extends JPanel {
 		tmp.add(x);
 		add (tmp);
 	}
+	/**
+	 * Initalizes jbuttons and actionlisteners
+	 * @param a
+	 */
 	public void initialize(ActionListener a) {
 		add( setup() );
 		System.err.println("Creating grade Panel.");
@@ -64,6 +74,11 @@ public class GradesPanel extends JPanel {
 		tmp.add(x);
 		return tmp;
 	}
+	
+	/**
+	 * Refreshes data
+	 * @param set set to use (Arraylist)
+	 */
 	public void refreshData(ArrayList<String> set) {
 		System.err.println("Refreshing grade data in gui");
 		try {
@@ -77,6 +92,10 @@ public class GradesPanel extends JPanel {
 		}
 		update();
 	}
+	
+	/**
+	 * updates ui
+	 */
 	public void update() {
 		gradeList.updateUI();
 	}

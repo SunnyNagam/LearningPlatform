@@ -37,10 +37,18 @@ public class MyCoursesPanel extends JPanel {
 		courseList.setFont(new Font("menlo",Font.PLAIN,12));
 	}
 	
+	/**
+	 * Updates ui
+	 */
 	public void update() {
 		courseList.updateUI();
 	}
 	
+	/**
+	 * initalizes courses view for students
+	 * @param a an actiaonlisteer
+	 * @param b another actionlistener
+	 */
 	public void studTools(ActionListener a, ActionListener b) {
 		admin = false;
 		add( setup() );
@@ -53,6 +61,12 @@ public class MyCoursesPanel extends JPanel {
 		toggleB.addActionListener(b);
 		add( toggleB, BorderLayout.SOUTH );
 	}
+	
+	/**
+	 * initalizes courses view for professors
+	 * @param a an actiaonlisteer
+	 * @param b another actionlistener
+	 */
 	public void profTools(ActionListener a, ActionListener b) {
 		admin = true;
 		add( setup() );
@@ -67,6 +81,10 @@ public class MyCoursesPanel extends JPanel {
 		//(new Exception()).printStackTrace();
 	}
 	
+	/**
+	 * refreshes data
+	 * @param set data to use
+	 */
 	public void refreshData(ArrayList<Course> set) {
 		System.err.println("Refreshing course data in gui");
 		try {

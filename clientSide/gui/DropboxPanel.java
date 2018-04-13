@@ -74,18 +74,37 @@ public class DropboxPanel extends JPanel{
 		x.add(downB = new JButton("Download"));
 		return x;
 	}
+	/**
+	 * Adds listener
+	 * @param gr
+	 * @param dw
+	 */
 	public void addListen(ActionListener gr, ActionListener dw ) {
 		gradeB.addActionListener(gr);
 		downB.addActionListener(dw);
 	}
+	
+	/**
+	 * gets dropbox
+	 * @return
+	 */
 	public DropBox getDbox() {
 		return dbox;
 	}
 
+	/**
+	 * sets dbox
+	 * @param dbox
+	 */
 	public void setDbox(DropBox dbox) {
 		this.dbox = dbox;
 	}
 	
+	/**
+	 * Refresjes data
+	 * @param db dropbox to use
+	 * @param c controller to use
+	 */
 	public void refreshData(DropBox db, Controller c) {
 		if (db == null) return;
 		System.err.println("Refreshing dropbox data in gui");
@@ -119,6 +138,9 @@ public class DropboxPanel extends JPanel{
 //		update();
 //	}
 
+	/**
+	 * updates ui
+	 */
 	public void update() {
 		//System.out.println(submissions.getSize());
 		submissionsList.updateUI();

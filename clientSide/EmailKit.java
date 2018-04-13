@@ -21,13 +21,19 @@ public class EmailKit {
 	private final int PORT = 587;
 	
 	private String body;
+	
 	public static EmailKit defineEmail(String from, String fromName, String[] to, String password){
 		try {
 			return  new EmailKit(from,fromName,to,password);
 		} catch(Exception e) { System.err.println( e.getMessage() ); }
 		return null;
 	}
-	//sends an email with 
+	
+	/**
+	 * sends email
+	 * @param bod body of email
+	 * @return if email was sucessfully sent
+	 */
 	public boolean send(String bod) {
 		this.body = bod;
 		boolean ret = true;
@@ -76,6 +82,13 @@ public class EmailKit {
         
         //System.out.println("SUCCESS");
 	}
+	
+	/**
+	 * Sends formatted email
+	 * @param header of eamil
+	 * @param lines body of emil
+	 * @return sucess of email
+	 */
 	public boolean sendFormatted(String header, String ... lines) {
 		String arg = "";
 		for (String a : lines) arg += a + "<br>";
