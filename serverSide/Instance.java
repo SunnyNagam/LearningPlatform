@@ -473,7 +473,6 @@ class Instance implements Runnable {
 		} catch (Exception e) {e.printStackTrace();}
 	}
 
-
 	private void fileResponse() {
 		int getType = -1;
 		try {
@@ -682,9 +681,7 @@ class Instance implements Runnable {
 			getGrade();
 		}
 	}
-//	String sql = "CREATE TABLE " + tableName + "(" + "ID INT(8) NOT NULL, " + "ASSIGN_ID INT(8) NOT NULL, "
-//			+ "STUDENT_ID INT(8) NOT NULL, " + "COURSE_ID INT(8) NOT NULL, " + "ASSIGNMENT_GRADE INT(3), "
-//			+ "PRIMARY KEY ( id ))";
+
 	private void getGrade() {
 		int subID = -1, courseID = -1, grade = 0, assignID = -1, studID = -1, maxGrade = 0, g;
 		try {
@@ -715,6 +712,7 @@ class Instance implements Runnable {
 			}
 		} catch (Exception e) { e.printStackTrace(); return;}
 	}
+	
 	private void disconnect() throws IOException {
 		// write disconnect back
 
@@ -753,6 +751,7 @@ class Instance implements Runnable {
 		DropBox db = new DropBox(arr);
 		return db;
 	}
+	
 	private ArrayList<Course> parseRRCourse(ResultSet r) {
 		ArrayList<Course> arr = new ArrayList<Course>();
 		try {

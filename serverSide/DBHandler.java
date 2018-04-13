@@ -27,7 +27,7 @@ interface DBHandler {
 			throws IOException, SQLException, Exception;
 	
 	/**
-	 * 
+	 * deletes the database
 	 * @throws IOException
 	 * @throws SQLException
 	 * @throws Exception
@@ -36,8 +36,8 @@ interface DBHandler {
 			throws IOException, SQLException, Exception;
 	
 	/**
-	 * 
-	 * @param data 
+	 * adds a row based on the input strings
+	 * @param data the input strings
 	 * @throws IOException
 	 * @throws SQLException
 	 * @throws Exception
@@ -58,17 +58,17 @@ interface DBHandler {
 	
 	/**
 	 * updates a row according to input
-	 * @param clientType
-	 * @param clientID
-	 * @param info
-	 * @param InsertType
+	 * @param clientType the requestor's type
+	 * @param clientID the id of the requestor
+	 * @param info the new value 
+	 * @param InsertType the field to be updated
 	 */
 	void UpdateInfo(int clientType, int clientID, String info, int InsertType)
 			throws IOException, SQLException, Exception;
 	
 	/**
-	 * 
-	 * @param tableType
+	 * prints the table to system.out
+	 * @param tableType the table to be printed
 	 */
 	void printTable(int tableType);
 	
@@ -120,25 +120,26 @@ interface DBHandler {
 			throws IOException, SQLException;
 
 	/**
-	 * 
-	 * @param x
+	 * adds a new course to the database
+	 * @param x the course containing information to be added to the database
 	 */
 	void addCourse(Course x);
+	
 	/**
-	 * 
-	 * @param x
+	 * adds a new assignment to the database
+	 * @param x the assignment containing information to be added to the database
 	 */
 	String addAssignment(Assignment x);
 	
 	/**
-	 * 
-	 * @param s
-	 * @param c
+	 * toggles the enrollment of specified user in specified course
+	 * @param studentID the student id
+	 * @param courseID the course id
 	 */
 	void toggleEnroll(int studentID, int courseID) throws SQLException;
 	
 	/**
-	 * Returns resultset containing row in enrollment chart containing studentID and courseID if it exists
+	 * Returns ResultSet containing row in enrollment chart containing studentID and courseID if it exists
 	 * @param studentID student to search for
 	 * @param courseID course to study for
 	 * @return
@@ -151,15 +152,16 @@ interface DBHandler {
 	 * @return
 	 */
 	ResultSet submissions(int assignID);
+	
 	/**
-	 * 
-	 * @param id
+	 * toggles the active bit for the given course
+	 * @param id the id of the course to be toggled
 	 */
 	void toggleActive(int id);
 
 	/**
-	 * 
-	 * @param string
+	 * returns a resultset rows in a specified table for type keytype matching key
+	 * @param string the table to search
 	 * @param keyType
 	 * @param key
 	 * @return
@@ -168,78 +170,77 @@ interface DBHandler {
 			throws IOException, SQLException, Exception;
 
 	/**
-	 * 
-	 * @param key
+	 * toggles the active bit for the given course
+	 * @param key the id of the course to be toggled
 	 */
 	void toggleAssActive(int key)
 			throws IOException, SQLException, Exception;
 
 	/**
-	 * 
+	 * returns a resultset of rows in the enrollment chart matching studentID
 	 * @param studentID
-	 * @param courseID
 	 * @return
 	 */
 	ResultSet getEnrolledCourses(int studentID);
 
 	/**
-	 * 
-	 * @param table
-	 * @param col
-	 * @param value
-	 * @param id
+	 * * updates a row according to input
+	 * @param table 
+	 * @param col the column to update
+	 * @param value the value 
+	 * @param id the id of the row to be updated
 	 */
 	void update(int table, String col, int value, int id);
 
 	/**
-	 * 
+	 * serached the given table for sql section string matching args
 	 * @param table
-	 * @param string eg. "id=? AND name=?"
-	 * @param args eg. 54, 33
+	 * @param string eg. "id=? AND name=? AND course_id=?"
+	 * @param args eg. 54, 33, 66
 	 * @return
 	 * @throws Exception
 	 */
 	ResultSet searchf(int table, String string, int ... args) throws Exception;
 
 	/**
-	 * 
-	 * @param maxGrade
-	 * @param assignID
-	 * @param studID
-	 * @param courseID
+	 * adds grade to grade table
+	 * @param maxGrade the grade to add
+	 * @param assignID the assignment
+	 * @param studID the student
+	 * @param courseID the course
 	 */
 	void addGrade(int maxGrade, int assignID, int studID, int courseID);
 	/**
-	 * 
+	 * refresh current selection (unused)
 	 * @throws SQLException
 	 */
 	void refresh() throws SQLException;
 	/**
-	 * 
+	 * notifies db of subsequent request (lock db)
 	 * @throws SQLException
 	 */
 	void start() throws SQLException;
 	/**
-	 * 
+	 * notifies db of request end (unlock db)
 	 * @throws SQLException
 	 */
 	void end() throws SQLException;
 	/**
-	 * 
+	 * returns all submissions from student to assignment matching AssignID
 	 * @param assignID
 	 * @param student
 	 * @return
 	 */
 	ResultSet submissions(int assignID, int student);
 	/**
-	 * 
-	 * @param x
+	 * adds a submission to db
+	 * @param x the submission containing data to be sent to the database
 	 * @return
 	 */
 	String addSubmission(Submission x);
 	
 	/**
-	 * 
+	 * returns all grades for student
 	 * @param stuID
 	 * @return
 	 */

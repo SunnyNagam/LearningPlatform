@@ -67,7 +67,7 @@ class DBHelper implements DBHandler, format.Communicate {
 		}
 		enrollCount = getRows(tables[2]);
 	}
-	
+
 	private boolean makeDirPath(String folder) {
 		boolean fDir = false;
 		int fileTries = 0;
@@ -169,6 +169,7 @@ class DBHelper implements DBHandler, format.Communicate {
 	
 	/**
 	 * Prints the table of clients
+	 * @param the table to be printed
 	 */
 	public void printTable(int tableType) {
 		try {
@@ -229,6 +230,9 @@ class DBHelper implements DBHandler, format.Communicate {
 		set = statement.executeQuery();
 		return set;
 	}
+	/**
+	 * @see serverSide.DBHandler#search(int tableType, String keyType, int key)
+	 */
 	@Override
 	public ResultSet search(int tableType, String keyType, int key) throws IOException, SQLException, Exception {
 		//System.err.println("Searching in table: "+parseTableType(tableType) + " where " + keyType +" = "+key);
@@ -242,6 +246,9 @@ class DBHelper implements DBHandler, format.Communicate {
 		set = statement.executeQuery();
 		return set;
 	}
+	/**
+	 *  @see serverSide.DBHandler#search(String tableType, String keyType, int key)
+	 */
 	@Override
 	public ResultSet search(String tableType, String keyType, int key) throws IOException, SQLException, Exception {
 		//System.err.println("Searching in table: "+ tableType + " where " + keyType +" = "+key);
@@ -352,7 +359,9 @@ class DBHelper implements DBHandler, format.Communicate {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 *  @see serverSide.DBHandler#addUser(User user, String pass)
+	 */
 	@Override
 	public void addUser(User user, String pass) throws IOException, SQLException, Exception {
 		String sql = "INSERT INTO " + tables[0] + " VALUES (?, ?, ?, ?, ?, ?);";
@@ -371,7 +380,9 @@ class DBHelper implements DBHandler, format.Communicate {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * @see serverSide.DBHandler#storeFile(Submission s, File f)
+	 */
 	@Override
 	public void storeFile(Submission s, File f) throws IOException, SQLException {
 		Path currentRelativePath = Paths.get("");
@@ -379,6 +390,9 @@ class DBHelper implements DBHandler, format.Communicate {
 		
 		
 	}
+	/**
+	 * @see serverSide.DBHandler#addCourse(Course x)
+	 */
 	@Override
 	public void addCourse(Course x) {
 		String sql = "INSERT INTO " + tables[1] + " VALUES (?, ?, ?, ?);";
@@ -396,6 +410,9 @@ class DBHelper implements DBHandler, format.Communicate {
 		}
 		
 	}
+	/**
+	 * @see serverSide.DBHandler#addAssignment(Assignment x)
+	 */
 	@Override
 	public String addAssignment(Assignment x) {
 		String sql = "INSERT INTO " + tables[3] + " VALUES(?, ?, ?, ?, ?, ?);";
@@ -420,7 +437,9 @@ class DBHelper implements DBHandler, format.Communicate {
 		}
 		return path;
 	}
-	
+	/**
+	 * @see serverSide.DBHandler#addSubmission(Submission x)
+	 */
 	@Override
 	public String addSubmission(Submission x) {
 		String sql = "INSERT INTO " + tables[4] + " VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
@@ -447,6 +466,9 @@ class DBHelper implements DBHandler, format.Communicate {
 		}
 		return path;
 	}
+	/**
+	 * @see serverSide.DBHandler#toggleEnroll(int studentID, int courseID)
+	 */
 	@Override
 	public void toggleEnroll(int studentID, int courseID) throws SQLException {
 		if (courseID == -1) return;
@@ -473,6 +495,9 @@ class DBHelper implements DBHandler, format.Communicate {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * @see serverSide.DBHandler#enrolled(int studentID, int courseID)
+	 */
 	@Override
 	public ResultSet enrolled(int studentID, int courseID) {
 		if (courseID == -1) return null;
@@ -488,7 +513,9 @@ class DBHelper implements DBHandler, format.Communicate {
 			return set;
 		} catch(Exception e) { return null; }
 	}
-	
+	/**
+	 * @see serverSide.DBHandler#getEnrolledCourses(int studentID)
+	 */
 	@Override
 	public ResultSet getEnrolledCourses(int studentID) {
 		try {
@@ -529,6 +556,9 @@ class DBHelper implements DBHandler, format.Communicate {
 			return null;
 		}
 	}
+	/**
+	 * @see serverSide.DBHandler#submissions(int assignID)
+	 */
 	@Override
 	public ResultSet submissions(int assignID) {
 		if (assignID == -1) return null;
@@ -543,7 +573,9 @@ class DBHelper implements DBHandler, format.Communicate {
 			return set;
 		} catch(Exception e) { e.printStackTrace(); return null;}
 	}
-	
+	/**
+	 * @see serverSide.DBHandler#submissions(int assignID, int student)
+	 */
 	@Override
 	public ResultSet submissions(int assignID, int student) {
 		if (assignID == -1) return null;
@@ -559,6 +591,11 @@ class DBHelper implements DBHandler, format.Communicate {
 			return set;
 		} catch(Exception e) { e.printStackTrace(); return null;}
 	}
+	/**
+	 * returns the path of the submission
+	 * @param submissionID
+	 * @return
+	 */
 	public String getPath(int submissionID) {
 		try {
 			String sql = "SELECT * FROM " + tables[4] + " WHERE ID=?";
@@ -572,7 +609,9 @@ class DBHelper implements DBHandler, format.Communicate {
 			return set.getString("PATH");
 		} catch(Exception e) { e.printStackTrace(); return null; }
 	}
-	
+	/**
+	 * @see serverSide.DBHandler#getGrades(int student)
+	 */
 	@Override
 	public ResultSet getGrades(int student) {
 		String sql = "SELECT * FROM " + tables[5] + " WHERE STUDENT_ID=" + student;
@@ -587,6 +626,7 @@ class DBHelper implements DBHandler, format.Communicate {
 		}
 		return set;
 	}
+
 	private int getRows(String table_name) {
 		String sql = "SELECT COUNT(*) FROM " + table_name + ";";
 		int set = 0;
@@ -601,29 +641,16 @@ class DBHelper implements DBHandler, format.Communicate {
 		}
 		return set;
 	}
+	/**
+	 * @see serverSide.DBHandler#toggleActive(int id)
+	 */
 	@Override
 	public void toggleActive(int id) {
 		 toggle(1, id);
-//		String sql = "SELECT * FROM " + tables[1] + " WHERE ID=?";
-//		try {
-//		ResultSet set;
-//		statement = jdbc_connection.prepareStatement(sql);
-//		statement.setInt(1, id);
-//		//System.err.println(statement);
-//		set = statement.executeQuery();
-//		System.err.println(statement);
-//		set.next();
-//		boolean b  = set.getBoolean("ACTIVE");
-//		
-//		sql = "UPDATE " + tables[1] + " SET ACTIVE=? WHERE ID=?;";
-//		statement = jdbc_connection.prepareStatement(sql);
-//		statement.setBoolean(1, !b);
-//		statement.setInt(2, id);
-//		statement.executeUpdate();
-//		jdbc_connection.commit();
-//		System.err.println(statement);
-//		} catch (Exception e) {e.printStackTrace();}
 	}
+	/**
+	 * @see serverSide.DBHandler#toggleAssActive(int key)
+	 */
 	@Override
 	public void toggleAssActive(int key) throws IOException, SQLException, Exception {
 		 toggle(3, key);
@@ -650,6 +677,9 @@ class DBHelper implements DBHandler, format.Communicate {
 		//System.err.println(statement);
 		} catch (Exception e) {e.printStackTrace();}
 	}
+	/**
+	 * @see serverSide.DBHandler#update(int table, String col, int value, int id)
+	 */
 	@Override
 	public void update(int table, String col, int value, int id) {
 		try {
@@ -663,6 +693,9 @@ class DBHelper implements DBHandler, format.Communicate {
 			jdbc_connection.commit();
 		} catch(Exception e) { e.printStackTrace(); }
 	}
+	/**
+	 * @see serverSide.DBHandler#searchf(int table, String string, int... args)
+	 */
 	@Override
 	public ResultSet searchf(int table, String string, int... args) throws Exception {
 		//System.err.println("Searching in table: "+parseTableType(table) + " where "+ string +" = " + args);
@@ -676,6 +709,9 @@ class DBHelper implements DBHandler, format.Communicate {
 		set = statement.executeQuery();
 		return set;
 	}
+	/**
+	 * @see serverSide.DBHandler#addGrade(int maxGrade, int assignID, int studID, int courseID)
+	 */
 	@Override
 	public void addGrade(int maxGrade, int assignID, int studID, int courseID) {
 		String sql = "INSERT INTO " + tables[5] + " VALUES (?, ?, ?, ?, ?);";
@@ -693,6 +729,9 @@ class DBHelper implements DBHandler, format.Communicate {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * @see serverSide.DBHandler#refresh()
+	 */
 	@Override
 	public void refresh() {
 		try {
@@ -700,11 +739,17 @@ class DBHelper implements DBHandler, format.Communicate {
 		} catch (SQLException e) { e.printStackTrace(); }
 		
 	}
+	/**
+	 * @see serverSide.DBHandler#start()
+	 */
 	@Override
 	public void start() throws SQLException {
 		jdbc_connection.beginRequest();
 		
 	}
+	/**
+	 * @see serverSide.DBHandler#end()
+	 */
 	@Override
 	public void end() throws SQLException {
 		jdbc_connection.endRequest();

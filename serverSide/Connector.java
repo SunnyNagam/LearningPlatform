@@ -27,7 +27,9 @@ public class Connector {
 		} catch (Exception e) {
 		}
 	}
-
+	/**
+	 * Instantiates new client handler (instance)
+	 */
 	void accept() {
 		if (!running)
 			return;
@@ -44,12 +46,15 @@ public class Connector {
 			}
 		}
 	}
+	/**
+	 * creates database
+	 */
 	void startDB() {
 		db = new DBHelper();
 	}
 
 	/**
-	 * starts the
+	 * starts the server
 	 * 
 	 * @param args
 	 */
