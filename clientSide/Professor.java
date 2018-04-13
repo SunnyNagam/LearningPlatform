@@ -321,11 +321,16 @@ class Professor extends User {
 				}
 				
 				String to = c.client.getEmails(c.selectedCourse);
-				System.err.println(to);
-				//to.substring( em.getTo().indexOf(", "),em.getTo().length() );
+				to = to.trim();
+				System.err.print(to + " -> ");
+				try {
+					to = to.substring( to.indexOf(", ") + 2, to.length() );
+				} catch (StringIndexOutOfBoundsException e) {System.err.println("yikes");}
+				System.err.print(to);
 				System.err.println("sending to: " + to);
 				em.text[0].setText( to );		//to (first index is prof email)
-				em.text[1].setText( c.client.getEmail(id) );									//from
+				em.text[1].setText( c.client.getEmail(id) );	//from
+				
 			}
 		});
 		
