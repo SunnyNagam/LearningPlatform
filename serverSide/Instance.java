@@ -300,9 +300,7 @@ class Instance implements Runnable {
 			
 			ResultSet r = helper.getGrades(stuID);
 			r.first();
-			ResultSet t = helper.search(Communicate.ASSIGNMENT, "ID", r.getInt("ID"));
-			t.first();
-			out.writeObject( parseRRGrades(t,r) );
+			out.writeObject( parseRRGrades(r) );
 			out.flush();
 			
 		} catch (Exception e) {
@@ -768,16 +766,22 @@ class Instance implements Runnable {
 		return arr;
 	}
 	
-	private ArrayList<String> parseRRGrades(ResultSet r, ResultSet t) {
+	private ArrayList<String> parseRRGrades(ResultSet r) {
 		ArrayList<String> arr = new ArrayList<String>();
+		ResultSet t;
 		try {
+			
 			r.beforeFirst();
-			t.beforeFirst();
 			while (r.next()) {
+				(t = helper.search(Communicate.ASSIGNMENT, "ID", r.getInt("ID"))).first();
 				arr.add(t.getString("TITLE") + " (" + new String(r.getInt("ASSIGN_ID") + ") " + r.getInt("ASSIGNMENT_GRADE")));
 			}
 			System.err.println("Elements in set: " + arr.size());
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return arr;
