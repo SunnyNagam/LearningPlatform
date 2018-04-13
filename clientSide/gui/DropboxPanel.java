@@ -39,7 +39,7 @@ public class DropboxPanel extends JPanel{
 	
 	public DefaultListModel<Submission> submissions;
 	public JList<Submission> submissionsList;
-	private JButton gradeB, downB;
+	public JButton gradeB, downB;
 	
 	public DropboxPanel(){
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

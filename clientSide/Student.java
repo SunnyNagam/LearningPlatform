@@ -58,13 +58,13 @@ public class Student extends User {
 
 	private JPanel createDropBox() {
 		JPanel tmp = new DropboxPanel();
-
+		((DropboxPanel)tmp).gradeB.setVisible(false);
 		return tmp;
 	}
 
 	private JPanel createGradesPanel() {
 		JPanel tmp = new GradesPanel();
-
+		
 		return tmp;
 	}
 
