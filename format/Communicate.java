@@ -5,7 +5,7 @@ package format;
 
 /**
  * @author keenangaudio, sunnynagam
- *
+ * uselful ints
  */
 public interface Communicate {
 	// connection

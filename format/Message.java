@@ -8,7 +8,10 @@ public class Message implements Serializable {
 	private String userName;
 	private String userType;
 	
-	
+	/**
+	 * 
+	 * @return a string
+	 */
 	public String getMessage() {
 		return new String(userName + " (" + userType + "): \n" + message);
 	}

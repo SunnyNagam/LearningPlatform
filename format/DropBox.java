@@ -15,11 +15,17 @@ public class DropBox implements Serializable {
 	public DropBox () {
 		 
 	}
-	
+	/**
+	 * @return all submissions in an arrayList
+	 */
 	public ArrayList<Submission> getSubmissons() {
 		return submission;
 	}
-	
+	/**
+	 * returns grade of a specific students
+	 * @param name
+	 * @return
+	 */
 	public double getGrade(int name) {
 		for(int x=0; x<submission.size(); x++) {
 			if(submission.get(x).getSubmitter() == (name)) {

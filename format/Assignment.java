@@ -11,7 +11,15 @@ public class Assignment implements Serializable {
 	public String path;
 	public int courseID, id;
 	private DropBox dropbox;
-	
+	/**
+	 * assigns fields according to params
+	 * @param name
+	 * @param path
+	 * @param active
+	 * @param courseID
+	 * @param id
+	 * @param due
+	 */
 	public Assignment(String name, String path, boolean active, int courseID, int id, String due) {
 		this.name = name;
 		this.path = path;
@@ -24,6 +32,9 @@ public class Assignment implements Serializable {
 		this.active = active;
 		dropbox = new DropBox();
 	}
+	/**
+	 * @return a string representation of the class
+	 */
 	@Override 
 	public String toString() {
 		return String.format("%11s %51s %8d", (active?"Active":"Not Active"), name, id);

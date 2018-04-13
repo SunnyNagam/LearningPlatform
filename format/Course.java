@@ -17,12 +17,24 @@ public class Course implements Serializable {
 		return courseID;
 	}
 	private String courseName;
+	/**
+	 * 
+	 * @return courseName
+	 */
 	public String getCourseName() {
 		return courseName;
 	}
+	/**
+	 * 
+	 * @return profName
+	 */
 	public String getProfName() {
 		return profName;
 	}
+	/**
+	 * 
+	 * @return active
+	 */
 	public boolean isActive() {
 		return active;
 	}
@@ -30,14 +42,24 @@ public class Course implements Serializable {
 	private boolean active;
 	private ArrayList<Assignment> assignment;
 	private ChatRoom chatRoom;
+	/**
+	 * creates a course with given params
+	 * @param id
+	 * @param name
+	 * @param prof
+	 * @param a
+	 */
 	public Course(int id, String name, String prof, boolean a) {
 		courseID = id;
 		courseName = name;
 		profName = prof;
 		active = a;
 	}
-	//String sql = "CREATE TABLE " + tableName + "(" + "ID INT(8) NOT NULL, " + "PROF_ID INT(8) NOT NULL, "
-	//+ "NAME VARCHAR(50) NOT NULL, " + "ACTIVE BIT(1) NOT NULL," + "PRIMARY KEY ( id ))";
+	/**
+	 * casts a result set into a course
+	 * @param r a resultset
+	 * @return a course
+	 */
 	public static Course castRR(ResultSet r) {
 		try {
 			return new Course(r.getInt("ID"), r.getString("NAME"), r.getString("PROF_ID"), r.getBoolean("ACTIVE"));
@@ -45,6 +67,9 @@ public class Course implements Serializable {
 			return null;
 		}
 	}
+	/**
+	 * @return a string representation of the class
+	 */
 	@Override 
 	public String toString() {
 		return String.format("%11s %51s %9s", (active?"Active":"Not Active"), courseName, profName);
