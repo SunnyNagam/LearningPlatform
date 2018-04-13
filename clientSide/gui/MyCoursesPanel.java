@@ -34,7 +34,8 @@ public class MyCoursesPanel extends JPanel {
 		myCourses = new DefaultListModel<Course>();
 		
 		courseList = new JList<Course> (myCourses);
-		courseList.setFont(new Font("menlo",Font.PLAIN,12));
+		courseList.setFont(new Font( "menlo",Font.PLAIN,12) );//520/140
+		
 	}
 	
 	/**
@@ -55,7 +56,7 @@ public class MyCoursesPanel extends JPanel {
 		System.err.println("Creating studTools.");
 		createNew = new JButton( "Enter Chatroom" );
 		createNew.addActionListener(a);
-		add( createNew, BorderLayout.SOUTH );
+		//add( createNew, BorderLayout.SOUTH );
 		
 		toggleB = new JButton( "View Grades" );
 		toggleB.addActionListener(b);
@@ -103,7 +104,7 @@ public class MyCoursesPanel extends JPanel {
 		JPanel tmp = new JPanel();
 		tmp.add(new JLabel("Course ID // Course Name // Active "));
 		JScrollPane x = new JScrollPane(courseList);
-		//x.setPreferredSize(new Dimension(300,200));
+		x.setPreferredSize(new Dimension(520,150));
 		tmp.add(x);
 		return tmp;
 	}

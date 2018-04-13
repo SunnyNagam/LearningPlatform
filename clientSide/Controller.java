@@ -114,16 +114,21 @@ public class Controller extends Thread{
 		user.assignButtons(this);
 		gui.paintAll(gui.getGraphics());
 		//gui.switchWindow(PanelList.MY_COURSES);
+		gui.getMenu()[PanelList.MY_COURSES].doClick();
 	}
 	private void initializeView(String name, int type) {
 		//System.err.println("Courses menu action started");
 		ArrayList<Course>  set = client.getCourses(user.id);
 		//System.err.println("Got responce set from db. "+set.size());
-		((MyCoursesPanel) gui.getPanels()[PanelList.MY_COURSES]).refreshData(set);
-		gui.setTitle(PanelList.AT[PanelList.MY_COURSES]);
+		//((MyCoursesPanel) gui.getPanels()[PanelList.MY_COURSES]).refreshData(set);
+		//gui.setTitle(PanelList.AT[PanelList.MY_COURSES]);
 		gui.initializeView(name, type);
+		
 	}
-	
+	/**
+	 * starts the program
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		try {
 			//create port according to args, or use default value defined in communication

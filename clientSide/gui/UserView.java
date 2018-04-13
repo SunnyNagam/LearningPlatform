@@ -22,6 +22,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JRadioButton;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -74,7 +75,7 @@ public class UserView extends JFrame {
 		
 		setBackground(new Color(204, 255, 153));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 650, 600);
+		setSize(new Dimension(660,240) );	//660x240	//100, 100, 650, 600
 		
 		outerPane = new JPanel();
 		outerPane.setLayout(new BorderLayout());
@@ -164,7 +165,7 @@ public class UserView extends JFrame {
 		contentPane = panels[PanelList.MY_COURSES];
 
 		outerPane.add (contentPane);
-
+		
 	}
 	private JPanel setupMenu(String name, int type) {
 		JPanel menuPanel = new JPanel();

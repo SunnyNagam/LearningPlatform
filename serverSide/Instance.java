@@ -299,7 +299,10 @@ class Instance implements Runnable {
 			// and parse them into a string arrayList
 			
 			ResultSet r = helper.getGrades(stuID);
-			out.writeObject(parseRRGrades(r));
+			r.first();
+			ResultSet t = helper.search(Communicate.ASSIGNMENT, "ID", r.getInt("ID"));
+			t.first();
+			out.writeObject( parseRRGrades(t,r) );
 			out.flush();
 			
 		} catch (Exception e) {
@@ -765,11 +768,13 @@ class Instance implements Runnable {
 		return arr;
 	}
 	
-	private ArrayList<String> parseRRGrades(ResultSet r) {
+	private ArrayList<String> parseRRGrades(ResultSet r, ResultSet t) {
 		ArrayList<String> arr = new ArrayList<String>();
 		try {
+			r.beforeFirst();
+			t.beforeFirst();
 			while (r.next()) {
-				arr.add(new String(r.getInt("ASSIGN_ID") + " " + r.getInt("ASSIGNMENT_GRADE")));
+				arr.add(t.getString("TITLE") + " (" + new String(r.getInt("ASSIGN_ID") + ") " + r.getInt("ASSIGNMENT_GRADE")));
 			}
 			//System.err.println("Elements in set: " + arr.size());
 		} catch (SQLException e) {
