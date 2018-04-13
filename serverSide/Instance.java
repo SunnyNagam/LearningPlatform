@@ -776,7 +776,7 @@ class Instance implements Runnable {
 			while (r.next()) {
 				arr.add(t.getString("TITLE") + " (" + new String(r.getInt("ASSIGN_ID") + ") " + r.getInt("ASSIGNMENT_GRADE")));
 			}
-			//System.err.println("Elements in set: " + arr.size());
+			System.err.println("Elements in set: " + arr.size());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
