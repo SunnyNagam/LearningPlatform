@@ -30,7 +30,9 @@ public class StudentAssignmentPanel extends JPanel {
 	public InsertView uploadPanel;
 	public DropboxPanel dbView;
 	//private JPanel display;
-	
+	/**
+	 * initializes this panel
+	 */
 	public StudentAssignmentPanel() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		assignments = new DefaultListModel<Assignment>();
@@ -51,6 +53,9 @@ public class StudentAssignmentPanel extends JPanel {
 		uploadPanel = new InsertView("Upload New Assignment");
 		uploadPanel.setVisible(false);
 	}
+	/**
+	 * @return jpanel with button in it
+	 */
 	private JPanel addButtons() {
 		JPanel x = new JPanel();
 		x.setLayout(new BoxLayout(x, BoxLayout.X_AXIS));
@@ -65,15 +70,27 @@ public class StudentAssignmentPanel extends JPanel {
 		x.add(submitB = new JButton("Submit to dropbox"));
 		return x;
 	}
+	/**
+	 * add action listeners
+	 * @param a open button listener
+	 * @param b download button listener
+	 * @param c submit button listener
+	 */
 	public void addListen(ActionListener a, ActionListener b, ActionListener c) {
 		openB.addActionListener(a);
 		downloadB.addActionListener(c);
 		submitB.addActionListener(b);
 	}
+	/**
+	 * update UI
+	 */
 	public void update() {
 		assignmnetsList.updateUI();
 	}
-	
+	/**
+	 * same as before, also I'm so tired
+	 * @param set too tired to remember
+	 */
 	public void refreshData(ArrayList<Assignment> set) {
 		System.err.println("Refreshing assignment data in gui");
 		try {

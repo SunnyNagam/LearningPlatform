@@ -90,7 +90,10 @@ public class UserView extends JFrame {
 		getRootPane().setDefaultButton(loginPanel.submitButton);
 		
 	}
-
+	/**
+	 * i want to die
+	 * @return the login panel
+	 */
 	public LoginPanel getLoginPanel() {
 		LoginPanel pan = ((LoginPanel)loginPanel);
 		return pan;
@@ -123,7 +126,10 @@ public class UserView extends JFrame {
 	public static void displayErrorMessage(String errorMessage) {
 		JOptionPane.showMessageDialog(null, errorMessage);
 	}
-
+	/**
+	 * switches the window to the panel of index index
+	 * @param index
+	 */
 	public void switchWindow(int index) {
 		if (index >= 0 && index < PanelList.ARRAY_SIZE) {
 			try {								
@@ -142,6 +148,11 @@ public class UserView extends JFrame {
 			this.paintAll(this.getGraphics());
 		}
 	}
+	/**
+	 * creates view panels, initializes shit i guess
+	 * @param name
+	 * @param type
+	 */
 	public void initializeView(String name, int type) {
 		menu = new JButton[PanelList.ARRAY_SIZE];
 		outerPane.add(setupMenu(name, type), BorderLayout.WEST);
@@ -170,16 +181,26 @@ public class UserView extends JFrame {
 		}
 		return menuPanel;
 	}
+	/**
+	 * this gives the menu button array, for like access or whatever
+	 * @return
+	 */
 	public JButton[] getMenu() {
 		return menu;
 	}
-
+	/**
+	 * this imports the panel array
+	 * @param p
+	 */
 	public void addPanels(JPanel[] p) {
 		panels = new JPanel[p.length];
 		for(int i = 0; i < p.length; i++)
 			panels[i] = p[i];
 	}
-	
+	/**
+	 * this makes the buttons work
+	 * @param type 
+	 */
 	private void createMenuButtons(int type) {
 		//getRootPane().setDefaultButton(loginPanel.submitButton);
 		instanciateButton(PanelList.MY_COURSES, type);

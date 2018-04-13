@@ -35,7 +35,9 @@ public class StudentsPanel extends JPanel {
 	public SearchPanel searchPanel;
 	
 	//private JPanel display;
-	
+	/**
+	 * initialized this panel
+	 */
 	public StudentsPanel() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		students = new DefaultListModel<User>();
@@ -62,13 +64,24 @@ public class StudentsPanel extends JPanel {
 		x.add(enrolB = new JButton("Toggle Enrollment"));
 		return x;
 	}
+	/**
+	 * adds action listener to enroll button (the only internal button )
+	 * @param a
+	 */
 	public void addListen(ActionListener a) {
 		enrolB.addActionListener(a);
 	}
+	/**
+	 * updates UI
+	 */
 	public void update() {
 		studentsList.updateUI();
 	}
-	
+	/**
+	 * refreshes data in internal JLists
+	 * @param set the thingy to send
+	 * @param c the controller idk
+	 */
 	public void refreshData(ArrayList<String[]> set, Controller c) {
 		//if (set == null) return;
 		System.err.println("Refreshing student data in gui");
@@ -88,6 +101,9 @@ public class StudentsPanel extends JPanel {
 		}
 		update();
 	}
+	/**
+	 * @return the selected student in the panel
+	 */
 	public Student getSelectedStudent() {
 		return (Student) studentsList.getSelectedValue();
 		
