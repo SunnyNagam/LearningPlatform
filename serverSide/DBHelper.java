@@ -575,14 +575,17 @@ class DBHelper implements DBHandler, format.Communicate {
 	
 	@Override
 	public ResultSet getGrades(int student) {
+		String sql = "SELECT * FROM " + tables[5] + " WHERE STUDENT_ID=" + student;
+		//get 
+		ResultSet set = null;
 		try {
-			// getEnrolledCourses() might help with this?
-			
-			return null;			// but dont actually
+			statement = jdbc_connection.prepareStatement(sql);
+			//statement.setInt(1, student);
+			set = statement.executeQuery(sql);
 		} catch(Exception e) { 
 			e.printStackTrace(); 
-			return null;
 		}
+		return set;
 	}
 	private int getRows(String table_name) {
 		String sql = "SELECT COUNT(*) FROM " + table_name + ";";
