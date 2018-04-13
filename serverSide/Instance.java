@@ -773,7 +773,7 @@ class Instance implements Runnable {
 			
 			r.beforeFirst();
 			while (r.next()) {
-				(t = helper.search(Communicate.ASSIGNMENT, "ID", r.getInt("ID"))).first();
+				(t = helper.search(Communicate.ASSIGNMENT, "ID", r.getInt("ASSIGN_ID"))).first();
 				arr.add(t.getString("TITLE") + " (" + new String(r.getInt("ASSIGN_ID") + ") " + r.getInt("ASSIGNMENT_GRADE")));
 			}
 			System.err.println("Elements in set: " + arr.size());
